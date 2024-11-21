@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 952847968}
   - component: {fileID: 952847969}
   - component: {fileID: 952847971}
+  - component: {fileID: 952847972}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -388,6 +389,7 @@ MonoBehaviour:
   invisiblePrefab: {fileID: 6930489799129076818, guid: 4d41afeabc5534f768d77a3377d5c1e8, type: 3}
   roomCount: 10
   _roomBuilder: {fileID: 952847971}
+  decorationManager: {fileID: 952847972}
 --- !u!114 &952847971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,6 +402,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16df200fffe0c45afb1b87f187e5e567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &952847972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952847967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb06018688f524511b9cfc78d3aae1f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decorationPrefabs:
+  - {fileID: 1367604912164838506, guid: b16e4104096b244cea6d0bb79a59d091, type: 3}
+  - {fileID: 1096360215794515307, guid: 088eefaf0fb3d40258650d8272c913c9, type: 3}
+  - {fileID: 3574634959748435200, guid: b1852f7ae3ab84a7c8126b8cc9c48680, type: 3}
+  - {fileID: 8370964170479422970, guid: 0b1d2a618f8d5491f8f361694d4d31d4, type: 3}
+  - {fileID: 7068934925845836597, guid: 450a0117bd0a04363adc6ce112a52280, type: 3}
+  groupedDecorationPrefab: {fileID: 1206791920961357172, guid: 46c9552b95e024181985d4ff5f7e0341, type: 3}
+  minDecoration: 0.2
+  maxDecoration: 0.3
+  bufferDistance: 2
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

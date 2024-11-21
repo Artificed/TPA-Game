@@ -27,12 +27,14 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int roomCount = 10;
     [SerializeField] private RoomBuilder _roomBuilder;
 
+    [SerializeField] private DecorationManager decorationManager;
+    
     private void Awake()
     {
         _rooms = new List<Room>();
         _mst = new List<(Vector2, Vector2)>();
         
-        _roomBuilder.Initialize(gridSize, _roomMinSize, _roomMaxSize, tilePrefab, _grid);
+        _roomBuilder.Initialize(gridSize, _roomMinSize, _roomMaxSize, tilePrefab, _grid, decorationManager);
         
         CreateGrid();
     }
@@ -156,7 +158,7 @@ public class GridManager : MonoBehaviour
             {
                 Vector2Int position = new Vector2Int(x, y);
                 if (!_grid.ContainsKey(position))
-                {
+                {   
                     InstantiateTile(position, invisiblePrefab, true);
                 }
             }
