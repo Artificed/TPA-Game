@@ -70,32 +70,64 @@ public class RoomBuilder: MonoBehaviour
 
         return rooms;
     }
-
+    
     private void CreateRoomTiles(Room newRoom, int decorationCount)
     {
         HashSet<Vector2Int> blockedTiles = new HashSet<Vector2Int>();
         List<Vector2Int> potentialTiles = new List<Vector2Int>();
+        List<Vector2Int> entranceCoords = GetEntranceCoordinates(newRoom);
         
-        List<Vector2Int> entranceCoords = new List<Vector2Int>
-        {
-            new Vector2Int((int)newRoom.Center.x, Mathf.RoundToInt(newRoom.StartY)), // Top center
-            new Vector2Int((int)newRoom.Center.x, Mathf.RoundToInt(newRoom.EndY)),   // Bottom center
-            new Vector2Int(Mathf.RoundToInt(newRoom.StartX), (int)newRoom.Center.y), // Left center
-            new Vector2Int(Mathf.RoundToInt(newRoom.EndX), (int)newRoom.Center.y)    // Right center
-        };
+        CollectPotentialTiles(newRoom, entranceCoords, potentialTiles);
+        BlockTilesForDecoration(decorationCount, potentialTiles, entranceCoords, blockedTiles);
+        CreateOrUpdateRoomTiles(newRoom, blockedTiles);
+    }
+    
+    public List<Vector2Int> GetEntranceCoordinates(Room newRoom)
+    {
+        List<Vector2Int> entranceCoords = new List<Vector2Int>();
 
         for (int x = (int)newRoom.StartX; x <= newRoom.EndX; x++)
         {
             for (int y = (int)newRoom.StartY; y <= newRoom.EndY; y++)
             {
                 Vector2Int coords = new Vector2Int(x, y);
-                if (!entranceCoords.Contains(coords)) 
+                if (!grid.ContainsKey(coords)) continue;
+
+                Tile currentTile = grid[coords];
+                if (currentTile.TileType != TileType.Room) continue;
+
+                foreach (Vector2Int direction in new[] { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right })
+                {
+                    Vector2Int neighborCoords = coords + direction;
+                    if (grid.ContainsKey(neighborCoords) && grid[neighborCoords].TileType == TileType.Hallway)
+                    {
+                        entranceCoords.Add(coords);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return entranceCoords;
+    }
+    
+    private void CollectPotentialTiles(Room newRoom, List<Vector2Int> entranceCoords, List<Vector2Int> potentialTiles)
+    {
+        for (int x = (int)newRoom.StartX; x <= newRoom.EndX; x++)
+        {
+            for (int y = (int)newRoom.StartY; y <= newRoom.EndY; y++)
+            {
+                Vector2Int coords = new Vector2Int(x, y);
+                if (!entranceCoords.Contains(coords))
                 {
                     potentialTiles.Add(coords);
                 }
             }
         }
-
+    }
+    
+    private void BlockTilesForDecoration(int decorationCount, List<Vector2Int> potentialTiles, List<Vector2Int> entranceCoords, HashSet<Vector2Int> blockedTiles)
+    {
         System.Random random = new System.Random();
         int maxAttempts = potentialTiles.Count * 10;
         int attempts = 0;
@@ -103,10 +135,10 @@ public class RoomBuilder: MonoBehaviour
         while (blockedTiles.Count < decorationCount && potentialTiles.Count > 0)
         {
             if (attempts > maxAttempts) break;
+
             Vector2Int candidate = potentialTiles[random.Next(potentialTiles.Count)];
 
             bool isValid = true;
-
             foreach (Vector2Int direction in new[]
                      {
                          Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right,
@@ -126,14 +158,17 @@ public class RoomBuilder: MonoBehaviour
                 potentialTiles.Remove(candidate);
             }
 
-            attempts++; 
+            attempts++;
         }
 
         if (blockedTiles.Count < decorationCount)
         {
             Debug.LogWarning($"Not enough tiles to block {decorationCount} tiles. Blocked {blockedTiles.Count} instead.");
         }
-
+    }
+    
+    private void CreateOrUpdateRoomTiles(Room newRoom, HashSet<Vector2Int> blockedTiles)
+    {
         for (int x = (int)newRoom.StartX; x <= newRoom.EndX; x++)
         {
             for (int y = (int)newRoom.StartY; y <= newRoom.EndY; y++)
@@ -150,39 +185,24 @@ public class RoomBuilder: MonoBehaviour
                     if (tileScript != null)
                     {
                         tileScript.coords = coords;
-                        tileScript.Blocked = blockedTiles.Contains(coords); 
+                        tileScript.Blocked = blockedTiles.Contains(coords);
+                        tileScript.TileType = TileType.Room;
                         grid[coords] = tileScript;
                         newRoom.AddTile(tileScript);
                     }
                 }
-            }
-        }
-        
-        for (int x = (int)newRoom.StartX; x <= newRoom.EndX; x++)
-        {
-            for (int y = (int)newRoom.StartY; y <= newRoom.EndY; y++)
-            {
-                Vector2Int coords = new Vector2Int(x, y);
-        
-                if (!grid.ContainsKey(coords))
+                else
                 {
-                    GameObject tileObject = Instantiate(tilePrefab);
-                    tileObject.transform.position = new Vector3(coords.x, 0f, coords.y);
-                    tileObject.name = $"Tile {coords.x},{coords.y}";
-        
-                    Tile tileScript = tileObject.GetComponent<Tile>();
-                    if (tileScript != null)
-                    {
-                        tileScript.coords = coords;
-                        tileScript.Blocked = blockedTiles.Contains(coords); 
-                        grid[coords] = tileScript;
-                        newRoom.AddTile(tileScript);
-                    }
+                    // Update existing tile
+                    Tile existingTile = grid[coords];
+                    existingTile.Blocked = blockedTiles.Contains(coords);
+                    existingTile.TileType = TileType.Room;
+                    newRoom.AddTile(existingTile);
                 }
             }
         }
     }
-    //
+    
     private bool CheckOverlap(Room newRoom, List<Room> existingRooms)
     {
         foreach (Room room in existingRooms)

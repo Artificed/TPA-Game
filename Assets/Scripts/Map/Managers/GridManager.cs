@@ -73,15 +73,17 @@ public class GridManager : MonoBehaviour
 
         return position;
     }
-   private void CreateGrid()
-    { 
-        GenerateRooms();
-        GenerateMST();
-        GenerateHallways();
+    private void CreateGrid()
+    {
+        GenerateRooms(); 
+        GenerateMST(); 
+        GenerateHallways(); 
+        // UpdateRoomEntrances();
+        // DecorateRooms(); 
         PlaceInvisibleTiles();
     }
    
-    private void InstantiateTile(Vector2Int coords, GameObject prefab, bool isBlocked)
+    private void InstantiateTile(Vector2Int coords, GameObject prefab, bool isBlocked, TileType tileType)
     {
         GameObject tileObject = Instantiate(prefab);
         tileObject.transform.position = new Vector3(coords.x, 0f, coords.y);
@@ -93,6 +95,7 @@ public class GridManager : MonoBehaviour
         {
             tile.coords = coords;
             tile.Blocked = isBlocked;
+            tile.TileType = tileType;
         }
 
         _grid[coords] = tile;
@@ -142,12 +145,12 @@ public class GridManager : MonoBehaviour
     
     private void PlaceHallwayTile(Vector2Int position)
     {
-        if (_grid.ContainsKey(position) && !_grid[position].Blocked)
+        if (_grid.ContainsKey(position))
         {
             return;
         }
 
-        InstantiateTile(position, tilePrefab, false);
+        InstantiateTile(position, tilePrefab, false, TileType.Hallway);
     }
 
     private void PlaceInvisibleTiles()
@@ -159,7 +162,7 @@ public class GridManager : MonoBehaviour
                 Vector2Int position = new Vector2Int(x, y);
                 if (!_grid.ContainsKey(position))
                 {   
-                    InstantiateTile(position, invisiblePrefab, true);
+                    InstantiateTile(position, invisiblePrefab, true, TileType.Empty);
                 }
             }
         }

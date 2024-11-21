@@ -20,16 +20,8 @@ public class Tile : MonoBehaviour
     private Color _originalColor;
     private Color _highlightColor;
     private Renderer _tileRenderer;
+    [SerializeField] private TileType tileType;
     [SerializeField] private GridManager _gridManager;
-    
-    public Tile(Vector2Int coords, bool blocked)
-    {
-        this.coords = coords;
-        this.blocked = blocked;
-        this.explored = false;
-        this.path = false;
-        this.gCost = int.MaxValue;
-    }
 
     private void Awake()
     {
@@ -81,4 +73,9 @@ public class Tile : MonoBehaviour
         _tileRenderer.material.color = _originalColor;
     }
 
+    public TileType TileType
+    {
+        get => tileType;
+        set => tileType = value;
+    }
 }
