@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAlertState : MonoBehaviour
+public class EnemyAlertState : EnemyBaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    public EnemyAlertState(EnemyStateMachine context, EnemyStateFactory factory) : base(context, factory)
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void EnterState()
     {
-        
+    }
+
+    public override void UpdateState()
+    {
+    }
+
+    public override void ExitState()
+    {
+    }
+
+    public override void CheckSwitchStates()
+    {
     }
 }

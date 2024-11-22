@@ -2,17 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStateFactory : MonoBehaviour
+public class EnemyStateFactory
 {
-    // Start is called before the first frame update
-    void Start()
+    private EnemyStateMachine _context;
+
+    public EnemyStateFactory(EnemyStateMachine context)
     {
-        
+        _context = context;
     }
 
-    // Update is called once per frame
-    void Update()
+    public EnemyBaseState CreateIdle()
     {
-        
+        return new EnemyIdleState(_context, this);
+    }
+
+    public EnemyBaseState CreateAlert()
+    {
+        return new EnemyAlertState(_context, this);
+    }
+
+    public EnemyBaseState CreateReadyAttack()
+    {
+        return new EnemyReadyAttackState(_context, this);
+    }
+
+    public EnemyBaseState CreateAggro()
+    {
+        return new EnemyAggroState(_context, this);
     }
 }
