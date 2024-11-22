@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
+    public static PlayerStateMachine Instance { get; private set; }
+    
     [SerializeField] private float movementSpeed;
     [SerializeField] private Transform unit;
     [SerializeField] private Animator animator;
@@ -14,6 +16,18 @@ public class PlayerStateMachine : MonoBehaviour
     private List<Tile> path = new List<Tile>();
     private PlayerBaseState _currentState;
     private PlayerStateFactory _stateFactory;
+    
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this; 
+        }
+    }
     
     void Start()
     {

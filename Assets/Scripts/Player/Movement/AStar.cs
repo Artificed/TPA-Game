@@ -46,10 +46,8 @@ public class AStar : MonoBehaviour
 
     void AStarSearch(Vector2Int coordinates)
     {
-        if (startNode.Blocked || targetNode.Blocked)
-        {
-            return;
-        }
+        if (startNode == null || targetNode == null) return;
+        if (startNode.Blocked || targetNode.Blocked) return;
 
         openSet.Clear();
         closedSet.Clear();
@@ -68,10 +66,7 @@ public class AStar : MonoBehaviour
 
             closedSet.Add(currentNode);
 
-            if (currentNode.coords == targetCords)
-            {
-                return;
-            }
+            if (currentNode.coords == targetCords) return;
 
             ExploreNeighbors();
         }

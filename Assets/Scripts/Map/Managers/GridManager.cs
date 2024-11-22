@@ -7,6 +7,8 @@ using Random = System.Random;
 
 public class GridManager : MonoBehaviour
 {
+    public static GridManager Instance { get; private set; }
+    
     [SerializeField] Vector2Int gridSize;
     [SerializeField] int unityGridSize;
     
@@ -23,11 +25,12 @@ public class GridManager : MonoBehaviour
     private Vector2Int _roomMaxSize = new Vector2Int(7,7);
     
     private List<(Vector2, Vector2)> _mst;
-
+    private Random _random = new Random();
+    
     [SerializeField] private int roomCount = 10;
     [SerializeField] private RoomBuilder _roomBuilder;
-
     [SerializeField] private DecorationManager decorationManager;
+    [SerializeField] private GameObject player;
     
     private void Awake()
     {
@@ -51,12 +54,7 @@ public class GridManager : MonoBehaviour
     {
         foreach (KeyValuePair<Vector2Int, Tile> entry in _grid)
         {
-            if (entry.Value == null) 
-            {
-                Debug.LogWarning($"Tile at {entry.Key} is null. Skipping.");
-                continue;
-            }
-
+            if (entry.Value == null)  continue;
             entry.Value.connectTo = null;
             entry.Value.explored = false;
             entry.Value.path = false;
@@ -78,9 +76,10 @@ public class GridManager : MonoBehaviour
         GenerateRooms(); 
         GenerateMST(); 
         GenerateHallways(); 
-        // UpdateRoomEntrances();
-        // DecorateRooms(); 
         PlaceInvisibleTiles();
+        UpdateRoomEntrances();
+        PlaceDecorations();
+        InitializePlayer();
     }
    
     private void InstantiateTile(Vector2Int coords, GameObject prefab, bool isBlocked, TileType tileType)
@@ -161,12 +160,77 @@ public class GridManager : MonoBehaviour
             {
                 Vector2Int position = new Vector2Int(x, y);
                 if (!_grid.ContainsKey(position))
-                {   
+                {
                     InstantiateTile(position, invisiblePrefab, true, TileType.Empty);
                 }
             }
         }
     }
+    
+    private void UpdateRoomEntrances()
+    {
+        foreach (Room room in _rooms)
+        {
+            List<Vector2Int> entranceCoords = new List<Vector2Int>();
 
+            foreach (Tile tile in room.GetTiles())
+            {
+                foreach (Vector2Int direction in new[] { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right })
+                {
+                    Vector2Int neighborCoords = tile.coords + direction;
+                    if (_grid.ContainsKey(neighborCoords) && _grid[neighborCoords].TileType == TileType.Hallway)
+                    {
+                        entranceCoords.Add(tile.coords);
+                        break;
+                    }
+                }
+            }
+
+            foreach (Vector2Int entrance in entranceCoords)
+            {
+                Tile entranceTile = _grid[entrance];
+                entranceTile.TileType = TileType.Entrance;
+            }
+        }
+    }
+
+    private void PlaceDecorations()
+    {
+        foreach (Room room in _rooms)
+        {
+            decorationManager.BlockRandomTiles(room);
+            decorationManager.GenerateDecorations(room);
+        }
+    }
+
+    public Tile GetTileFromCoord(Vector2Int coord)
+    {
+        if (_grid.ContainsKey(coord))
+        {
+            return _grid[coord];
+        }
+
+        return null;
+    }
+    
+    public void InitializePlayer()
+    {
+        List<Tile> unblockedTiles = new List<Tile>();
+        foreach (var tile in _grid.Values)
+        {
+            if (tile != null && !tile.Blocked)
+            {
+                unblockedTiles.Add(tile);
+            }
+        }
+
+        if (unblockedTiles.Count == 0) return;
+
+        Tile randomTile = unblockedTiles[_random.Next(unblockedTiles.Count)];
+        Vector3 playerPosition = randomTile.transform.position;
+        playerPosition.y = 0.5f;
+        player.transform.position = playerPosition;
+    }
+    
     public List<Room> Rooms => _rooms;
 }

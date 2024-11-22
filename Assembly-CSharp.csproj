@@ -132,10 +132,11 @@
     <Compile Include="Assets/Idle MoCap/DemoScene/idle_mocap_follow_player.cs" />
     <Compile Include="Assets/Scripts/Map/Components/Tile.cs" />
     <Compile Include="Assets/Scripts/Map/Builders/RoomBuilder.cs" />
-    <Compile Include="Assets/Scripts/Camera/CameraFollow.cs" />
+    <Compile Include="Assets/Scripts/Utils/CameraFollow.cs" />
     <Compile Include="Assets/ExplosiveLLC/SuperCharacterController/Code/Core/SuperCharacterController.cs" />
     <Compile Include="Assets/ExplosiveLLC/SuperCharacterController/Code/Core/SuperGround.cs" />
-    <Compile Include="Assets/Scripts/Map/enums/TileType.cs" />
+    <Compile Include="Assets/Scripts/Map/Enums/TileType.cs" />
+    <Compile Include="Assets/Scripts/Utils/HighlightManager.cs" />
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader" />

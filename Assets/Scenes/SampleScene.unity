@@ -421,9 +421,8 @@ MonoBehaviour:
   - {fileID: 8370964170479422970, guid: 0b1d2a618f8d5491f8f361694d4d31d4, type: 3}
   - {fileID: 7068934925845836597, guid: 450a0117bd0a04363adc6ce112a52280, type: 3}
   groupedDecorationPrefab: {fileID: 1206791920961357172, guid: 46c9552b95e024181985d4ff5f7e0341, type: 3}
-  minDecoration: 0.2
-  maxDecoration: 0.3
   bufferDistance: 2
+  gridManager: {fileID: 952847969}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,6 +589,18 @@ MonoBehaviour:
   animator: {fileID: 864673582}
   gridManager: {fileID: 952847969}
   pathFinder: {fileID: 1667008340}
+--- !u!114 &1667008343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667008335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90cf251d06b884fa4860659b54da0f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2250826825904004294
 PrefabInstance:
   m_ObjectHideFlags: 0

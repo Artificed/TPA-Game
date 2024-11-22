@@ -19,15 +19,19 @@ public class Tile : MonoBehaviour
 
     private Color _originalColor;
     private Color _highlightColor;
+    
     private Renderer _tileRenderer;
     [SerializeField] private TileType tileType;
-    [SerializeField] private GridManager _gridManager;
-
+    [SerializeField] private GridManager gridManager;
+    [SerializeField] private HighlightManager highlightManager;
+    
     private void Awake()
     {
-        _gridManager = FindObjectOfType<GridManager>();
-        _tileRenderer = GetComponent<Renderer>();
+        gridManager = FindObjectOfType<GridManager>();
+        _tileRenderer = GetComponentInChildren<Renderer>();
+        highlightManager = FindObjectOfType<HighlightManager>();
         _originalColor = _tileRenderer.material.color;
+        _highlightColor = new Color(1.0f, 1.0f, 1.0f, 0.2f);;
     }
 
     // Start is called before the first frame update
@@ -36,7 +40,7 @@ public class Tile : MonoBehaviour
         SetCoords();
         if(blocked)
         {
-            _gridManager.BlockNode(coords);
+            gridManager.BlockNode(coords);
         }
     }
 
@@ -45,7 +49,7 @@ public class Tile : MonoBehaviour
         int x = (int)transform.position.x;
         int z = (int)transform.position.z;
     
-        coords = new Vector2Int(x / _gridManager.UnityGridSize, z / _gridManager.UnityGridSize);
+        coords = new Vector2Int(x / gridManager.UnityGridSize, z / gridManager.UnityGridSize);
     }
 
     public bool Blocked
@@ -65,10 +69,22 @@ public class Tile : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        _tileRenderer.material.color = _highlightColor;
+        int startX = (int) PlayerStateMachine.Instance.Unit.position.x;
+        int startY = (int) PlayerStateMachine.Instance.Unit.position.z;
+        highlightManager.HighlightPath(new Vector2Int(startX, startY), this);
     }
     
     private void OnMouseExit()
+    {
+        highlightManager.ClearHighlightedTiles();
+    }
+
+    public void HighlightTile()
+    {
+        _tileRenderer.material.color = _highlightColor;
+    }
+    
+    public void UnhighlightTile()
     {
         _tileRenderer.material.color = _originalColor;
     }
