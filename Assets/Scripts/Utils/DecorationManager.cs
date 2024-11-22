@@ -88,9 +88,7 @@ public class DecorationManager: MonoBehaviour
 
             position.x += (float)(_random.NextDouble() * 0.3 - 0.15);
             position.z += (float)(_random.NextDouble() * 0.3 - 0.15);
-
-            if (!IsPositionValid(position, placedPositions)) continue;
-
+            
             GameObject prefab = ChooseRandomDecoration();
             if (prefab == null) continue;
 
@@ -101,19 +99,6 @@ public class DecorationManager: MonoBehaviour
             placedPositions.Add(position);
         }
     }
-
-    private bool IsPositionValid(Vector3 position, List<Vector3> placedPositions)
-    {
-        foreach (Vector3 placedPosition in placedPositions)
-        {
-            if (Vector3.Distance(position, placedPosition) < bufferDistance)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
     
     public GameObject ChooseRandomDecoration()
     {
