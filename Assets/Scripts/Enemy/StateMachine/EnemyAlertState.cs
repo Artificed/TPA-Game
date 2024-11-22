@@ -11,12 +11,15 @@ public class EnemyAlertState : EnemyBaseState
 
     public override void EnterState()
     {
-        Context.EnemyAlertEventChannel.RaiseEvent();
+        Debug.Log("Enemy in Alert State");
     }
 
     public override void UpdateState()
     {
-        
+        if (Context.GetDistanceFromPlayer() > Context.AlertRange)
+        {
+            SwitchState(Factory.CreateIdle());
+        }
     }
 
     public override void ExitState()

@@ -5,13 +5,16 @@ public class PlayerMoveState : PlayerBaseState
 {
     private Coroutine _movementCoroutine;
 
+    private bool _shouldStop;
+
     public PlayerMoveState(PlayerStateMachine context, PlayerStateFactory factory) : base(context, factory)
     {
     }
 
     public override void EnterState()
     {
-        Context.Animator.SetBool(Context.IsMovingHash, true);
+        Context.Animator.SetBool(Context.IsMovingHash, true);   
+        _shouldStop = false;
         _movementCoroutine = Context.StartCoroutine(FollowPath());
         Context.CancellingPath = false;
     }
@@ -72,15 +75,14 @@ public class PlayerMoveState : PlayerBaseState
             {
                 travelPercent += Time.deltaTime * Context.MovementSpeed;
                 Context.Unit.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
-
-                if (Context.CancellingPath && travelPercent >= 1f)
-                {
-                    Context.ClearPath();
-                    SwitchState(Factory.CreateIdle());
-                    yield break;
-                }
-
                 yield return null;
+            }
+
+            if (_shouldStop || Context.WithinEnemyRange || Context.CancellingPath)
+            {
+                Context.ClearPath();
+                SwitchState(Factory.CreateIdle());
+                yield break;
             }
         }
 
@@ -89,6 +91,7 @@ public class PlayerMoveState : PlayerBaseState
 
     private void StopMovement()
     {
+        _shouldStop = true; 
         Context.CancellingPath = true;
     }
 }

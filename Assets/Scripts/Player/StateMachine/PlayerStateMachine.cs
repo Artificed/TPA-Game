@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerStateMachine : MonoBehaviour
@@ -50,14 +51,10 @@ public class PlayerStateMachine : MonoBehaviour
         }
     }
     
-    private void HandleEnemyAlert()
+    private void HandleEnemyAlert(bool isInRange)
     {
-        Debug.Log("test");
-        if (CurrentState is PlayerMoveState)
-        {
-            CancellingPath = true;
-            _withinEnemyRange = true;
-        }
+        CancellingPath = isInRange;
+        _withinEnemyRange = isInRange;
     }
     
     void Start()
@@ -73,6 +70,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(_withinEnemyRange);
         _currentState.UpdateState();
     }
 

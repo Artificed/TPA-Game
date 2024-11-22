@@ -13,7 +13,8 @@ public class EnemyStateMachine : MonoBehaviour
     [SerializeField] private AStar pathFinder;
     
     [SerializeField] private EnemyAlertEventChannel enemyAlertEventChannel;
-
+    [SerializeField] private EnemyAlertHelper alertHelper;
+    
     private Transform _playerTransform;
     private const float alertRange = 5.0f;
     
@@ -22,6 +23,7 @@ public class EnemyStateMachine : MonoBehaviour
     
     private int _isMovingHash;
     private List<Tile> path = new List<Tile>();
+    
     
     void Start()
     {
@@ -35,7 +37,7 @@ public class EnemyStateMachine : MonoBehaviour
         _currentState = _stateFactory.CreateIdle();
         _currentState.EnterState();
     }
-
+    
     void Update()
     {
         _currentState.UpdateState();
@@ -170,11 +172,5 @@ public class EnemyStateMachine : MonoBehaviour
     public float AlertRange
     {
         get => alertRange;
-    }
-
-    public EnemyAlertEventChannel EnemyAlertEventChannel
-    {
-        get => enemyAlertEventChannel;
-        set => enemyAlertEventChannel = value;
     }
 }

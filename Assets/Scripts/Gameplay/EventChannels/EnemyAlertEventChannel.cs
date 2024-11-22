@@ -6,14 +6,15 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "EnemyAlertEventChannel", menuName = "EventChannels/EnemyAlert")]
 public class EnemyAlertEventChannel : ScriptableObject
 {
-    public UnityEvent enemyAlertEvent;
+    public UnityEvent<bool> enemyAlertEvent;
+
     private void OnEnable()
     {
-        enemyAlertEvent ??= new UnityEvent();
+        enemyAlertEvent ??= new UnityEvent<bool>();
     }
-
-    public void RaiseEvent()
+    
+    public void RaiseEvent(bool isInRange)
     {
-        enemyAlertEvent.Invoke();
+        enemyAlertEvent?.Invoke(isInRange);
     }
 }
