@@ -93,7 +93,7 @@
     <Compile Include="Assets/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Actions/SimpleActionHandler.cs" />
     <Compile Include="Assets/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Demo Elements/Code/NoJumpSlime.cs" />
     <Compile Include="Assets/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Actions/ActionHandler.cs" />
-    <Compile Include="Assets/Scripts/Player/Movement/AStar.cs" />
+    <Compile Include="Assets/Scripts/Gameplay/Movement/AStar.cs" />
     <Compile Include="Assets/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Lookups/Animations/KnockbackType.cs" />
     <Compile Include="Assets/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/RPGCharacterController.cs" />
     <Compile Include="Assets/ExplosiveLLC/SuperCharacterController/Code/Examples/Gravity.cs" />
@@ -153,6 +153,7 @@
     <Compile Include="Assets/Scripts/Enemy/EnemyClasses/CommonEnemy.cs" />
     <Compile Include="Assets/Scripts/Enemy/EnemyClasses/EliteEnemy.cs" />
     <Compile Include="Assets/Scripts/Enemy/EnemyClasses/MediumEnemy.cs" />
+    <Compile Include="Assets/Scripts/Gameplay/EventChannels/EnemyAlertEventChannel.cs" />
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader" />

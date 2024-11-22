@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyStateMachine : MonoBehaviour
 {
@@ -11,14 +12,21 @@ public class EnemyStateMachine : MonoBehaviour
     [SerializeField] private GridManager gridManager;
     [SerializeField] private AStar pathFinder;
     
+    [SerializeField] private EnemyAlertEventChannel enemyAlertEventChannel;
+
+    private Transform _playerTransform;
+    private const float alertRange = 5.0f;
+    
     private EnemyStateFactory _stateFactory;
     private EnemyBaseState _currentState;
     
     private int _isMovingHash;
     private List<Tile> path = new List<Tile>();
-
+    
     void Start()
     {
+        _playerTransform = PlayerStateMachine.Instance.transform;
+        
         _isMovingHash = Animator.StringToHash("isMoving");
         gridManager = FindObjectOfType<GridManager>();
         pathFinder = FindObjectOfType<AStar>();
@@ -85,5 +93,88 @@ public class EnemyStateMachine : MonoBehaviour
     {
         get => _currentState;
         set => _currentState = value;
+    }
+
+    public float GetDistanceFromPlayer()
+    {
+        Vector2Int playerCoords = new Vector2Int(
+            Mathf.RoundToInt(PlayerStateMachine.Instance.Unit.position.x / gridManager.UnityGridSize),
+            Mathf.RoundToInt(PlayerStateMachine.Instance.Unit.position.z / gridManager.UnityGridSize)
+        );
+
+        Vector2Int enemyCoords = new Vector2Int(
+            Mathf.RoundToInt(transform.position.x / gridManager.UnityGridSize),
+            Mathf.RoundToInt(transform.position.z / gridManager.UnityGridSize)
+        );
+
+        float distance = Vector2.Distance(playerCoords, enemyCoords);
+        
+        return distance;
+    }
+
+    public float MovementSpeed
+    {
+        get => movementSpeed;
+        set => movementSpeed = value;
+    }
+
+    public Transform Unit
+    {
+        get => unit;
+        set => unit = value;
+    }
+
+    public Animator Animator
+    {
+        get => animator;
+        set => animator = value;
+    }
+
+    public GridManager GridManager
+    {
+        get => gridManager;
+        set => gridManager = value;
+    }
+
+    public AStar PathFinder
+    {
+        get => pathFinder;
+        set => pathFinder = value;
+    }
+
+    public Transform PlayerTransform
+    {
+        get => _playerTransform;
+        set => _playerTransform = value;
+    }
+
+    public EnemyStateFactory StateFactory
+    {
+        get => _stateFactory;
+        set => _stateFactory = value;
+    }
+
+    public int IsMovingHash
+    {
+        get => _isMovingHash;
+        set => _isMovingHash = value;
+    }
+
+    public List<Tile> Path
+    {
+        get => path;
+        set => path = value;
+    }
+    
+    
+    public float AlertRange
+    {
+        get => alertRange;
+    }
+
+    public EnemyAlertEventChannel EnemyAlertEventChannel
+    {
+        get => enemyAlertEventChannel;
+        set => enemyAlertEventChannel = value;
     }
 }

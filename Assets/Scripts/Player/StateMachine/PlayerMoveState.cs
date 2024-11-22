@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerMoveState : PlayerBaseState
 {
     private Coroutine _movementCoroutine;
-    private bool _isStopping;
+
     public PlayerMoveState(PlayerStateMachine context, PlayerStateFactory factory) : base(context, factory)
     {
     }
@@ -13,17 +13,12 @@ public class PlayerMoveState : PlayerBaseState
     {
         Context.Animator.SetBool(Context.IsMovingHash, true);
         _movementCoroutine = Context.StartCoroutine(FollowPath());
-        _isStopping = false;
-    }
-    
-    private void StopMovement()
-    {
-        _isStopping = true;
+        Context.CancellingPath = false;
     }
 
     public override void UpdateState()
     {
-        if (Input.GetMouseButtonDown(0) && !_isStopping)
+        if (Input.GetMouseButtonDown(0) && !Context.CancellingPath)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -77,7 +72,8 @@ public class PlayerMoveState : PlayerBaseState
             {
                 travelPercent += Time.deltaTime * Context.MovementSpeed;
                 Context.Unit.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
-                if (_isStopping && travelPercent >= 1f)
+
+                if (Context.CancellingPath && travelPercent >= 1f)
                 {
                     Context.ClearPath();
                     SwitchState(Factory.CreateIdle());
@@ -91,4 +87,8 @@ public class PlayerMoveState : PlayerBaseState
         SwitchState(Factory.CreateIdle());
     }
 
+    private void StopMovement()
+    {
+        Context.CancellingPath = true;
+    }
 }

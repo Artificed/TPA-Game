@@ -20,7 +20,6 @@ public class HighlightManager: MonoBehaviour
         
         foreach (Tile tile in path)
         {
-            Debug.Log(tile);
             tile.HighlightTile();
             _highlightedTiles.Add(tile);
         }

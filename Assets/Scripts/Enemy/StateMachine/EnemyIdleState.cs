@@ -10,11 +10,15 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void EnterState()
     {
-        
+        Context.Animator.SetBool(Context.IsMovingHash, false);
     }
 
     public override void UpdateState()
     {
+        if (Context.GetDistanceFromPlayer() <= Context.AlertRange)
+        {
+            SwitchState(Factory.CreateAlert());
+        }
     }
 
     public override void ExitState()
@@ -23,5 +27,6 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void CheckSwitchStates()
     {
+        
     }
 }

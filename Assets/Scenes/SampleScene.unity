@@ -127,6 +127,48 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2250826826817353317, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
   m_PrefabInstance: {fileID: 2250826825904004294}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &276051331 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3084079684203019865, guid: 495859114592c44fa9c6df31ce54b0b6, type: 3}
+  m_PrefabInstance: {fileID: 1147782470}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &276051333 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2415911327581807843, guid: 495859114592c44fa9c6df31ce54b0b6, type: 3}
+  m_PrefabInstance: {fileID: 1147782470}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &276051334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276051331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 951b51dcc91ba4899bb149348375530f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startCords: {x: 0, y: 0}
+  targetCords: {x: 0, y: 0}
+--- !u!114 &276051335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276051331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8209114e81c48ad8c0c14d741aab02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 2
+  unit: {fileID: 276051333}
+  animator: {fileID: 864673582}
+  gridManager: {fileID: 952847969}
+  pathFinder: {fileID: 276051334}
+  enemyAlertEventChannel: {fileID: 11400000, guid: 9722275e9f1344b7d95fc06d53163658, type: 2}
 --- !u!1 &716316663
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,37 +263,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1 &787204476
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 787204477}
-  m_Layer: 0
-  m_Name: Enemy
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &787204477
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787204476}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3516753, y: 1.5554048, z: 0.0770336}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &789926041
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,7 +573,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2415911327581807843, guid: 495859114592c44fa9c6df31ce54b0b6, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2415911327581807843, guid: 495859114592c44fa9c6df31ce54b0b6, type: 3}
       propertyPath: m_LocalScale.x
@@ -582,7 +593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2415911327581807843, guid: 495859114592c44fa9c6df31ce54b0b6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2415911327581807843, guid: 495859114592c44fa9c6df31ce54b0b6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -652,7 +663,7 @@ Transform:
   m_Children:
   - {fileID: 963194228}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
 --- !u!1 &1667008335 stripped
 GameObject:
@@ -685,7 +696,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 829cfc2de6755bb45818c04c0365d893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1.5
+  enemyAlertEventChannel: {fileID: 11400000, guid: 9722275e9f1344b7d95fc06d53163658, type: 2}
+  movementSpeed: 2
   unit: {fileID: 81751962}
   animator: {fileID: 864673582}
   gridManager: {fileID: 952847969}
@@ -711,7 +723,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2250826826817353317, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2250826826817353317, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
       propertyPath: m_LocalScale.y

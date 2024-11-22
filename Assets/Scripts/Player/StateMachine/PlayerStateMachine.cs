@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
+    [SerializeField] private EnemyAlertEventChannel enemyAlertEventChannel;
     public static PlayerStateMachine Instance { get; private set; }
     
     [SerializeField] private float movementSpeed;
@@ -16,6 +17,10 @@ public class PlayerStateMachine : MonoBehaviour
     private List<Tile> path = new List<Tile>();
     private PlayerBaseState _currentState;
     private PlayerStateFactory _stateFactory;
+    private bool _cancellingPath;
+    private bool _isCurrentlyMoving;
+
+    private bool _withinEnemyRange;
     
     private void Awake()
     {
@@ -26,6 +31,32 @@ public class PlayerStateMachine : MonoBehaviour
         else
         {
             Instance = this; 
+        }
+    }
+    
+    private void OnEnable()
+    {
+        if (enemyAlertEventChannel != null)
+        {
+            enemyAlertEventChannel.enemyAlertEvent.AddListener(HandleEnemyAlert);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (enemyAlertEventChannel != null)
+        {
+            enemyAlertEventChannel.enemyAlertEvent.RemoveListener(HandleEnemyAlert);
+        }
+    }
+    
+    private void HandleEnemyAlert()
+    {
+        Debug.Log("test");
+        if (CurrentState is PlayerMoveState)
+        {
+            CancellingPath = true;
+            _withinEnemyRange = true;
         }
     }
     
@@ -134,5 +165,29 @@ public class PlayerStateMachine : MonoBehaviour
     {
         get => path;
         set => path = value;
+    }
+
+    public bool CancellingPath
+    {
+        get => _cancellingPath;
+        set => _cancellingPath = value;
+    }
+
+    public bool IsCurrentlyMoving
+    {
+        get => _isCurrentlyMoving;
+        set => _isCurrentlyMoving = value;
+    }
+
+    public bool WithinEnemyRange
+    {
+        get => _withinEnemyRange;
+        set => _withinEnemyRange = value;
+    }
+
+    public PlayerStateFactory StateFactory
+    {
+        get => _stateFactory;
+        set => _stateFactory = value;
     }
 }

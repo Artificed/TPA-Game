@@ -34,13 +34,6 @@ public class RoomBuilder: MonoBehaviour
         {
             int randStartX = random.Next(0, gridSize.x - roomMaxSize.x);
             int randStartY = random.Next(0, gridSize.y - roomMaxSize.y);
-
-            if (generatedRoomCount == 0)
-            {
-                randStartX = 0;
-                randStartY = 0;
-            }
-
             int randSizeX = random.Next(roomMinSize.x, roomMaxSize.x + 1);
             int randSizeY = random.Next(roomMinSize.y, roomMaxSize.y + 1);
             int endX = randStartX + randSizeX;

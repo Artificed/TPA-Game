@@ -18,7 +18,7 @@ public abstract class PlayerBaseState
     public abstract void ExitState();
     public abstract void CheckSwitchStates();
 
-    protected void SwitchState(PlayerBaseState nextState)
+    public void SwitchState(PlayerBaseState nextState)
     {
         Context.CurrentState.ExitState();
         Context.CurrentState = nextState;

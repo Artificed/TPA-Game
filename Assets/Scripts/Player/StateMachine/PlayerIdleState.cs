@@ -10,6 +10,7 @@ public class PlayerIdleState: PlayerBaseState
 
     public override void EnterState()
     {
+        Context.CancellingPath = false;
         Context.Animator.SetBool(Context.IsMovingHash, false);
     }
 
