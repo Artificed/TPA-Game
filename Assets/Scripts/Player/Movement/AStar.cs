@@ -116,10 +116,7 @@ public class AStar : MonoBehaviour
         List<Tile> path = new List<Tile>();
         Tile currentNode = targetNode;
 
-        if (currentNode.connectTo == null)
-        {
-            return path;
-        }
+        if (currentNode.connectTo == null) return path;
 
         path.Add(currentNode);
         currentNode.path = true;
