@@ -14,29 +14,10 @@ public class EnemyMoveCommand : ICommand
         _startCoords = startCoords;
         _targetCoords = targetCoords;
     }
-
-    private bool ValidCoord()
-    {
-        List<EnemyStateMachine> enemies = TurnManager.Instance.Enemies;
-        foreach (EnemyStateMachine enemy in enemies)
-        {
-            Vector2Int enemyCoords = new Vector2Int((int) enemy.Unit.position.x, (int) enemy.Unit.position.z);
-            if (_targetCoords == enemyCoords)
-            {
-                return false;
-            }
-        }
-        // PlayerStateMachine player = PlayerStateMachine.Instance;
-        // Vector2Int playerCoords = new Vector2Int((int) player.Unit.position.x, (int) player.Unit.position.z);
-        // if (_targetCoords == playerCoords) return false;
-        
-        return true;
-    }
     
     public void Execute()
     {
         Debug.Log("Start: " + _startCoords + " - Target: " + _targetCoords);
-        if (!ValidCoord()) return;
         _context.SetNewDestination(_startCoords, _targetCoords);
         _context.CurrentState.SwitchState(_context.StateFactory.CreateMoving());
     }

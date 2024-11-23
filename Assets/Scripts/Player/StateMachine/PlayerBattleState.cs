@@ -18,6 +18,7 @@ public class PlayerBattleState : PlayerBaseState
     public override void UpdateState()
     {
         if(commandQueued) return;
+        
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
