@@ -8,9 +8,7 @@ public class EnemyAlertHelper : MonoBehaviour
 
     private List<EnemyStateMachine> enemies;
     private Transform playerTransform;
-
-    private bool isAnyEnemyInRange = false;
-
+    
     private void Start()
     {
         playerTransform = PlayerStateMachine.Instance.transform;

@@ -70,7 +70,6 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(_withinEnemyRange);
         _currentState.UpdateState();
     }
 

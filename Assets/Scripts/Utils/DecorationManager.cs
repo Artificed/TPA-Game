@@ -81,7 +81,8 @@ public class DecorationManager: MonoBehaviour
     {
         List<Tile> blockedTiles = room.GetTiles().FindAll(tile => tile.Blocked);
         List<Vector3> placedPositions = new List<Vector3>();
-
+        GameObject mapParent = GameObject.Find("Decoration"); 
+        
         foreach (Tile tile in blockedTiles)
         {
             Vector3 position = tile.transform.position;
@@ -95,6 +96,7 @@ public class DecorationManager: MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0, _random.Next(0, 4) * 90, 0);
             GameObject decoration = Instantiate(prefab, position, rotation);
             decoration.tag = "Decoration";
+            decoration.transform.SetParent(mapParent.transform, false);
 
             placedPositions.Add(position);
         }

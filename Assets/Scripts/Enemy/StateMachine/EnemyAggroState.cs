@@ -10,6 +10,7 @@ public class EnemyAggroState : EnemyBaseState
 
     public override void EnterState()
     {
+        Debug.Log("Enemy Entering aggro");
     }
 
     public override void UpdateState()

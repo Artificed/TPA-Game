@@ -87,8 +87,8 @@ public class GridManager : MonoBehaviour
         GameObject tileObject = Instantiate(prefab);
         tileObject.transform.position = new Vector3(coords.x, 0f, coords.y);
         tileObject.transform.parent = transform;
-        tileObject.name = isBlocked ? $"Hallway {coords.x},{coords.y}" : $"Tile {coords.x},{coords.y}";
-
+        tileObject.name = $"{tileType.ToString()}: {coords.x},{coords.y}";
+        
         Tile tile = tileObject.GetComponent<Tile>();
         if (tile != null)
         {

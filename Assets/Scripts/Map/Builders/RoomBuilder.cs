@@ -75,6 +75,7 @@ public class RoomBuilder: MonoBehaviour
     
     private void CreateOrUpdateRoomTiles(Room newRoom, HashSet<Vector2Int> blockedTiles)
     {
+        GameObject mapParent = GameObject.Find("Map");
         for (int x = (int)newRoom.StartX; x <= newRoom.EndX; x++)
         {
             for (int y = (int)newRoom.StartY; y <= newRoom.EndY; y++)
@@ -85,8 +86,9 @@ public class RoomBuilder: MonoBehaviour
                 {
                     GameObject tileObject = Instantiate(tilePrefab);
                     tileObject.transform.position = new Vector3(coords.x, 0f, coords.y);
-                    tileObject.name = $"Tile {coords.x},{coords.y}";
-
+                    tileObject.name = $"Room : {coords.x},{coords.y}";
+                    tileObject.transform.SetParent(mapParent.transform, false); 
+                    
                     Tile tileScript = tileObject.GetComponent<Tile>();
                     if (tileScript != null)
                     {

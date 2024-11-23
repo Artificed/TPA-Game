@@ -21,15 +21,14 @@ public class EnemyStateMachine : MonoBehaviour
     private EnemyStateFactory _stateFactory;
     private EnemyBaseState _currentState;
     
-    private int _isMovingHash;
+    private int _isAlertHash;
     private List<Tile> path = new List<Tile>();
-    
     
     void Start()
     {
         _playerTransform = PlayerStateMachine.Instance.transform;
         
-        _isMovingHash = Animator.StringToHash("isMoving");
+        _isAlertHash = Animator.StringToHash("isAlert");
         gridManager = FindObjectOfType<GridManager>();
         pathFinder = FindObjectOfType<AStar>();
 
@@ -156,10 +155,10 @@ public class EnemyStateMachine : MonoBehaviour
         set => _stateFactory = value;
     }
 
-    public int IsMovingHash
+    public int IsAlertHash
     {
-        get => _isMovingHash;
-        set => _isMovingHash = value;
+        get => _isAlertHash;
+        set => _isAlertHash = value;
     }
 
     public List<Tile> Path
@@ -167,7 +166,6 @@ public class EnemyStateMachine : MonoBehaviour
         get => path;
         set => path = value;
     }
-    
     
     public float AlertRange
     {
