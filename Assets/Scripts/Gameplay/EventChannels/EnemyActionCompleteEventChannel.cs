@@ -10,6 +10,6 @@ public class EnemyActionCompleteEventChannel : ScriptableObject
 
     public void RaiseEvent()
     {
-        OnActionComplete?.Invoke();
+        OnActionComplete.Invoke();
     }
 }

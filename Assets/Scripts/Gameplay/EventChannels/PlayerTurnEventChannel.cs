@@ -15,6 +15,6 @@ public class PlayerTurnEventChannel : ScriptableObject
     
     public void RaiseEvent()
     {
-        playerTurnEvent?.Invoke();
+        playerTurnEvent.Invoke();
     }
 }

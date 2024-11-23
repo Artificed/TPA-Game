@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerBattleState : PlayerBaseState
 {
+    private bool commandQueued = false;
     public PlayerBattleState(PlayerStateMachine context, PlayerStateFactory factory) : base(context, factory)
     {
     }
@@ -11,10 +12,12 @@ public class PlayerBattleState : PlayerBaseState
     public override void EnterState()
     {
         Debug.Log("Player Battling");
+        commandQueued = false;
     }
 
     public override void UpdateState()
     {
+        if(commandQueued) return;
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -30,14 +33,14 @@ public class PlayerBattleState : PlayerBaseState
 
                 PlayerMoveCommand playerMoveCommand = new PlayerMoveCommand(Context, startCords, targetCords);
                 TurnManager.Instance.AddQueue(playerMoveCommand);
-                TurnManager.Instance.SwitchToEnemyTurn();
+                commandQueued = true;
             }
         }
     }
 
     public override void ExitState()
     {
-        
+        commandQueued = false;
     }
 
     public override void CheckSwitchStates()

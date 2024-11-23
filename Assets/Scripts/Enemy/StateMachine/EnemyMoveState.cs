@@ -17,6 +17,7 @@ public class EnemyMoveState : EnemyBaseState
 
     public override void UpdateState()
     {
+        
     }
 
     public override void ExitState()
@@ -31,20 +32,26 @@ public class EnemyMoveState : EnemyBaseState
     
     private IEnumerator FollowPath()
     {
+        Debug.Log("FollowPath Entered");
         if (Context.Path.Count == 0)
         {
-            SwitchState(Factory.CreateIdle());
+            Debug.Log("Count 0 at follow path");
+            Context.EnemyActionCompleteEventChannel.RaiseEvent();
+            SwitchState(Factory.CreateAggro());
             yield break;
         }
         
         Tile targetNode = Context.Path[1];
         if (targetNode.Blocked)
         {
+            Debug.Log("Blocked at follow path");
             Context.ClearPath();
-            SwitchState(Factory.CreateIdle());
+            Context.EnemyActionCompleteEventChannel.RaiseEvent();
+            SwitchState(Factory.CreateAggro());
             yield break;
         }
 
+        Debug.Log("Follow Path ok");
         Vector3 startPosition = Context.Unit.position;
         Vector3 endPosition = Context.GridManager.GetPositionFromCoordinates(targetNode.coords);
         endPosition.y = 0.1f;
@@ -59,6 +66,7 @@ public class EnemyMoveState : EnemyBaseState
             yield return null;
         }
 
+        Context.EnemyActionCompleteEventChannel.RaiseEvent();
         SwitchState(Factory.CreateAggro());
     }
 

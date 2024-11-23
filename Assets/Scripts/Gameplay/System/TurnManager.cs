@@ -12,6 +12,7 @@ public class TurnManager : MonoBehaviour
     private Queue<ICommand> _turnQueue;
     private TurnType _currentTurn;
     private bool _isBattling;
+    private bool _isCommandExecuting;
     private int _actionsThisTurn;
     private int _totalActionsRequired;
     
@@ -27,11 +28,13 @@ public class TurnManager : MonoBehaviour
         else
         {
             _isBattling = false;
+            _isCommandExecuting = false;
             Instance = this;
             _currentTurn = TurnType.PlayerTurn;
             _turnQueue = new Queue<ICommand>();
             
             playerTurnEventChannel.playerTurnEvent.AddListener(SwitchToEnemyTurn);
+            enemyActionCompleteEventChannel.OnActionComplete.AddListener(CommandCompleted);
         }
     }
 
@@ -40,23 +43,47 @@ public class TurnManager : MonoBehaviour
         _turnQueue.Enqueue(command);
     }
 
+    private void CommandCompleted()
+    {
+        if (CurrentTurn == TurnType.EnemyTurn)
+        {
+            Debug.Log("One Enemy Turn Completed!");
+        }
+        _isCommandExecuting = false;
+        _actionsThisTurn++;
+        
+        Debug.Log("Test");
+        
+        if (_actionsThisTurn >= _totalActionsRequired)
+        {
+            Debug.Log("All Enemy turns completed, Switching Back To Player Turn");
+            SwitchToPlayerTurn();
+        }
+    }
+    
     void Update()
     {
+        // Debug.Log("QueueCount: " + _turnQueue.Count);
+        Debug.Log(_currentTurn);
+        Debug.Log(_isCommandExecuting);
         GetBattlingEnemies();
-        if (_enemies.Count == 0) return;
+        if (_enemies.Count == 0 || _isCommandExecuting) return;
         
         ExecuteNext();
-    }
+    }   
 
     public void SwitchToEnemyTurn()
     {
         if (!_isBattling) return;
+        _isCommandExecuting = false;
         _currentTurn = TurnType.EnemyTurn;
+        Debug.Log("Switching to enemy turn");
     }
 
     public void SwitchToPlayerTurn()
     {
         if (!_isBattling) return;
+        Debug.Log("test");
         _actionsThisTurn = 0;
         _currentTurn = TurnType.PlayerTurn;
     }
@@ -67,7 +94,7 @@ public class TurnManager : MonoBehaviour
         if (_enemies.Count > 0)
         {   
             _isBattling = true;
-            _totalActionsRequired = _enemies.Count + 1;
+            _totalActionsRequired = _enemies.Count;
         }
         else
         {
@@ -80,16 +107,11 @@ public class TurnManager : MonoBehaviour
         if (_turnQueue.Count > 0)
         {
             ICommand currentCommand = _turnQueue.Dequeue();
+            _isCommandExecuting = true;
             currentCommand.Execute();
             
             Debug.Log("Enemy Count " + _enemies.Count);
             Debug.Log(currentCommand.ToString() + " Executed! Turn: " + _actionsThisTurn);
-            _actionsThisTurn++;
-        
-            if (_actionsThisTurn >= _totalActionsRequired + 1) // 1 for player
-            {
-                SwitchToPlayerTurn();
-            }
         }
     }
 

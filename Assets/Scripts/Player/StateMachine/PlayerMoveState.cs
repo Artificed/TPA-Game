@@ -81,6 +81,7 @@ public class PlayerMoveState : PlayerBaseState
             if (_shouldStop || Context.WithinEnemyRange || Context.CancellingPath)
             {
                 Context.ClearPath();
+                Context.PlayerTurnEventChannel.RaiseEvent();
                 SwitchState(Factory.CreateIdle());
                 yield break;
             }

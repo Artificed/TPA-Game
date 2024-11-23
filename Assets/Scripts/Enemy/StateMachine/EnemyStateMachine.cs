@@ -14,7 +14,8 @@ public class EnemyStateMachine : MonoBehaviour
     
     [SerializeField] private EnemyAlertEventChannel enemyAlertEventChannel;
     [SerializeField] private EnemyAlertHelper alertHelper;
-
+    [SerializeField] private EnemyActionCompleteEventChannel enemyActionCompleteEventChannel;
+    
     private Transform _playerTransform;
     private const float alertRange = 5.0f;
     
@@ -178,5 +179,11 @@ public class EnemyStateMachine : MonoBehaviour
     {
         get => _isMovingHash;
         set => _isMovingHash = value;
+    }
+
+    public EnemyActionCompleteEventChannel EnemyActionCompleteEventChannel
+    {
+        get => enemyActionCompleteEventChannel;
+        set => enemyActionCompleteEventChannel = value;
     }
 }
