@@ -37,6 +37,12 @@ public class PlayerBattleState : PlayerBaseState
                 commandQueued = true;
             }
         }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            PlayerSkipCommand playerSkipCommand = new PlayerSkipCommand(Context);
+            TurnManager.Instance.AddQueue(playerSkipCommand);
+            commandQueued = true;
+        }
     }
 
     public override void ExitState()

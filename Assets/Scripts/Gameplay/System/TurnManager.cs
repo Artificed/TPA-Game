@@ -63,8 +63,8 @@ public class TurnManager : MonoBehaviour
     
     void Update()
     {
-        // Debug.Log(_currentTurn);
-        // Debug.Log(_isCommandExecuting);
+        Debug.Log(_currentTurn);
+        Debug.Log(_isCommandExecuting);
         GetBattlingEnemies();
         if (_enemies.Count == 0 || _isCommandExecuting) return;
         
