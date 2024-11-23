@@ -2,24 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerIdleState: PlayerBaseState
+public class PlayerBattleState : PlayerBaseState
 {
-    public PlayerIdleState(PlayerStateMachine context, PlayerStateFactory factory) : base(context, factory)
+    public PlayerBattleState(PlayerStateMachine context, PlayerStateFactory factory) : base(context, factory)
     {
     }
 
     public override void EnterState()
     {
-        Context.CancellingPath = false;
-        Context.Animator.SetBool(Context.IsMovingHash, false);
+        Debug.Log("Player Battling");
     }
 
     public override void UpdateState()
     {
-        if (TurnManager.Instance.IsBattling)
-        {
-            SwitchState(Factory.CreateBattle());
-        }
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -32,18 +27,21 @@ public class PlayerIdleState: PlayerBaseState
                     Mathf.RoundToInt(Context.Unit.position.x / Context.GridManager.UnityGridSize),
                     Mathf.RoundToInt(Context.Unit.position.z / Context.GridManager.UnityGridSize)
                 );
-                
-                Context.SetNewDestination(startCords, targetCords);
-                SwitchState(Factory.CreateMoving());
+
+                PlayerMoveCommand playerMoveCommand = new PlayerMoveCommand(Context, startCords, targetCords);
+                TurnManager.Instance.AddQueue(playerMoveCommand);
+                TurnManager.Instance.SwitchToEnemyTurn();
             }
         }
     }
-    
+
     public override void ExitState()
     {
+        
     }
-    
+
     public override void CheckSwitchStates()
     {
+        
     }
 }

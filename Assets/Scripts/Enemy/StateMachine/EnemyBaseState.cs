@@ -18,7 +18,7 @@ public abstract class EnemyBaseState
     public abstract void ExitState();
     public abstract void CheckSwitchStates();
 
-    protected void SwitchState(EnemyBaseState nextState)
+    public void SwitchState(EnemyBaseState nextState)
     {
         Context.CurrentState.ExitState();
         Context.CurrentState = nextState;

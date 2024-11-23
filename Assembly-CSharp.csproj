@@ -155,6 +155,15 @@
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/SuperCharacterController/Code/Core/SuperCharacterController.cs" />
     <Compile Include="Assets/Scripts/Enemy/StateMachine/EnemyBaseState.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/SuperCharacterController/Code/Core/SuperGround.cs" />
+    <Compile Include="Assets/Scripts/Gameplay/System/TurnManager.cs" />
+    <Compile Include="Assets/Scripts/Gameplay/System/ICommand.cs" />
+    <Compile Include="Assets/Scripts/Player/Commands/PlayerMoveCommand.cs" />
+    <Compile Include="Assets/Scripts/Gameplay/System/TurnType.cs" />
+    <Compile Include="Assets/Scripts/Gameplay/EventChannels/PlayerTurnEventChannel.cs" />
+    <Compile Include="Assets/Scripts/Player/StateMachine/PlayerBattleState.cs" />
+    <Compile Include="Assets/Scripts/Enemy/Commands/EnemyMoveCommand.cs" />
+    <Compile Include="Assets/Scripts/Enemy/StateMachine/EnemyMoveState.cs" />
+    <Compile Include="Assets/Scripts/Gameplay/EventChannels/EnemyActionCompleteEventChannel.cs" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMPro.cginc" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMP_Bitmap.shader" />

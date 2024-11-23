@@ -19,4 +19,9 @@ public class PlayerStateFactory
     {
         return new PlayerMoveState(_context, this);
     }
+
+    public PlayerBaseState CreateBattle()
+    {
+        return new PlayerBattleState(_context, this);
+    }
 }

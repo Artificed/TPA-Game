@@ -30,4 +30,9 @@ public class EnemyStateFactory
     {
         return new EnemyAggroState(_context, this);
     }
+
+    public EnemyBaseState CreateMoving()
+    {
+        return new EnemyMoveState(_context, this);
+    }
 }
