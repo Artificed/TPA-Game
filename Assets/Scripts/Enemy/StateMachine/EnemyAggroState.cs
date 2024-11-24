@@ -24,6 +24,8 @@ public class EnemyAggroState : EnemyBaseState
 
     public override void UpdateState()
     {
+        CheckSwitchStates();
+        
         if (TurnManager.Instance.CurrentTurn == TurnType.PlayerTurn || commandQueued) return;
 
         Vector2Int startCords = new Vector2Int(
@@ -48,5 +50,19 @@ public class EnemyAggroState : EnemyBaseState
 
     public override void CheckSwitchStates()
     {
+        Vector2Int enemyCords = new Vector2Int(
+            Mathf.RoundToInt(Context.Unit.position.x / Context.GridManager.UnityGridSize),
+            Mathf.RoundToInt(Context.Unit.position.z / Context.GridManager.UnityGridSize)
+        );
+        
+        Vector2Int playerCords = new Vector2Int(
+            Mathf.RoundToInt(PlayerStateMachine.Instance.Unit.position.x / Context.GridManager.UnityGridSize),
+            Mathf.RoundToInt(PlayerStateMachine.Instance.Unit.position.z / Context.GridManager.UnityGridSize)
+        );
+
+        if (Mathf.Abs(enemyCords.x - playerCords.x) + Mathf.Abs(enemyCords.y - playerCords.y) == 1)
+        {
+            SwitchState(Factory.CreateReadyAttack());
+        }
     }
 }

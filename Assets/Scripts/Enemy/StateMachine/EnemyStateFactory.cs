@@ -35,4 +35,9 @@ public class EnemyStateFactory
     {
         return new EnemyMoveState(_context, this);
     }
+
+    public EnemyBaseState CreateAttack()
+    {
+        return new EnemyAttackState(_context, this);
+    }
 }

@@ -32,7 +32,7 @@ public class EnemyMoveState : EnemyBaseState
     
     private IEnumerator FollowPath()
     {
-        Debug.Log("FollowPath Entered");
+        // Debug.Log("FollowPath Entered");
         if (Context.Path.Count == 0)
         {
             Debug.Log("Count 0 at follow path");
@@ -51,7 +51,7 @@ public class EnemyMoveState : EnemyBaseState
             yield break;
         }
 
-        Debug.Log("Follow Path ok");
+        // Debug.Log("Follow Path ok");
         Vector3 startPosition = Context.Unit.position;
         Vector3 endPosition = Context.GridManager.GetPositionFromCoordinates(targetNode.coords);
 

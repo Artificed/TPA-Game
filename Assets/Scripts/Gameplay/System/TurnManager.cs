@@ -52,8 +52,6 @@ public class TurnManager : MonoBehaviour
         _isCommandExecuting = false;
         _actionsThisTurn++;
         
-        Debug.Log("Test");
-        
         if (_actionsThisTurn >= _totalActionsRequired)
         {
             Debug.Log("All Enemy turns completed, Switching Back To Player Turn");
@@ -63,8 +61,9 @@ public class TurnManager : MonoBehaviour
     
     void Update()
     {
-        Debug.Log(_currentTurn);
-        Debug.Log(_isCommandExecuting);
+        // Debug.Log(_currentTurn);
+        // Debug.Log(_isCommandExecuting);
+        
         GetBattlingEnemies();
         if (_enemies.Count == 0 || _isCommandExecuting) return;
         
@@ -82,7 +81,6 @@ public class TurnManager : MonoBehaviour
     public void SwitchToPlayerTurn()
     {
         if (!_isBattling) return;
-        Debug.Log("test");
         _actionsThisTurn = 0;
         _currentTurn = TurnType.PlayerTurn;
     }
