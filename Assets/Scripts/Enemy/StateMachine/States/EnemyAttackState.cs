@@ -11,7 +11,7 @@ public class EnemyAttackState : EnemyBaseState
     public override void EnterState()
     {
         Context.Animator.SetBool(Context.IsAttackingHash, true);
-        Debug.Log("Enemy Enter Attacking");
+        // Debug.Log("Enemy Enter Attacking");
     }
 
     public override void UpdateState()
@@ -22,7 +22,7 @@ public class EnemyAttackState : EnemyBaseState
     public override void ExitState()
     {
         Context.Animator.SetBool(Context.IsAttackingHash, false);
-        Debug.Log("Enemy Exit Attacking");
+        // Debug.Log("Enemy Exit Attacking");
     }
 
     public override void CheckSwitchStates()
@@ -33,7 +33,7 @@ public class EnemyAttackState : EnemyBaseState
         {
             if (stateInfo.normalizedTime >= 1.0f)  
             {
-                Debug.Log("Enemy Attack Animation Done");
+                // Debug.Log("Enemy Attack Animation Done");
                 Context.EnemyActionCompleteEventChannel.RaiseEvent();
                 SwitchState(Factory.CreateReadyAttack());
             }

@@ -35,7 +35,7 @@ public class EnemyMoveState : EnemyBaseState
         // Debug.Log("FollowPath Entered");
         if (Context.Path.Count == 0)
         {
-            Debug.Log("Count 0 at follow path");
+            // Debug.Log("Count 0 at follow path");
             Context.EnemyActionCompleteEventChannel.RaiseEvent();
             SwitchState(Factory.CreateAggro());
             yield break;
@@ -44,7 +44,7 @@ public class EnemyMoveState : EnemyBaseState
         Tile targetNode = Context.Path[1];
         if (targetNode.Blocked)
         {
-            Debug.Log("Blocked tile at follow path");
+            // Debug.Log("Blocked tile at follow path");
             Context.ClearPath();
             Context.EnemyActionCompleteEventChannel.RaiseEvent();
             SwitchState(Factory.CreateAggro());
@@ -58,7 +58,7 @@ public class EnemyMoveState : EnemyBaseState
         Vector2Int endPosition2D = new Vector2Int((int) endPosition.x, (int) endPosition.z);
         if (!ValidDestination(endPosition2D))
         {
-            Debug.Log("Blocked by enemy/player at follow path");
+            // Debug.Log("Blocked by enemy/player at follow path");
             Context.ClearPath();
             Context.EnemyActionCompleteEventChannel.RaiseEvent();
             SwitchState(Factory.CreateAggro());

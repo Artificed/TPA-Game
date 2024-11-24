@@ -17,7 +17,7 @@ public class EnemyMoveCommand : ICommand
     
     public void Execute()
     {
-        Debug.Log("Start: " + _startCoords + " - Target: " + _targetCoords);
+        // Debug.Log("Start: " + _startCoords + " - Target: " + _targetCoords);
         _context.SetNewDestination(_startCoords, _targetCoords);
         _context.CurrentState.SwitchState(_context.StateFactory.CreateMoving());
     }

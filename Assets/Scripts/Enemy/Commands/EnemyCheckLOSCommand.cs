@@ -15,15 +15,18 @@ public class EnemyCheckLOSCommand : ICommand
     {
         if (CheckLOS())
         {
-            Debug.Log("LOS Valid");
+            // Debug.Log("LOS Valid");
             _context.EnemyActionCompleteEventChannel.RaiseEvent();
             _context.CurrentState.SwitchState(_context.StateFactory.CreateAggro());
         }
         else
         {
-            Debug.Log("LOS Blocked!");
+            // Debug.Log("LOS Blocked!");
             _context.EnemyActionCompleteEventChannel.RaiseEvent();
-            _context.CurrentState.SwitchState(_context.StateFactory.CreateAlert());
+            if (!(_context.CurrentState is EnemyAlertState))
+            {
+                _context.CurrentState.SwitchState(_context.StateFactory.CreateAlert());
+            }
         }
     }
     
@@ -67,5 +70,5 @@ public class EnemyCheckLOSCommand : ICommand
         }
 
         return hitTiles;
-    }   
+    }
 }

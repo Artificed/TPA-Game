@@ -15,12 +15,12 @@ public class EnemyAttackCommand : ICommand
     {
         if (CheckPlayerPosition())
         {
-            Debug.Log("Enemy is Attacking!");
+            // Debug.Log("Enemy is Attacking!");
             _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
         }
         else
         {
-            Debug.Log("Player too far, back to aggro!");
+            // Debug.Log("Player too far, back to aggro!");
             _context.CurrentState.SwitchState(_context.StateFactory.CreateAggro());
         }
     }

@@ -47,13 +47,12 @@ public class TurnManager : MonoBehaviour
 
     private void CommandCompleted()
     {
-        if (CurrentTurn == TurnType.EnemyTurn)
+        if(CurrentTurn == TurnType.EnemyTurn)
         {
             Debug.Log("One Enemy Turn Completed!");
+            _actionsThisTurn++;
         }
         _isCommandExecuting = false;
-        _actionsThisTurn++;
-        
         if (_actionsThisTurn >= _totalActionsRequired)
         {
             Debug.Log("All Enemy turns completed, Switching Back To Player Turn");
@@ -65,16 +64,16 @@ public class TurnManager : MonoBehaviour
     {
         // Debug.Log(_currentTurn);
         // Debug.Log(_isCommandExecuting);
-        Debug.Log("Current Queue: " + _turnQueue.Count);
-        
         foreach (var queueItem in _turnQueue)
         {
             Debug.Log(queueItem);
         }
-        
-        Debug.Log("Enemy Count: "  + _enemies.Count);
-        
-        if (_enemies.Count == 0 || _isCommandExecuting) return;
+
+        if (_enemies.Count == 0 || _isCommandExecuting)
+        {
+            Debug.Log("Don't exec next");
+            return;
+        }
         
         ExecuteNext();
     }   
@@ -84,6 +83,8 @@ public class TurnManager : MonoBehaviour
         _isCommandExecuting = false;
         _currentTurn = TurnType.EnemyTurn;
         Debug.Log("Switching to enemy turn");
+
+        ResstLOSChecker();
     }
     
     public void SwitchToPlayerTurn()
@@ -100,6 +101,17 @@ public class TurnManager : MonoBehaviour
         if (!_isBattling)
         {
             _turnQueue.Clear();
+        }
+    }
+
+    private void ResstLOSChecker()
+    {
+        foreach (var enemy in _enemies)
+        {
+            if (enemy.CurrentState is EnemyAlertState)
+            {
+                ((EnemyAlertState)enemy.CurrentState).CommandQueued = false;
+            }
         }
     }
 

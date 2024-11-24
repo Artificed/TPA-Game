@@ -12,7 +12,7 @@ public class EnemyReadyAttackState : EnemyBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Enemy Now Ready to attack");
+        // Debug.Log("Enemy Now Ready to attack");
     }
 
     public override void UpdateState()
@@ -28,7 +28,7 @@ public class EnemyReadyAttackState : EnemyBaseState
 
     public override void ExitState()
     {
-        Debug.Log("Exiting Ready to attack");
+        // Debug.Log("Exiting Ready to attack");
     }
 
     public override void CheckSwitchStates()

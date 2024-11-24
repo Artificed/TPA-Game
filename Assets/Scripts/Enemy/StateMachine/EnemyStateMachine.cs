@@ -23,14 +23,14 @@ public class EnemyStateMachine : MonoBehaviour
     private EnemyStateFactory _stateFactory;
     private EnemyBaseState _currentState;
     
-    private List<Tile> path = new List<Tile>();
+    private List<Tile> _path = new List<Tile>();
     
     private int _isAlertHash;
     private int _isMovingHash;
     private int _isAttackingHash;
     
-    private int recalculationCount = 0;
-    private const int maxRecalculationAttempts = 5;
+    private int _recalculationCount = 0;
+    private const int MaxRecalculationAttempts = 10;
     
     void Start()
     {
@@ -56,7 +56,7 @@ public class EnemyStateMachine : MonoBehaviour
     public void ClearPath()
     {
         StopAllCoroutines();
-        path.Clear();
+        _path.Clear();
     }
     
     public void SetNewDestination(Vector2Int startCords, Vector2Int targetCords)
@@ -84,14 +84,12 @@ public class EnemyStateMachine : MonoBehaviour
         
         foreach (EnemyStateMachine enemy in enemies)
         {
-            if (enemy != this)
-            {
-                Vector2Int enemyCoords = new Vector2Int(
-                    Mathf.RoundToInt(enemy.Unit.position.x / gridManager.UnityGridSize),
-                    Mathf.RoundToInt(enemy.Unit.position.z / gridManager.UnityGridSize)
-                );
-                enemyPositions.Add(enemyCoords);
-            }
+            if (enemy == this) continue;
+            Vector2Int enemyCoords = new Vector2Int(
+                Mathf.RoundToInt(enemy.Unit.position.x / gridManager.UnityGridSize),
+                Mathf.RoundToInt(enemy.Unit.position.z / gridManager.UnityGridSize)
+            );
+            enemyPositions.Add(enemyCoords);
         }
         
         foreach (var tile in path)
@@ -130,21 +128,22 @@ public class EnemyStateMachine : MonoBehaviour
     
     private void RecalculatePath()
     {
-        if (recalculationCount >= maxRecalculationAttempts)
+        if (_recalculationCount >= MaxRecalculationAttempts)
         {
             Debug.LogError("Max path recalculation attempts reached.");
-            recalculationCount = 0; 
+            _currentState.SwitchState(_stateFactory.CreateAggro());
+            _recalculationCount = 0; 
             return;
         }
         
         StopAllCoroutines();
-        path.Clear();
+        _path.Clear();
 
         List<Tile> newPath = pathFinder.GetNewPath();
         if (IsPathWalkable(newPath) && !IsPathBlockedByEnemy(newPath))
         {
-            path = newPath;
-            recalculationCount = 0; 
+            _path = newPath;
+            _recalculationCount = 0; 
         }
         else
         {
@@ -152,13 +151,14 @@ public class EnemyStateMachine : MonoBehaviour
             Vector2Int newDest = GetValidTile(newPath.Last().coords);
             if (!newDest.Equals(newPath.Last().coords)) 
             {
-                recalculationCount++; 
+                _recalculationCount++; 
                 SetNewDestination(newPath.First().coords, newDest);
             }
             else
             {
-                Debug.LogError("No alternative path found. Consider a fallback strategy.");
-                recalculationCount = 0; 
+                Debug.LogError("No alternative path found");
+                _currentState.SwitchState(_stateFactory.CreateAggro());
+                _recalculationCount = 0; 
             }
         }
     }
@@ -248,8 +248,8 @@ public class EnemyStateMachine : MonoBehaviour
 
     public List<Tile> Path
     {
-        get => path;
-        set => path = value;
+        get => _path;
+        set => _path = value;
     }
     
     public float AlertRange

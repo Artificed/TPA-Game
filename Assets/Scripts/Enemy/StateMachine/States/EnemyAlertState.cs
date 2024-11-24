@@ -12,7 +12,7 @@ public class EnemyAlertState : EnemyBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Enemy in Alert State");
+        // Debug.Log("Enemy in Alert State");
         TurnManager.Instance.AddEnemy(Context);
         Context.Animator.SetBool(Context.IsAlertHash, true);
 
@@ -24,7 +24,8 @@ public class EnemyAlertState : EnemyBaseState
         CheckSwitchStates();
         
         if(commandQueued) return;
-        
+
+        Debug.Log("Queueing LOS Command");
         EnemyCheckLOSCommand checkLosCommand = new EnemyCheckLOSCommand(Context);
         TurnManager.Instance.AddQueue(checkLosCommand);
         commandQueued = true;

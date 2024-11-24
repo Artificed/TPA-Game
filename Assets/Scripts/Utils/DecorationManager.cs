@@ -71,10 +71,10 @@ public class DecorationManager: MonoBehaviour
             attempts++;
         }
 
-        if (blockedTileCoords.Count < decorationCount)
-        {
-            Debug.LogWarning($"Could not block enough tiles. Blocked {blockedTileCoords.Count} out of {decorationCount} requested.");
-        }
+        // if (blockedTileCoords.Count < decorationCount)
+        // {
+        //     Debug.LogWarning($"Could not block enough tiles. Blocked {blockedTileCoords.Count} out of {decorationCount} requested.");
+        // }
     }
 
     public void GenerateDecorations(Room room)
