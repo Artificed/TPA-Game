@@ -13,6 +13,7 @@ public class EnemyAlertState : EnemyBaseState
     public override void EnterState()
     {
         Debug.Log("Enemy in Alert State");
+        TurnManager.Instance.AddEnemy(Context);
         Context.Animator.SetBool(Context.IsAlertHash, true);
 
         commandQueued = false;
@@ -38,7 +39,9 @@ public class EnemyAlertState : EnemyBaseState
     {
         if (Context.GetDistanceFromPlayer() > Context.AlertRange)
         {
+            Debug.Log("Enemy no longer alerted!");
             SwitchState(Factory.CreateIdle());
+            TurnManager.Instance.RemoveEnemy(Context);
         } 
     }
 

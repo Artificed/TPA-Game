@@ -14,6 +14,7 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void EnterState()
     {
+        Debug.Log("Player Entering Move State");
         Context.Animator.SetBool(Context.IsMovingHash, true);   
         _shouldStop = false;
         _movementCoroutine = Context.StartCoroutine(FollowPath());
@@ -90,11 +91,29 @@ public class PlayerMoveState : PlayerBaseState
                 yield return null;
             }
 
-            if (_shouldStop || Context.WithinEnemyRange || Context.CancellingPath)
+            if (TurnManager.Instance.IsBattling)
+            {
+                Context.ClearPath();
+                Context.PlayerTurnEventChannel.RaiseEvent();
+                if (Context.WithinEnemyRange)
+                {
+                    SwitchState(Factory.CreateBattle());
+                    Debug.Log("Player Transitioning to battle");
+                }
+                else
+                {
+                    SwitchState(Factory.CreateIdle());
+                    Debug.Log("Player Transitioning to idle");
+                }
+                yield break;
+            }
+            
+            if (_shouldStop || Context.CancellingPath)
             {
                 Context.ClearPath();
                 Context.PlayerTurnEventChannel.RaiseEvent();
                 SwitchState(Factory.CreateIdle());
+                Debug.Log("Player transitioning back to idle");
                 yield break;
             }
         }

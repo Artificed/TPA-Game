@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour
@@ -32,6 +33,7 @@ public class TurnManager : MonoBehaviour
             Instance = this;
             _currentTurn = TurnType.PlayerTurn;
             _turnQueue = new Queue<ICommand>();
+            _enemies = new List<EnemyStateMachine>();
             
             playerTurnEventChannel.playerTurnEvent.AddListener(SwitchToEnemyTurn);
             enemyActionCompleteEventChannel.OnActionComplete.AddListener(CommandCompleted);
@@ -63,8 +65,15 @@ public class TurnManager : MonoBehaviour
     {
         // Debug.Log(_currentTurn);
         // Debug.Log(_isCommandExecuting);
+        Debug.Log("Current Queue: " + _turnQueue.Count);
         
-        GetBattlingEnemies();
+        foreach (var queueItem in _turnQueue)
+        {
+            Debug.Log(queueItem);
+        }
+        
+        Debug.Log("Enemy Count: "  + _enemies.Count);
+        
         if (_enemies.Count == 0 || _isCommandExecuting) return;
         
         ExecuteNext();
@@ -72,30 +81,42 @@ public class TurnManager : MonoBehaviour
 
     public void SwitchToEnemyTurn()
     {
-        if (!_isBattling) return;
         _isCommandExecuting = false;
         _currentTurn = TurnType.EnemyTurn;
         Debug.Log("Switching to enemy turn");
     }
-
+    
     public void SwitchToPlayerTurn()
     {
-        if (!_isBattling) return;
+        Debug.Log("Switching to player turn");
         _actionsThisTurn = 0;
         _currentTurn = TurnType.PlayerTurn;
     }
-
-    private void GetBattlingEnemies()
+    
+    private void CheckBattlingState()
     {
-        _enemies = new List<EnemyStateMachine>(FindObjectsOfType<EnemyStateMachine>().Where(enemy => enemy.CurrentState is not EnemyIdleState));
-        if (_enemies.Count > 0)
-        {   
-            _isBattling = true;
-            _totalActionsRequired = _enemies.Count;
-        }
-        else
+        _isBattling = _enemies.Count > 0;
+        _totalActionsRequired = _enemies.Count;
+        if (!_isBattling)
         {
-            _isBattling = false;
+            _turnQueue.Clear();
+        }
+    }
+
+    public void AddEnemy(EnemyStateMachine enemy)
+    {
+        if (!_enemies.Contains(enemy))
+        {
+            _enemies.Add(enemy);
+            CheckBattlingState();
+        }
+    }
+
+    public void RemoveEnemy(EnemyStateMachine enemy)
+    {
+        if (_enemies.Remove(enemy))
+        {
+            CheckBattlingState();
         }
     }
     
@@ -129,11 +150,5 @@ public class TurnManager : MonoBehaviour
     {
         get => _enemies;
         set => _enemies = value;
-    }
-
-    public int ActionsThisTurn
-    {
-        get => _actionsThisTurn;
-        set => _actionsThisTurn = value;
     }
 }

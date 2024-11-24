@@ -60,10 +60,12 @@ public class PlayerBattleState : PlayerBaseState
 
     private void HandleEnemyRaycast(RaycastHit hit)
     {
-        Vector2Int targetCords = new Vector2Int((int) hit.transform.position.x, (int) hit.transform.position.z);
+        Vector3 targetPosition = hit.transform.position;
+        Vector2Int targetCords = new Vector2Int((int)targetPosition.x, (int)targetPosition.z);
+    
         if (!IsEnemyInRange(targetCords)) return;
 
-        PlayerAttackCommand playerAttackCommand = new PlayerAttackCommand(Context);
+        PlayerAttackCommand playerAttackCommand = new PlayerAttackCommand(Context, targetPosition);
         TurnManager.Instance.AddQueue(playerAttackCommand);
         commandQueued = true;
     }
@@ -90,6 +92,9 @@ public class PlayerBattleState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        
+        if (!TurnManager.Instance.IsBattling)
+        {
+            SwitchState(Context.StateFactory.CreateIdle());
+        }
     }
 }

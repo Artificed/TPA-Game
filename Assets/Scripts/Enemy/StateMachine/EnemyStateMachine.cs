@@ -82,14 +82,16 @@ public class EnemyStateMachine : MonoBehaviour
         List<EnemyStateMachine> enemies = TurnManager.Instance.Enemies;
         List<Vector2Int> enemyPositions = new List<Vector2Int>();
         
-        enemies.Remove(this);
         foreach (EnemyStateMachine enemy in enemies)
         {
-            Vector2Int enemyCoords = new Vector2Int(
-                Mathf.RoundToInt(enemy.Unit.position.x / gridManager.UnityGridSize),
-                Mathf.RoundToInt(enemy.Unit.position.z / gridManager.UnityGridSize)
-            );
-            enemyPositions.Add(enemyCoords);
+            if (enemy != this)
+            {
+                Vector2Int enemyCoords = new Vector2Int(
+                    Mathf.RoundToInt(enemy.Unit.position.x / gridManager.UnityGridSize),
+                    Mathf.RoundToInt(enemy.Unit.position.z / gridManager.UnityGridSize)
+                );
+                enemyPositions.Add(enemyCoords);
+            }
         }
         
         foreach (var tile in path)
