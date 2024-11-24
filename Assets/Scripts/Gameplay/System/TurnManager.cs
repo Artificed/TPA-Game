@@ -84,7 +84,7 @@ public class TurnManager : MonoBehaviour
         _currentTurn = TurnType.EnemyTurn;
         Debug.Log("Switching to enemy turn");
 
-        ResstLOSChecker();
+        ResetLosChecker();
     }
     
     public void SwitchToPlayerTurn()
@@ -104,7 +104,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    private void ResstLOSChecker()
+    private void ResetLosChecker()
     {
         foreach (var enemy in _enemies)
         {

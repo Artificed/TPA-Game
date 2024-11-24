@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAlertState : EnemyBaseState
 {
-    private bool commandQueued = false;
+    private bool _commandQueued = false;
     public EnemyAlertState(EnemyStateMachine context, EnemyStateFactory factory) : base(context, factory)
     {
         
@@ -16,24 +16,49 @@ public class EnemyAlertState : EnemyBaseState
         TurnManager.Instance.AddEnemy(Context);
         Context.Animator.SetBool(Context.IsAlertHash, true);
 
-        commandQueued = false;
+        _commandQueued = false;
     }
 
     public override void UpdateState()
     {
         CheckSwitchStates();
         
-        if(commandQueued) return;
+        if(_commandQueued) return;
+        
+        CheckInstantHit();
 
         Debug.Log("Queueing LOS Command");
         EnemyCheckLOSCommand checkLosCommand = new EnemyCheckLOSCommand(Context);
         TurnManager.Instance.AddQueue(checkLosCommand);
-        commandQueued = true;
+        _commandQueued = true;
+    }
+
+    private void CheckInstantHit()
+    {
+        if (TurnManager.Instance.CurrentTurn == TurnType.EnemyTurn)
+        {
+            Vector2Int enemyCords = new Vector2Int(
+                Mathf.RoundToInt(Context.Unit.position.x / Context.GridManager.UnityGridSize),
+                Mathf.RoundToInt(Context.Unit.position.z / Context.GridManager.UnityGridSize)
+            );
+        
+            Vector2Int playerCords = new Vector2Int(
+                Mathf.RoundToInt(PlayerStateMachine.Instance.Unit.position.x / Context.GridManager.UnityGridSize),
+                Mathf.RoundToInt(PlayerStateMachine.Instance.Unit.position.z / Context.GridManager.UnityGridSize)
+            );
+
+            if (Mathf.Abs(enemyCords.x - playerCords.x) + Mathf.Abs(enemyCords.y - playerCords.y) <= 1)
+            {
+                EnemyAttackCommand enemyAttackCommand = new EnemyAttackCommand(Context);
+                TurnManager.Instance.AddQueue(enemyAttackCommand);
+                _commandQueued = true;
+            }
+        }
     }
 
     public override void ExitState()
     {
-        commandQueued = false;
+        _commandQueued = false;
     }
 
     public override void CheckSwitchStates()
@@ -48,7 +73,7 @@ public class EnemyAlertState : EnemyBaseState
 
     public bool CommandQueued
     {
-        get => commandQueued;
-        set => commandQueued = value;
+        get => _commandQueued;
+        set => _commandQueued = value;
     }
 }
