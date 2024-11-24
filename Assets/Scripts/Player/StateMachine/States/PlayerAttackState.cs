@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class PlayerAttackState : PlayerBaseState
 {
+    private Random _random = new Random();
     public PlayerAttackState(PlayerStateMachine context, PlayerStateFactory factory) : base(context, factory)
     {
     }
@@ -11,6 +13,7 @@ public class PlayerAttackState : PlayerBaseState
     public override void EnterState()
     {
         Context.Animator.SetBool(Context.IsAttackingHash, true);
+        Context.Animator.SetFloat(Context.RandomAttackHash, _random.Next(1, Context.AttackAnimationsCount + 1));
         Debug.Log("Player Entering Attack State!");
     }
 
@@ -22,6 +25,7 @@ public class PlayerAttackState : PlayerBaseState
     public override void ExitState()
     {
         Context.Animator.SetBool(Context.IsAttackingHash, false);
+        Context.Animator.SetFloat(Context.RandomAttackHash, 0);
         Debug.Log("Player Exiting Attack State!");
     }
 

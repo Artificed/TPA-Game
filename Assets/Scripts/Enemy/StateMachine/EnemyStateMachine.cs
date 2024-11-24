@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -27,6 +28,9 @@ public class EnemyStateMachine : MonoBehaviour
     private int _isAlertHash;
     private int _isMovingHash;
     private int _isAttackingHash;
+    
+    private int recalculationCount = 0;
+    private const int maxRecalculationAttempts = 5;
     
     void Start()
     {
@@ -72,16 +76,88 @@ public class EnemyStateMachine : MonoBehaviour
         pathFinder.SetNewDestination(startCords, targetCords);
         RecalculatePath();
     }
+
+    private bool IsPathBlockedByEnemy(List<Tile> path)
+    {
+        List<EnemyStateMachine> enemies = TurnManager.Instance.Enemies;
+        List<Vector2Int> enemyPositions = new List<Vector2Int>();
+        
+        enemies.Remove(this);
+        foreach (EnemyStateMachine enemy in enemies)
+        {
+            Vector2Int enemyCoords = new Vector2Int(
+                Mathf.RoundToInt(enemy.Unit.position.x / gridManager.UnityGridSize),
+                Mathf.RoundToInt(enemy.Unit.position.z / gridManager.UnityGridSize)
+            );
+            enemyPositions.Add(enemyCoords);
+        }
+        
+        foreach (var tile in path)
+        {
+            Vector2Int tileCoords = new Vector2Int(
+                Mathf.RoundToInt(tile.transform.position.x / gridManager.UnityGridSize),
+                Mathf.RoundToInt(tile.transform.position.z / gridManager.UnityGridSize)
+            );
+
+            if (enemyPositions.Contains(tileCoords))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private Vector2Int GetValidTile(Vector2Int dest)
+    {
+        for (int x = -1; x < 2; x++)
+        {
+            for (int y = -1; y < 2; y++)
+            {
+                if (x == 0 && y == 0) continue;
+                Vector2Int candidateCoord = new Vector2Int(dest.x + x, dest.y + y);
+                if (!gridManager.Grid.ContainsKey(candidateCoord) || gridManager.Grid[candidateCoord].Blocked)
+                {
+                    continue;
+                }
+                return candidateCoord;
+            }
+        }
+        return dest;
+    }
     
     private void RecalculatePath()
     {
+        if (recalculationCount >= maxRecalculationAttempts)
+        {
+            Debug.LogError("Max path recalculation attempts reached.");
+            recalculationCount = 0; 
+            return;
+        }
+        
         StopAllCoroutines();
         path.Clear();
 
         List<Tile> newPath = pathFinder.GetNewPath();
-        if (IsPathWalkable(newPath))
+        if (IsPathWalkable(newPath) && !IsPathBlockedByEnemy(newPath))
         {
             path = newPath;
+            recalculationCount = 0; 
+        }
+        else
+        {
+            Debug.Log("Blocked by enemy, recalculating");
+            Vector2Int newDest = GetValidTile(newPath.Last().coords);
+            if (!newDest.Equals(newPath.Last().coords)) 
+            {
+                recalculationCount++; 
+                SetNewDestination(newPath.First().coords, newDest);
+            }
+            else
+            {
+                Debug.LogError("No alternative path found. Consider a fallback strategy.");
+                recalculationCount = 0; 
+            }
         }
     }
     

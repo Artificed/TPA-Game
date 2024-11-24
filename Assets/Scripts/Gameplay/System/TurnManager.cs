@@ -106,7 +106,8 @@ public class TurnManager : MonoBehaviour
             ICommand currentCommand = _turnQueue.Dequeue();
             _isCommandExecuting = true;
             currentCommand.Execute();
-            
+
+            Debug.Log("Queue Count: " + _turnQueue.Count);
             Debug.Log("Enemy Count " + _enemies.Count);
             Debug.Log(currentCommand.ToString() + " Executed! Turn: " + _actionsThisTurn);
         }

@@ -18,6 +18,9 @@ public class PlayerStateMachine : MonoBehaviour
     private int _isMovingHash;
     private int _isAttackingHash;
     
+    private int _randomAttackHash;
+    [SerializeField] private int attackAnimationsCount = 4;
+    
     private List<Tile> path = new List<Tile>();
     private PlayerBaseState _currentState;
     private PlayerStateFactory _stateFactory;
@@ -64,6 +67,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         _isMovingHash = Animator.StringToHash("isMoving");
         _isAttackingHash = Animator.StringToHash("isAttacking");
+        _randomAttackHash = Animator.StringToHash("RandomAttack");
         
         gridManager = FindObjectOfType<GridManager>();
         pathFinder = FindObjectOfType<AStar>();
@@ -203,5 +207,17 @@ public class PlayerStateMachine : MonoBehaviour
     {
         get => _isAttackingHash;
         set => _isAttackingHash = value;
+    }
+
+    public int RandomAttackHash
+    {
+        get => _randomAttackHash;
+        set => _randomAttackHash = value;
+    }
+
+    public int AttackAnimationsCount
+    {
+        get => attackAnimationsCount;
+        set => attackAnimationsCount = value;
     }
 }
