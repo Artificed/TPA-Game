@@ -16,6 +16,8 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private AStar pathFinder;
 
     private int _isMovingHash;
+    private int _isAttackingHash;
+    
     private List<Tile> path = new List<Tile>();
     private PlayerBaseState _currentState;
     private PlayerStateFactory _stateFactory;
@@ -61,6 +63,8 @@ public class PlayerStateMachine : MonoBehaviour
     void Start()
     {
         _isMovingHash = Animator.StringToHash("isMoving");
+        _isAttackingHash = Animator.StringToHash("isAttacking");
+        
         gridManager = FindObjectOfType<GridManager>();
         pathFinder = FindObjectOfType<AStar>();
         
@@ -193,5 +197,11 @@ public class PlayerStateMachine : MonoBehaviour
     {
         get => playerTurnEventChannel;
         set => playerTurnEventChannel = value;
+    }
+
+    public int IsAttackingHash
+    {
+        get => _isAttackingHash;
+        set => _isAttackingHash = value;
     }
 }

@@ -24,4 +24,9 @@ public class PlayerStateFactory
     {
         return new PlayerBattleState(_context, this);
     }
+
+    public PlayerBaseState CreateAttack()
+    {
+        return new PlayerAttackState(_context, this);
+    }
 }
