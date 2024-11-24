@@ -87,7 +87,7 @@ public class TurnManager : MonoBehaviour
 
     private void GetBattlingEnemies()
     {
-        _enemies = new List<EnemyStateMachine>(FindObjectsOfType<EnemyStateMachine>().Where(enemy => !(enemy.CurrentState is EnemyIdleState or EnemyAlertState)));
+        _enemies = new List<EnemyStateMachine>(FindObjectsOfType<EnemyStateMachine>().Where(enemy => enemy.CurrentState is not EnemyIdleState));
         if (_enemies.Count > 0)
         {   
             _isBattling = true;
@@ -129,5 +129,11 @@ public class TurnManager : MonoBehaviour
     {
         get => _enemies;
         set => _enemies = value;
+    }
+
+    public int ActionsThisTurn
+    {
+        get => _actionsThisTurn;
+        set => _actionsThisTurn = value;
     }
 }

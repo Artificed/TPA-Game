@@ -33,7 +33,7 @@ public class PlayerAttackState : PlayerBaseState
     {
         AnimatorStateInfo stateInfo = Context.Animator.GetCurrentAnimatorStateInfo(0);
         // Debug.Log(stateInfo.normalizedTime);
-        if (stateInfo.IsName("Attacking"))  
+        if (stateInfo.IsName("Attacking"))    
         {
             if (stateInfo.normalizedTime >= 1.0f)  
             {
