@@ -44,7 +44,7 @@ public class EnemyFactory: MonoBehaviour
         return newEnemy;
     }
 
-    private string GetName()
+    private string GetName()    
     {
         int total = enemyNamesSO.names.Count;
         return enemyNamesSO.names[_random.Next(total)];

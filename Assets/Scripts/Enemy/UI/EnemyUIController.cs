@@ -31,4 +31,6 @@ public class EnemyUIController : MonoBehaviour
             healthBar.value = currentHealth /  maxHealth;
         }
     }
+    
+    
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -33,9 +34,13 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GameObject player;
     
     [SerializeField] private EnemyFactory enemyFactory;
+
+    private int _level;
     
     private void Awake()
     {
+        _level = 1;
+        
         _rooms = new List<Room>();
         _mst = new List<(Vector2, Vector2)>();
         
@@ -237,7 +242,90 @@ public class GridManager : MonoBehaviour
 
     public void InitializeEnemies()
     {
-        enemyFactory.CreateCommonEnemy(new Vector2Int(20, 20));
+        int totalRooms = _rooms.Count;
+        int totalEnemies = Mathf.CeilToInt(5 + _level * 0.2f);
+        
+        int baseEnemiesPerRoom = totalEnemies / totalRooms;
+        int remainingEnemies = totalEnemies % totalRooms;
+
+        for (int i = 0; i < _rooms.Count; i++)
+        {
+            int roomEnemyCount = baseEnemiesPerRoom;
+
+            if (remainingEnemies > 0)
+            {
+                roomEnemyCount++;
+                remainingEnemies--;
+            }
+
+            SpawnEnemiesInRoom(_rooms[i], roomEnemyCount);
+        }
+    }
+
+    private void SpawnEnemiesInRoom(Room room, int enemyCount)
+    {
+        List<Tile> unblockedTiles = room.GetTiles().FindAll(tile => !tile.Blocked);
+
+        if (unblockedTiles.Count < enemyCount)
+        {
+            Debug.LogWarning("Not enough unblocked tiles!");
+            enemyCount = unblockedTiles.Count;
+        }
+
+        HashSet<Tile> usedTiles = new HashSet<Tile>();
+        int generatedEnemies = 0;
+
+        while (generatedEnemies < enemyCount)
+        {
+            int randomIndex = _random.Next(unblockedTiles.Count);
+            Tile chosenTile = unblockedTiles[randomIndex];
+
+            if (usedTiles.Contains(chosenTile)) continue;
+
+            usedTiles.Add(chosenTile);
+
+            EnemyType randomType = GetRandomEnemyType(_level);
+            
+            switch (randomType)
+            {
+                case EnemyType.Common:
+                    enemyFactory.CreateCommonEnemy(chosenTile.coords);
+                    break;
+
+                case EnemyType.Medium:
+                    enemyFactory.CreateMediumEnemy(chosenTile.coords);
+                    break;
+
+                case EnemyType.Elite:
+                    enemyFactory.CreateEliteEnemy(chosenTile.coords);
+                    break;
+            }
+            generatedEnemies++;
+        }
+    }
+    
+    private EnemyType GetRandomEnemyType(int level)
+    {
+        float commonWeight = Mathf.Max(100 - (level * 1.5f), 20); 
+        float mediumWeight = Mathf.Clamp(level * 1.2f, 5, 50);    
+        float eliteWeight = Mathf.Clamp(level * 0.8f - 10, 0, 30);
+
+        float totalWeight = commonWeight + mediumWeight + eliteWeight;
+
+        float randomValue = UnityEngine.Random.Range(0, totalWeight);
+
+        if (randomValue < commonWeight)
+        {
+            return EnemyType.Common;
+        }
+        else if (randomValue < commonWeight + mediumWeight)
+        {
+            return EnemyType.Medium;
+        }
+        else
+        {
+            return EnemyType.Elite;
+        }
     }
     
     public List<Room> Rooms => _rooms;
