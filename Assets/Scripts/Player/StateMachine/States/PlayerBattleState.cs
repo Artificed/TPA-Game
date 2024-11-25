@@ -47,6 +47,8 @@ public class PlayerBattleState : PlayerBaseState
 
     private void HandleTileRaycast(RaycastHit hit)
     {
+        if (hit.transform.GetComponent<Tile>().Blocked) return;
+        
         Vector2Int targetCords = hit.transform.GetComponent<Tile>().coords;
         Vector2Int startCords = new Vector2Int(
             Mathf.RoundToInt(Context.Unit.position.x / Context.GridManager.UnityGridSize),

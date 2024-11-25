@@ -71,7 +71,7 @@ public class TurnManager : MonoBehaviour
 
         if (_enemies.Count == 0 || _isCommandExecuting)
         {
-            Debug.Log("Don't exec next");
+            // Debug.Log("Don't exec next");
             return;
         }
         
@@ -90,7 +90,7 @@ public class TurnManager : MonoBehaviour
     public void SwitchToPlayerTurn()
     {
         Debug.Log("Switching to player turn");
-        _actionsThisTurn = 0;
+        _actionsThisTurn = 1;
         _currentTurn = TurnType.PlayerTurn;
     }
     
@@ -110,7 +110,7 @@ public class TurnManager : MonoBehaviour
         {
             if (enemy.CurrentState is EnemyAlertState)
             {
-                ((EnemyAlertState)enemy.CurrentState).CommandQueued = false;
+                ((EnemyAlertState) enemy.CurrentState).CommandQueued = false;
             }
         }
     }

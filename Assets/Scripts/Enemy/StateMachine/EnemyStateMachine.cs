@@ -10,12 +10,11 @@ public class EnemyStateMachine : MonoBehaviour
     [SerializeField] private float movementSpeed;
     [SerializeField] private Transform unit;
     [SerializeField] private Animator animator;
-    [SerializeField] private GridManager gridManager;
     [SerializeField] private AStar pathFinder;
-    
     [SerializeField] private EnemyAlertEventChannel enemyAlertEventChannel;
-    [SerializeField] private EnemyAlertHelper alertHelper;
     [SerializeField] private EnemyActionCompleteEventChannel enemyActionCompleteEventChannel;
+    
+    private GridManager _gridManager = GridManager.Instance;
     
     private Transform _playerTransform;
     private const float alertRange = 5.0f;
@@ -40,7 +39,7 @@ public class EnemyStateMachine : MonoBehaviour
         _isMovingHash = Animator.StringToHash("isMoving");
         _isAttackingHash = Animator.StringToHash("isAttacking");
                     
-        gridManager = FindObjectOfType<GridManager>();
+        _gridManager = FindObjectOfType<GridManager>();
         pathFinder = FindObjectOfType<AStar>();
 
         _stateFactory = new EnemyStateFactory(this);
@@ -61,13 +60,13 @@ public class EnemyStateMachine : MonoBehaviour
     
     public void SetNewDestination(Vector2Int startCords, Vector2Int targetCords)
     {
-        if (!gridManager.Grid.ContainsKey(startCords) || !gridManager.Grid.ContainsKey(targetCords))
+        if (!_gridManager.Grid.ContainsKey(startCords) || !_gridManager.Grid.ContainsKey(targetCords))
         {
             ClearPath(); 
             return;
         }
 
-        if (gridManager.Grid[startCords].Blocked || gridManager.Grid[targetCords].Blocked)
+        if (_gridManager.Grid[startCords].Blocked || _gridManager.Grid[targetCords].Blocked)
         {
             ClearPath(); 
             return;
@@ -86,8 +85,8 @@ public class EnemyStateMachine : MonoBehaviour
         {
             if (enemy == this) continue;
             Vector2Int enemyCoords = new Vector2Int(
-                Mathf.RoundToInt(enemy.Unit.position.x / gridManager.UnityGridSize),
-                Mathf.RoundToInt(enemy.Unit.position.z / gridManager.UnityGridSize)
+                Mathf.RoundToInt(enemy.Unit.position.x / _gridManager.UnityGridSize),
+                Mathf.RoundToInt(enemy.Unit.position.z / _gridManager.UnityGridSize)
             );
             enemyPositions.Add(enemyCoords);
         }
@@ -95,8 +94,8 @@ public class EnemyStateMachine : MonoBehaviour
         foreach (var tile in path)
         {
             Vector2Int tileCoords = new Vector2Int(
-                Mathf.RoundToInt(tile.transform.position.x / gridManager.UnityGridSize),
-                Mathf.RoundToInt(tile.transform.position.z / gridManager.UnityGridSize)
+                Mathf.RoundToInt(tile.transform.position.x / _gridManager.UnityGridSize),
+                Mathf.RoundToInt(tile.transform.position.z / _gridManager.UnityGridSize)
             );
 
             if (enemyPositions.Contains(tileCoords))
@@ -116,7 +115,7 @@ public class EnemyStateMachine : MonoBehaviour
             {
                 if (x == 0 && y == 0) continue;
                 Vector2Int candidateCoord = new Vector2Int(dest.x + x, dest.y + y);
-                if (!gridManager.Grid.ContainsKey(candidateCoord) || gridManager.Grid[candidateCoord].Blocked)
+                if (!_gridManager.Grid.ContainsKey(candidateCoord) || _gridManager.Grid[candidateCoord].Blocked)
                 {
                     continue;
                 }
@@ -184,13 +183,13 @@ public class EnemyStateMachine : MonoBehaviour
     public float GetDistanceFromPlayer()
     {
         Vector2Int playerCoords = new Vector2Int(
-            Mathf.RoundToInt(PlayerStateMachine.Instance.Unit.position.x / gridManager.UnityGridSize),
-            Mathf.RoundToInt(PlayerStateMachine.Instance.Unit.position.z / gridManager.UnityGridSize)
+            Mathf.RoundToInt(PlayerStateMachine.Instance.Unit.position.x / _gridManager.UnityGridSize),
+            Mathf.RoundToInt(PlayerStateMachine.Instance.Unit.position.z / _gridManager.UnityGridSize)
         );
 
         Vector2Int enemyCoords = new Vector2Int(
-            Mathf.RoundToInt(transform.position.x / gridManager.UnityGridSize),
-            Mathf.RoundToInt(transform.position.z / gridManager.UnityGridSize)
+            Mathf.RoundToInt(transform.position.x / _gridManager.UnityGridSize),
+            Mathf.RoundToInt(transform.position.z / _gridManager.UnityGridSize)
         );
 
         float distance = Vector2.Distance(playerCoords, enemyCoords);
@@ -218,8 +217,8 @@ public class EnemyStateMachine : MonoBehaviour
 
     public GridManager GridManager
     {
-        get => gridManager;
-        set => gridManager = value;
+        get => _gridManager;
+        set => _gridManager = value;
     }
 
     public AStar PathFinder

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class EnemyAlertHelper : MonoBehaviour
 {
+    public static EnemyAlertHelper Instance { get; private set; }
+    
     [SerializeField] private float alertRange = 5f;
     [SerializeField] private EnemyAlertEventChannel alertEventChannel;
 

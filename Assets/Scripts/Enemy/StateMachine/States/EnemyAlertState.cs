@@ -27,7 +27,6 @@ public class EnemyAlertState : EnemyBaseState
         
         CheckInstantHit();
 
-        Debug.Log("Queueing LOS Command");
         EnemyCheckLOSCommand checkLosCommand = new EnemyCheckLOSCommand(Context);
         TurnManager.Instance.AddQueue(checkLosCommand);
         _commandQueued = true;

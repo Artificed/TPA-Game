@@ -32,6 +32,8 @@ public class GridManager : MonoBehaviour
     [SerializeField] private DecorationManager decorationManager;
     [SerializeField] private GameObject player;
     
+    [SerializeField] private EnemyFactory enemyFactory;
+    
     private void Awake()
     {
         _rooms = new List<Room>();
@@ -80,6 +82,7 @@ public class GridManager : MonoBehaviour
         UpdateRoomEntrances();
         PlaceDecorations();
         InitializePlayer();
+        InitializeEnemies();
     }
    
     private void InstantiateTile(Vector2Int coords, GameObject prefab, bool isBlocked, TileType tileType)
@@ -230,6 +233,11 @@ public class GridManager : MonoBehaviour
         Vector3 playerPosition = randomTile.transform.position;
         playerPosition.y = 0.5f;
         player.transform.position = playerPosition;
+    }
+
+    public void InitializeEnemies()
+    {
+        enemyFactory.CreateCommonEnemy(new Vector2Int(20, 20));
     }
     
     public List<Room> Rooms => _rooms;

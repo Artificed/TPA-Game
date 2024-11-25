@@ -14,7 +14,7 @@ public class PlayerAttackState : PlayerBaseState
     {
         Context.Animator.SetBool(Context.IsAttackingHash, true);
         Context.Animator.SetFloat(Context.RandomAttackHash, _random.Next(1, Context.AttackAnimationsCount + 1));
-        Debug.Log("Player Entering Attack State!");
+        // Debug.Log("Player Entering Attack State!");
     }
 
     public override void UpdateState()
@@ -26,7 +26,7 @@ public class PlayerAttackState : PlayerBaseState
     {
         Context.Animator.SetBool(Context.IsAttackingHash, false);
         Context.Animator.SetFloat(Context.RandomAttackHash, 0);
-        Debug.Log("Player Exiting Attack State!");
+        // Debug.Log("Player Exiting Attack State!");
     }
 
     public override void CheckSwitchStates()
@@ -37,7 +37,7 @@ public class PlayerAttackState : PlayerBaseState
         {
             if (stateInfo.normalizedTime >= 1.0f)  
             {
-                Debug.Log("Player Attack Animation Done");
+                // Debug.Log("Player Attack Animation Done");
                 Context.PlayerTurnEventChannel.RaiseEvent();
                 SwitchState(Factory.CreateBattle());
             }

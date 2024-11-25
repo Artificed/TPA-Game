@@ -11,7 +11,7 @@ public class EnemyAggroState : EnemyBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Enemy Aggro");
+        // Debug.Log("Enemy Aggro");
         Transform playerTransform = PlayerStateMachine.Instance.transform;
         
         Vector3 playerDirection = playerTransform.position - Context.transform.position;
