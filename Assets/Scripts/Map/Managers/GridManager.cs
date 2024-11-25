@@ -39,7 +39,7 @@ public class GridManager : MonoBehaviour
     
     private void Awake()
     {
-        _level = 5;
+        _level = 50;
         
         _rooms = new List<Room>();
         _mst = new List<(Vector2, Vector2)>();

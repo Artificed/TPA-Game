@@ -35,6 +35,7 @@ public class PlayerMoveBattleState : PlayerBaseState
     {
         if (Context.Path.Count == 0)
         {
+            Debug.Log("Count 0");
             SwitchState(Factory.CreateBattleIdle());
             yield break;
         }
@@ -42,6 +43,7 @@ public class PlayerMoveBattleState : PlayerBaseState
         Tile targetNode = Context.Path[1];
         if (targetNode.Blocked)
         {
+            Debug.Log("Target Node BLocked!");
             Context.ClearPath();
             SwitchState(Factory.CreateBattleIdle());
             yield break;
@@ -67,7 +69,7 @@ public class PlayerMoveBattleState : PlayerBaseState
         float travelPercent = 0f;
 
         Context.Unit.LookAt(endPosition);
-
+        
         while (travelPercent < 1f)
         {
             travelPercent += Time.deltaTime * Context.MovementSpeed;
@@ -77,10 +79,11 @@ public class PlayerMoveBattleState : PlayerBaseState
 
         Context.ClearPath();
         Context.PlayerTurnEventChannel.RaiseEvent();
+        
         if (TurnManager.Instance.Enemies.Count > 0)
         {
             SwitchState(Factory.CreateBattleIdle());
-            Debug.Log("Player Transitioning to battle");
+            Debug.Log("Player still in battle");
         }
         else
         {

@@ -94,6 +94,7 @@
     <Compile Include="Assets/Scripts/Player/StateMachine/States/PlayerBaseState.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Actions/Movement/Move.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Lookups/Animations/DiveRollType.cs" />
+    <Compile Include="Assets/Scripts/Player/StateMachine/States/PlayerMoveBattleState.cs" />
     <Compile Include="Assets/Scripts/Enemy/Enums/ArmorType.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/SuperCharacterController/Code/Core/IgnoredCollider.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/CoroutineQueue.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Actions/Movement/Knockback.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/IKHands.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/SuperCharacterController/Code/Examples/PlayerMachine.cs" />
+    <Compile Include="Assets/Scripts/Player/Class/Player.cs" />
     <Compile Include="Assets/Scripts/Gameplay/System/TurnType.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/SuperCharacterController/Code/Core/SuperCollisionType.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Actions/Movement/Jump.cs" />
@@ -158,6 +160,7 @@
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Actions/Character/SlowTime.cs" />
     <Compile Include="Assets/Scripts/Enemy/Data/EnemyDataSO.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Actions/Movement/Navigation.cs" />
+    <Compile Include="Assets/Scripts/Player/UI/PlayerGameUIController.cs" />
     <Compile Include="Assets/Asset Folders/Idle MoCap/DemoScene/idle_mocap_follow_player.cs" />
     <Compile Include="Assets/Scripts/Map/Components/Tile.cs" />
     <Compile Include="Assets/Scripts/Enemy/Commands/EnemyCheckLOSCommand.cs" />
@@ -169,7 +172,12 @@
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/SuperCharacterController/Code/Core/SuperCharacterController.cs" />
     <Compile Include="Assets/Scripts/Enemy/StateMachine/States/EnemyBaseState.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/SuperCharacterController/Code/Core/SuperGround.cs" />
-    <Compile Include="Assets/Scripts/Player/StateMachine/States/PlayerMoveBattleState.cs" />
+    <Compile Include="Assets/Scripts/Player/Event Channels/PlayerLevelEventChannel.cs" />
+    <Compile Include="Assets/Scripts/Player/Event Channels/PlayerHealthEventChannel.cs" />
+    <Compile Include="Assets/Scripts/Player/Event Channels/PlayerExpEventChannel.cs" />
+    <Compile Include="Assets/Scripts/Player/Event Channels/PlayerFloorChangeEventChannel.cs" />
+    <Compile Include="Assets/Scripts/Player/Event Channels/EnemyLeftEventChannel.cs" />
+    <Compile Include="Assets/Scripts/Player/Event Channels/ZhenCounterEventChannel.cs" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMPro.cginc" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMP_Bitmap.shader" />

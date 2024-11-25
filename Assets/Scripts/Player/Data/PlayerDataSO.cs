@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDataSO : MonoBehaviour
+[CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/PlayerData")]
+public class PlayerDataSO : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int health;
+    public int maxHealth;
+    public int attack;
+    public int defense;
+    public float criticalRate;
+    public float criticalDamage;
+    public int exp;
+    public int expCap;
+    public int level;
+    public int zhen;
 }

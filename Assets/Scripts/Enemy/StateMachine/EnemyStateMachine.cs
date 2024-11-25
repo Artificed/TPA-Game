@@ -135,7 +135,6 @@ public class EnemyStateMachine : MonoBehaviour
         if (_recalculationCount >= MaxRecalculationAttempts)
         {
             Debug.LogError("Max path recalculation attempts reached.");
-            _currentState.SwitchState(_stateFactory.CreateAggro());
             _recalculationCount = 0; 
             return;
         }
