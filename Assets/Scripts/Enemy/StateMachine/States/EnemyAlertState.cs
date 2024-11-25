@@ -13,6 +13,7 @@ public class EnemyAlertState : EnemyBaseState
     public override void EnterState()
     {
         // Debug.Log("Enemy in Alert State");
+        Context.QuestionText.SetActive(true);
         TurnManager.Instance.AddEnemy(Context);
         Context.Animator.SetBool(Context.IsAlertHash, true);
 
@@ -58,6 +59,7 @@ public class EnemyAlertState : EnemyBaseState
     public override void ExitState()
     {
         _commandQueued = false;
+        Context.QuestionText.SetActive(false);
     }
 
     public override void CheckSwitchStates()

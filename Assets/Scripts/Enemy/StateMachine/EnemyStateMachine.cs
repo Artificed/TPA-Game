@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -27,6 +28,10 @@ public class EnemyStateMachine : MonoBehaviour
     private int _isAlertHash;
     private int _isMovingHash;
     private int _isAttackingHash;
+
+    [SerializeField] private GameObject sword;
+    [SerializeField] private GameObject exclamationText;
+    [SerializeField] private GameObject questionText;
     
     private int _recalculationCount = 0;
     private const int MaxRecalculationAttempts = 10;
@@ -197,6 +202,16 @@ public class EnemyStateMachine : MonoBehaviour
         return distance;
     }
 
+    public void ShowSword()
+    {
+        sword.SetActive(true);
+    }
+
+    public void HideSword()
+    {
+        sword.SetActive(false);
+    }
+
     public float MovementSpeed
     {
         get => movementSpeed;
@@ -272,5 +287,17 @@ public class EnemyStateMachine : MonoBehaviour
     {
         get => enemyActionCompleteEventChannel;
         set => enemyActionCompleteEventChannel = value;
+    }
+
+    public GameObject ExclamationText
+    {
+        get => exclamationText;
+        set => exclamationText = value;
+    }
+
+    public GameObject QuestionText
+    {
+        get => questionText;
+        set => questionText = value;
     }
 }

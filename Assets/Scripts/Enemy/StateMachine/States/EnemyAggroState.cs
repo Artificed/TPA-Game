@@ -12,6 +12,9 @@ public class EnemyAggroState : EnemyBaseState
     public override void EnterState()
     {
         // Debug.Log("Enemy Aggro");
+        Context.ExclamationText.SetActive(true);
+        Context.StartCoroutine(DeactivateExclamationAfterDelay(1.0f));
+        
         Transform playerTransform = PlayerStateMachine.Instance.transform;
         
         Vector3 playerDirection = playerTransform.position - Context.transform.position;
@@ -21,6 +24,12 @@ public class EnemyAggroState : EnemyBaseState
         Context.transform.rotation = lookRotation;
         
         _commandQueued = false;
+    }
+    
+    private IEnumerator DeactivateExclamationAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Context.ExclamationText.SetActive(false);
     }
 
     public override void UpdateState()
