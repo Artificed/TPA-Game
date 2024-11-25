@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: MediumEnemy
   m_EditorClassIdentifier: 
   attack: 20
-  health: 50
-  defenseScalingFactor: 3
-  xpDrop: 15
+  health: 100
+  defenseScalingFactor: 10
+  xpDrop: 30
   hasSword: 1
   armorType: 1
-  nameColor: {r: 0.9772253, g: 1, b: 0, a: 0}
-  enemySprite: {fileID: 1582314133427091467, guid: ff24f394c3f004df7994ec683b659f0e, type: 3}
+  nameColor: {r: 0.9772253, g: 1, b: 0, a: 1}
+  enemyPrefab: {fileID: 3084079684203019865, guid: 8f9865fb93bd546888abcd388c430c19, type: 3}

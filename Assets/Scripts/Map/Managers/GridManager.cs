@@ -39,7 +39,7 @@ public class GridManager : MonoBehaviour
     
     private void Awake()
     {
-        _level = 1;
+        _level = 50;
         
         _rooms = new List<Room>();
         _mst = new List<(Vector2, Vector2)>();
@@ -73,7 +73,7 @@ public class GridManager : MonoBehaviour
         Vector3 position = new Vector3();
 
         position.x = coordinates.x * unityGridSize;
-        position.y = 0.5f;
+        position.y = 0.1f;
         position.z = coordinates.y * unityGridSize;
 
         return position;
@@ -236,7 +236,7 @@ public class GridManager : MonoBehaviour
 
         Tile randomTile = unblockedTiles[_random.Next(unblockedTiles.Count)];
         Vector3 playerPosition = randomTile.transform.position;
-        playerPosition.y = 0.5f;
+        playerPosition.y = 0.1f;
         player.transform.position = playerPosition;
     }
 
@@ -289,15 +289,15 @@ public class GridManager : MonoBehaviour
             switch (randomType)
             {
                 case EnemyType.Common:
-                    enemyFactory.CreateCommonEnemy(chosenTile.coords);
+                    enemyFactory.CreateCommonEnemy(chosenTile.coords, _level);
                     break;
 
                 case EnemyType.Medium:
-                    enemyFactory.CreateMediumEnemy(chosenTile.coords);
+                    enemyFactory.CreateMediumEnemy(chosenTile.coords, _level);
                     break;
 
                 case EnemyType.Elite:
-                    enemyFactory.CreateEliteEnemy(chosenTile.coords);
+                    enemyFactory.CreateEliteEnemy(chosenTile.coords, _level);
                     break;
             }
             generatedEnemies++;

@@ -52,7 +52,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 64b04a6e3187c8247b209aac6c56b9fe, type: 2}
+  - {fileID: 2100000, guid: 95fcf9331ca635c459a201f2c56f44dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -147,7 +147,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fbac7c1722f262145b9ed0c0e940864d, type: 2}
+  - {fileID: 2100000, guid: 95fcf9331ca635c459a201f2c56f44dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1981,6 +1981,7 @@ GameObject:
   - component: {fileID: 5304292868584244638}
   - component: {fileID: 4144144834251574862}
   - component: {fileID: 7037184377359479238}
+  - component: {fileID: 2230769063990037184}
   m_Layer: 0
   m_Name: CommonEnemy
   m_TagString: Enemy
@@ -2080,6 +2081,21 @@ MonoBehaviour:
   _xpDrop: 0
   _hasSword: 0
   _armorType: 0
+  _enemyUIController: {fileID: 2230769063990037184}
+--- !u!114 &2230769063990037184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3084079684203019865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44c05eaef2b5b48bbb7bedccef997029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: {fileID: 1247694159520913863}
+  healthBar: {fileID: 5029698979515744714}
 --- !u!1 &3119752972032777316
 GameObject:
   m_ObjectHideFlags: 0

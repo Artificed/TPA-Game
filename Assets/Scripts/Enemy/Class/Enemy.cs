@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = System.Random;
 
 public class Enemy: MonoBehaviour
 {
@@ -15,24 +16,33 @@ public class Enemy: MonoBehaviour
     [SerializeField] private int _xpDrop;
     [SerializeField] private bool _hasSword;
     [SerializeField] private ArmorType _armorType;
+    [SerializeField] private Color _color;
     
-    private EnemyUIController _enemyUIController;
+    [SerializeField] private EnemyUIController _enemyUIController;
     
     private void Start()
     {
-        _enemyUIController = GetComponentInChildren<EnemyUIController>();
-        _enemyUIController.Initialize(_enemyName, _health, _maxHealth);
+        _enemyUIController.Initialize(_enemyName, _health, _maxHealth, _color);
+        _enemyUIController.EnemyName.color = _color;
     }
 
-    public void Initialize(EnemyDataSO data, string enemyName)
+    public void Initialize(EnemyDataSO data, string enemyName, int level)
     {
+        float levelMultiplier = 1 + (level * 0.2f);
+        
         _enemyName = enemyName;
-        _attack = data.attack;
-        _health = data.health;
-        _maxHealth = data.health;
-        _defenseScalingFactor = data.defenseScalingFactor;
-        _xpDrop = data.xpDrop;
+
+        Random _random = new Random();
+        
+        _attack = Mathf.CeilToInt((data.attack * levelMultiplier) + _random.Next(-20, 21));
+        _health = Mathf.CeilToInt((data.health * levelMultiplier) + _random.Next(-20, 21));
+        _maxHealth = _health; 
+        _defenseScalingFactor = Mathf.CeilToInt((data.defenseScalingFactor * levelMultiplier) + _random.Next(-20, 21));
+        _xpDrop = Mathf.CeilToInt((data.xpDrop * levelMultiplier) + _random.Next(-20, 21));
+        
         _hasSword = data.hasSword;
         _armorType = data.armorType;
+
+        _color = data.nameColor;
     }
 }
