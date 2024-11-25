@@ -18,6 +18,6 @@ public class PlayerMoveCommand : ICommand
     public void Execute()
     {
         _context.SetNewDestination(_startCoords, _targetCoords);
-        _context.CurrentState.SwitchState(_context.StateFactory.CreateMoving());
+        _context.CurrentState.SwitchState(_context.StateFactory.CreateMoveBattle());
     }
 }

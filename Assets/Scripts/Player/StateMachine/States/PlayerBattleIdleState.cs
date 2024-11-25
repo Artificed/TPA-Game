@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBattleState : PlayerBaseState
+public class PlayerBattleIdleState : PlayerBaseState
 {
     private bool commandQueued = false;
-    public PlayerBattleState(PlayerStateMachine context, PlayerStateFactory factory) : base(context, factory)
+    public PlayerBattleIdleState(PlayerStateMachine context, PlayerStateFactory factory) : base(context, factory)
     {
     }
 

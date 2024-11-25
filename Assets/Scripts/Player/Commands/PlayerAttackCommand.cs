@@ -15,10 +15,6 @@ public class PlayerAttackCommand : ICommand
 
     public void Execute()
     {
-        Vector3 directionToTarget = _targetPosition - _context.transform.position;
-        directionToTarget.y = 0; 
-        _context.transform.rotation = Quaternion.LookRotation(directionToTarget);
-
         _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
     }
 }

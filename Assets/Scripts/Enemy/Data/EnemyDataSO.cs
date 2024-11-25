@@ -7,7 +7,7 @@ public class EnemyDataSO : ScriptableObject
 {
     public int attack;
     public int health;
-    public int defenseScalingFactor;
+    public int defense;
     public int xpDrop;
     public bool hasSword;
     public ArmorType armorType;

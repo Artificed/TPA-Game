@@ -20,13 +20,18 @@ public class PlayerStateFactory
         return new PlayerMoveState(_context, this);
     }
 
-    public PlayerBaseState CreateBattle()
+    public PlayerBaseState CreateBattleIdle()
     {
-        return new PlayerBattleState(_context, this);
+        return new PlayerBattleIdleState(_context, this);
     }
 
     public PlayerBaseState CreateAttack()
     {
         return new PlayerAttackState(_context, this);
+    }
+
+    public PlayerBaseState CreateMoveBattle()
+    {
+        return new PlayerMoveBattleState(_context, this);
     }
 }

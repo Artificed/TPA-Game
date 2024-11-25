@@ -20,6 +20,7 @@ public class PlayerStateMachine : MonoBehaviour
     
     private int _randomAttackHash;
     [SerializeField] private int attackAnimationsCount = 4;
+    [SerializeField] private GameObject sword;
     
     private List<Tile> path = new List<Tile>();
     private PlayerBaseState _currentState;
@@ -79,6 +80,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Update()
     {
+        // Debug.Log(CurrentState);
         _currentState.UpdateState();
     }
 
@@ -128,6 +130,16 @@ public class PlayerStateMachine : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public void ShowSword()
+    {
+        sword.SetActive(true);
+    }
+
+    public void HideSword()
+    {
+        sword.SetActive(false);
     }
 
     public PlayerBaseState CurrentState

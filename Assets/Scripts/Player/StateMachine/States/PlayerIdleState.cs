@@ -19,7 +19,7 @@ public class PlayerIdleState: PlayerBaseState
     {
         if (TurnManager.Instance.IsBattling)
         {
-            SwitchState(Factory.CreateBattle());
+            SwitchState(Factory.CreateBattleIdle());
         }
         if (Input.GetMouseButtonDown(0))
         {

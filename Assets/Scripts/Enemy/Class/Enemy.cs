@@ -12,7 +12,7 @@ public class Enemy: MonoBehaviour
     [SerializeField] private int _health;
     [SerializeField] private int _maxHealth;
     [SerializeField] private int _attack;
-    [SerializeField] private int _defenseScalingFactor;
+    [SerializeField] private int _defense;
     [SerializeField] private int _xpDrop;
     [SerializeField] private bool _hasSword;
     [SerializeField] private ArmorType _armorType;
@@ -37,7 +37,7 @@ public class Enemy: MonoBehaviour
         _attack = Mathf.CeilToInt((data.attack * levelMultiplier) + _random.Next(-20, 21));
         _health = Mathf.CeilToInt((data.health * levelMultiplier) + _random.Next(-20, 21));
         _maxHealth = _health; 
-        _defenseScalingFactor = Mathf.CeilToInt((data.defenseScalingFactor * levelMultiplier) + _random.Next(-20, 21));
+        _defense = Mathf.CeilToInt((data.defense * levelMultiplier) + _random.Next(-20, 21));
         _xpDrop = Mathf.CeilToInt((data.xpDrop * levelMultiplier) + _random.Next(-20, 21));
         
         _hasSword = data.hasSword;

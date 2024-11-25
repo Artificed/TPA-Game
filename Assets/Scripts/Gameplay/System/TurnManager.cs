@@ -61,7 +61,11 @@ public class TurnManager : MonoBehaviour
     }
     
     void Update()
-    {
+    {   
+        if(_turnQueue.Count > 0)
+        {
+            Debug.Log("Queue Count: " + _turnQueue.Count);
+        }
         // Debug.Log(_currentTurn);
         // Debug.Log(_isCommandExecuting);
         foreach (var queueItem in _turnQueue)

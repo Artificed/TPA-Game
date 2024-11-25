@@ -39,7 +39,7 @@ public class PlayerAttackState : PlayerBaseState
             {
                 // Debug.Log("Player Attack Animation Done");
                 Context.PlayerTurnEventChannel.RaiseEvent();
-                SwitchState(Factory.CreateBattle());
+                SwitchState(Factory.CreateBattleIdle());
             }
         }
     }
