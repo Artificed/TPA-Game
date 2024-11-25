@@ -15,6 +15,29 @@ public class Player : MonoBehaviour
     [SerializeField] private int level;
     [SerializeField] private int zhen;
 
+    [SerializeField] private PlayerDataSO playerDataSo;
+    
+    [SerializeField] private PlayerHealthEventChannel playerHealthEventChannel;
+    [SerializeField] private PlayerExpEventChannel playerExpEventChannel;
+    [SerializeField] private PlayerLevelEventChannel playerLevelEventChannel;
+    [SerializeField] private PlayerFloorChangeEventChannel playerFloorChangeEventChannel;
+    [SerializeField] private EnemyLeftEventChannel enemyLeftEventChannel;
+    [SerializeField] private ZhenCounterEventChannel zhenCounterEventChannel;
+    
+    public static Player Instance { get; private set; } 
+    
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        Initialize(playerDataSo);
+        DontDestroyOnLoad(gameObject); 
+    }
+    
     public void Initialize(PlayerDataSO data)
     {
         health = data.health;
@@ -28,14 +51,29 @@ public class Player : MonoBehaviour
         level = data.level;
         zhen = data.zhen;
     }
-    
-    void Start()
+
+    public void TakeDamage(int damage)
     {
-        
+        health = Mathf.Clamp(health - damage, 0, maxHealth);
+        playerHealthEventChannel?.RaiseEvent(health, maxHealth);
+    }
+    
+    public void HealHealth(int healthHealed)
+    {
+        health = Mathf.Clamp(health - healthHealed, 0, maxHealth);
+        playerHealthEventChannel?.RaiseEvent(health, maxHealth);
     }
 
-    void Update()
+    public void AddExp(int expAdded)
     {
-        
+        exp += expAdded;
+        if (exp > expCap)
+        {
+            level++;
+            exp -= expCap;
+            playerLevelEventChannel?.RaiseEvent(level);
+            // TODO: Increase exp cap
+        }
+        playerExpEventChannel?.RaiseEvent(exp, expCap);
     }
 }

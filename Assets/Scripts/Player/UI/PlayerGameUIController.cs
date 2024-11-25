@@ -9,6 +9,9 @@ public class PlayerGameUIController : MonoBehaviour
     [SerializeField] private Slider hpSlider;
     [SerializeField] private Slider expSlider;
 
+    [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private TextMeshProUGUI expText;
+    
     [SerializeField] private int level;
     [SerializeField] private TextMeshProUGUI levelText;
 
@@ -25,11 +28,13 @@ public class PlayerGameUIController : MonoBehaviour
     
     private void UpdateHealthUI(int health, int maxHealth)
     {
+        healthText.text = health + "/" + maxHealth;
         hpSlider.value = (float) health / (float) maxHealth;
     }
 
     private void UpdateXpUI(int exp, int expCap)
     {
+        expText.text = exp + "/" + expCap;
         expSlider.value = (float) exp / (float) expCap;
     }
 

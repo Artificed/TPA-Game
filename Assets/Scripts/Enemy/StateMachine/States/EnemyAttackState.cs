@@ -11,6 +11,7 @@ public class EnemyAttackState : EnemyBaseState
     public override void EnterState()
     {
         Context.Animator.SetBool(Context.IsAttackingHash, true);
+        Player.Instance.TakeDamage(5);
         // Debug.Log("Enemy Enter Attacking");
     }
 

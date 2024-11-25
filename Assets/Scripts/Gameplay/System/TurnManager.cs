@@ -10,6 +10,8 @@ public class TurnManager : MonoBehaviour
     public static TurnManager Instance { get; private set; }
 
     private List<EnemyStateMachine> _enemies;
+    private EnemyStateMachine _currentEnemyTarget;
+    
     private Queue<ICommand> _turnQueue;
     private TurnType _currentTurn;
     private bool _isBattling;
@@ -166,5 +168,11 @@ public class TurnManager : MonoBehaviour
     {
         get => _enemies;
         set => _enemies = value;
+    }
+
+    public EnemyStateMachine CurrentEnemyTarget
+    {
+        get => _currentEnemyTarget;
+        set => _currentEnemyTarget = value;
     }
 }
