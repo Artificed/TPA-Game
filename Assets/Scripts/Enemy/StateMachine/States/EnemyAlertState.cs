@@ -14,7 +14,7 @@ public class EnemyAlertState : EnemyBaseState
     {
         // Debug.Log("Enemy in Alert State");
         Context.QuestionText.SetActive(true);
-        TurnManager.Instance.AddEnemy(Context);
+        TurnManager.Instance.AddEnemy(Context.Enemy);
         Context.Animator.SetBool(Context.IsAlertHash, true);
 
         _commandQueued = false;
@@ -68,7 +68,7 @@ public class EnemyAlertState : EnemyBaseState
         {
             Debug.Log("Enemy no longer alerted!");
             SwitchState(Factory.CreateIdle());
-            TurnManager.Instance.RemoveEnemy(Context);
+            TurnManager.Instance.RemoveEnemy(Context.Enemy);
         } 
     }
 

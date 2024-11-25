@@ -395,6 +395,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpSlider: {fileID: 1071410859}
   expSlider: {fileID: 511545786}
+  healthText: {fileID: 1149204582}
+  expText: {fileID: 394897971}
   level: 1
   levelText: {fileID: 2091168954}
   zhenCountText: {fileID: 268212060}
@@ -933,7 +935,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

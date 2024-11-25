@@ -76,4 +76,10 @@ public class Player : MonoBehaviour
         }
         playerExpEventChannel?.RaiseEvent(exp, expCap);
     }
+
+    public int Attack
+    {
+        get => attack;
+        set => attack = value;
+    }
 }

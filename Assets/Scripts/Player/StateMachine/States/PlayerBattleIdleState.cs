@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBattleIdleState : PlayerBaseState
@@ -67,7 +68,7 @@ public class PlayerBattleIdleState : PlayerBaseState
     
         if (!IsEnemyInRange(targetCords)) return;
 
-        PlayerAttackCommand playerAttackCommand = new PlayerAttackCommand(Context, targetPosition);
+        PlayerAttackCommand playerAttackCommand = new PlayerAttackCommand(Context, GetEnemy(targetCords));
         TurnManager.Instance.AddQueue(playerAttackCommand);
         commandQueued = true;
     }
@@ -85,6 +86,22 @@ public class PlayerBattleIdleState : PlayerBaseState
         }
 
         return false;
+    }
+
+    private Enemy GetEnemy(Vector2Int targetCords)
+    {
+        foreach (Enemy enemy in TurnManager.Instance.Enemies)
+        {
+            Vector2Int enemyCoords = new Vector2Int(
+                Mathf.FloorToInt(enemy.EnemyStateMachine.Unit.position.x),
+                Mathf.FloorToInt(enemy.EnemyStateMachine.Unit.position.z)
+            );
+            if (enemyCoords == targetCords)
+            {
+                return enemy;
+            }
+        }
+        return null;
     }
 
     public override void ExitState()

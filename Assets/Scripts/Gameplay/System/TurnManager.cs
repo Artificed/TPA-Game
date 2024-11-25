@@ -9,7 +9,7 @@ public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance { get; private set; }
 
-    private List<EnemyStateMachine> _enemies;
+    private List<Enemy> _enemies;
     private EnemyStateMachine _currentEnemyTarget;
     
     private Queue<ICommand> _turnQueue;
@@ -35,7 +35,7 @@ public class TurnManager : MonoBehaviour
             Instance = this;
             _currentTurn = TurnType.PlayerTurn;
             _turnQueue = new Queue<ICommand>();
-            _enemies = new List<EnemyStateMachine>();
+            _enemies = new List<Enemy>();
             
             playerTurnEventChannel.playerTurnEvent.AddListener(SwitchToEnemyTurn);
             enemyActionCompleteEventChannel.OnActionComplete.AddListener(CommandCompleted);
@@ -114,14 +114,14 @@ public class TurnManager : MonoBehaviour
     {
         foreach (var enemy in _enemies)
         {
-            if (enemy.CurrentState is EnemyAlertState)
+            if (enemy.EnemyStateMachine.CurrentState is EnemyAlertState)
             {
-                ((EnemyAlertState) enemy.CurrentState).CommandQueued = false;
+                ((EnemyAlertState) enemy.EnemyStateMachine.CurrentState).CommandQueued = false;
             }
         }
     }
 
-    public void AddEnemy(EnemyStateMachine enemy)
+    public void AddEnemy(Enemy enemy)
     {
         if (!_enemies.Contains(enemy))
         {
@@ -130,7 +130,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    public void RemoveEnemy(EnemyStateMachine enemy)
+    public void RemoveEnemy(Enemy enemy)
     {
         if (_enemies.Remove(enemy))
         {
@@ -164,7 +164,7 @@ public class TurnManager : MonoBehaviour
         set => _isBattling = value;
     }
 
-    public List<EnemyStateMachine> Enemies
+    public List<Enemy> Enemies
     {
         get => _enemies;
         set => _enemies = value;

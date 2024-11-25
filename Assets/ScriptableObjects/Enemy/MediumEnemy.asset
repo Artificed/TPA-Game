@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa04c58f58cd649cd97bb961e52762cf, type: 3}
   m_Name: MediumEnemy
   m_EditorClassIdentifier: 
-  attack: 20
-  health: 100
-  defense: 15
-  xpDrop: 30
+  attack: 15
+  health: 50
+  defense: 5
+  xpDrop: 10
   hasSword: 1
   armorType: 1
   nameColor: {r: 0.9772253, g: 1, b: 0, a: 1}
   enemyPrefab: {fileID: 3084079684203019865, guid: 8f9865fb93bd546888abcd388c430c19, type: 3}
+  EnemyType: 1

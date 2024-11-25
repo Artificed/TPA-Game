@@ -8,6 +8,7 @@ using UnityEngine.Serialization;
 
 public class EnemyStateMachine : MonoBehaviour
 {
+    [SerializeField] private Enemy enemy;
     [SerializeField] private float movementSpeed;
     [SerializeField] private Transform unit;
     [SerializeField] private Animator animator;
@@ -35,7 +36,12 @@ public class EnemyStateMachine : MonoBehaviour
     
     private int _recalculationCount = 0;
     private const int MaxRecalculationAttempts = 10;
-    
+
+    private void Awake()
+    {
+        enemy = GetComponent<Enemy>();
+    }
+
     void Start()
     {
         _playerTransform = PlayerStateMachine.Instance.transform;
@@ -83,15 +89,15 @@ public class EnemyStateMachine : MonoBehaviour
 
     private bool IsPathBlockedByEnemy(List<Tile> path)
     {
-        List<EnemyStateMachine> enemies = TurnManager.Instance.Enemies;
+        List<Enemy> enemies = TurnManager.Instance.Enemies;
         List<Vector2Int> enemyPositions = new List<Vector2Int>();
         
-        foreach (EnemyStateMachine enemy in enemies)
+        foreach (Enemy enemy in enemies)
         {
-            if (enemy == this) continue;
+            if (enemy == this.Enemy) continue;
             Vector2Int enemyCoords = new Vector2Int(
-                Mathf.RoundToInt(enemy.Unit.position.x / _gridManager.UnityGridSize),
-                Mathf.RoundToInt(enemy.Unit.position.z / _gridManager.UnityGridSize)
+                Mathf.RoundToInt(enemy.EnemyStateMachine.Unit.position.x / _gridManager.UnityGridSize),
+                Mathf.RoundToInt(enemy.EnemyStateMachine.Unit.position.z / _gridManager.UnityGridSize)
             );
             enemyPositions.Add(enemyCoords);
         }
@@ -298,5 +304,11 @@ public class EnemyStateMachine : MonoBehaviour
     {
         get => questionText;
         set => questionText = value;
+    }
+
+    public Enemy Enemy
+    {
+        get => enemy;
+        set => enemy = value;
     }
 }

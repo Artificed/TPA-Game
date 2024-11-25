@@ -13,4 +13,5 @@ public class EnemyDataSO : ScriptableObject
     public ArmorType armorType;
     public Color nameColor;
     public GameObject enemyPrefab;
+    public EnemyType EnemyType;
 }

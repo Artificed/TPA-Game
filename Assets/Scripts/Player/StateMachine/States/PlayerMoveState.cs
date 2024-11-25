@@ -12,7 +12,7 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Player Entering Move State");
+        // Debug.Log("Player Entering Move State");
         Context.Animator.SetBool(Context.IsMovingHash, true);   
         _movementCoroutine = Context.StartCoroutine(FollowPath());
         Context.CancellingPath = false;

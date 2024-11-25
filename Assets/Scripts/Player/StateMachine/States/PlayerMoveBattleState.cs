@@ -94,10 +94,10 @@ public class PlayerMoveBattleState : PlayerBaseState
 
     private bool ValidDestination(Vector2Int targetCoords)
     {
-        List<EnemyStateMachine> enemies = TurnManager.Instance.Enemies;
-        foreach (EnemyStateMachine enemy in enemies)
+        List<Enemy> enemies = TurnManager.Instance.Enemies;
+        foreach (Enemy enemy in enemies)
         {
-            Vector2Int enemyCoords = new Vector2Int((int) enemy.Unit.position.x, (int) enemy.Unit.position.z);
+            Vector2Int enemyCoords = new Vector2Int((int) enemy.EnemyStateMachine.Unit.position.x, (int) enemy.EnemyStateMachine.Unit.position.z);
             if (targetCoords == enemyCoords) return false;
         }
             

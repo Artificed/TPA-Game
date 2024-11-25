@@ -5,17 +5,19 @@ using UnityEngine;
 public class PlayerAttackCommand : ICommand
 {
     private PlayerStateMachine _context;
-    private Vector3 _targetPosition;
+    private Enemy _target;
 
-    public PlayerAttackCommand(PlayerStateMachine context, Vector3 targetPosition)
+    public PlayerAttackCommand(PlayerStateMachine context, Enemy target)
     {
         _context = context;
-        _targetPosition = targetPosition;
+        _target = target;
     }
 
     public void Execute()
     {
-        Vector3 directionToTarget = _targetPosition - _context.transform.position;
+        _target.TakeDamage(Player.Instance.Attack);
+        
+        Vector3 directionToTarget = _target.transform.position - _context.transform.position;
         directionToTarget.y = 0;
         _context.transform.rotation = Quaternion.LookRotation(directionToTarget);
         _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
