@@ -29,6 +29,8 @@ public class EnemyStateMachine : MonoBehaviour
     private int _isAlertHash;
     private int _isMovingHash;
     private int _isAttackingHash;
+    private int _isHitHash;
+    private int _isDeadHash;
 
     [SerializeField] private GameObject sword;
     [SerializeField] private GameObject exclamationText;
@@ -49,6 +51,8 @@ public class EnemyStateMachine : MonoBehaviour
         _isAlertHash = Animator.StringToHash("isAlert");
         _isMovingHash = Animator.StringToHash("isMoving");
         _isAttackingHash = Animator.StringToHash("isAttacking");
+        _isHitHash = Animator.StringToHash("isHit");
+        _isDeadHash = Animator.StringToHash("isDead");
                     
         _gridManager = FindObjectOfType<GridManager>();
         pathFinder = FindObjectOfType<AStar>();
@@ -215,6 +219,23 @@ public class EnemyStateMachine : MonoBehaviour
     public void HideSword()
     {
         sword.SetActive(false);
+    }
+
+    public void PlayerKnockBack()
+    {
+        PlayerStateMachine.Instance.Animator.SetTrigger(PlayerStateMachine.Instance.IsHitHash);
+    }
+
+    public int IsHitHash
+    {
+        get => _isHitHash;
+        set => _isHitHash = value;
+    }
+
+    public int IsDeadHash
+    {
+        get => _isDeadHash;
+        set => _isDeadHash = value;
     }
 
     public float MovementSpeed

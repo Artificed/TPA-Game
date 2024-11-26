@@ -69,6 +69,7 @@ public class PlayerBattleIdleState : PlayerBaseState
         if (!IsEnemyInRange(targetCords)) return;
 
         // Context.transform.LookAt(GetEnemy(targetCords).transform);
+        TurnManager.Instance.CurrentEnemyTarget = GetEnemy(targetCords).EnemyStateMachine;
         PlayerAttackCommand playerAttackCommand = new PlayerAttackCommand(Context, GetEnemy(targetCords));
         TurnManager.Instance.AddQueue(playerAttackCommand);
         commandQueued = true;

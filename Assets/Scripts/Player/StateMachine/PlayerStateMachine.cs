@@ -16,10 +16,13 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private AStar pathFinder;
 
     private int _isMovingHash;
-    private int _isAttackingHash;
+    private int _isAttackingHash1;
+    private int _isAttackingHash2;
+    private int _isAttackingHash3;
+    private int _isHitHash;
+    private int _isDeadHash;
     
-    private int _randomAttackHash;
-    [SerializeField] private int attackAnimationsCount = 4;
+    [SerializeField] private int attackAnimationsCount = 3;
     [SerializeField] private GameObject sword;
     
     private List<Tile> path = new List<Tile>();
@@ -67,8 +70,11 @@ public class PlayerStateMachine : MonoBehaviour
     void Start()
     {
         _isMovingHash = Animator.StringToHash("isMoving");
-        _isAttackingHash = Animator.StringToHash("isAttacking");
-        _randomAttackHash = Animator.StringToHash("RandomAttack");
+        _isAttackingHash1 = Animator.StringToHash("isAttacking1");
+        _isAttackingHash2 = Animator.StringToHash("isAttacking2");
+        _isAttackingHash3 = Animator.StringToHash("isAttacking3");
+        _isHitHash = Animator.StringToHash("isHit");
+        _isDeadHash = Animator.StringToHash("isDead");
         
         gridManager = FindObjectOfType<GridManager>();
         pathFinder = FindObjectOfType<AStar>();
@@ -140,6 +146,11 @@ public class PlayerStateMachine : MonoBehaviour
     public void HideSword()
     {
         sword.SetActive(false);
+    }
+
+    public void PlayerKnockBack()
+    {
+        TurnManager.Instance.CurrentEnemyTarget.Animator.SetTrigger(TurnManager.Instance.CurrentEnemyTarget.IsHitHash);
     }
 
     public PlayerBaseState CurrentState
@@ -215,21 +226,33 @@ public class PlayerStateMachine : MonoBehaviour
         set => playerTurnEventChannel = value;
     }
 
-    public int IsAttackingHash
+    public int IsAttackingHash1
     {
-        get => _isAttackingHash;
-        set => _isAttackingHash = value;
+        get => _isAttackingHash1;
+        set => _isAttackingHash1 = value;
     }
-
-    public int RandomAttackHash
+    
+    public int IsAttackingHash2
     {
-        get => _randomAttackHash;
-        set => _randomAttackHash = value;
+        get => _isAttackingHash2;
+        set => _isAttackingHash2 = value;
     }
-
+    
+    public int IsAttackingHash3
+    {
+        get => _isAttackingHash3;
+        set => _isAttackingHash3 = value;
+    }
+    
     public int AttackAnimationsCount
     {
         get => attackAnimationsCount;
         set => attackAnimationsCount = value;
+    }
+
+    public int IsHitHash
+    {
+        get => _isHitHash;
+        set => _isHitHash = value;
     }
 }

@@ -6,15 +6,27 @@ using Random = System.Random;
 public class PlayerAttackState : PlayerBaseState
 {
     private Random _random = new Random();
+    private int _randomAttack;
     public PlayerAttackState(PlayerStateMachine context, PlayerStateFactory factory) : base(context, factory)
     {
     }
 
     public override void EnterState()
     {
-        Context.Animator.SetBool(Context.IsAttackingHash, true);
-        Context.Animator.SetFloat(Context.RandomAttackHash, _random.Next(1, Context.AttackAnimationsCount + 1));
-        // Debug.Log("Player Entering Attack State!");
+        _randomAttack = _random.Next(1, 4);
+
+        switch (_randomAttack)
+        {
+            case 1:
+                Context.Animator.SetBool(Context.IsAttackingHash1, true);
+                break;
+            case 2:
+                Context.Animator.SetBool(Context.IsAttackingHash2, true);
+                break;
+            case 3:
+                Context.Animator.SetBool(Context.IsAttackingHash3, true);
+                break;
+        }
     }
 
     public override void UpdateState()
@@ -24,16 +36,25 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void ExitState()
     {
-        Context.Animator.SetBool(Context.IsAttackingHash, false);
-        Context.Animator.SetFloat(Context.RandomAttackHash, 0);
-        // Debug.Log("Player Exiting Attack State!");
+        switch (_randomAttack)
+        {
+            case 1:
+                Context.Animator.SetBool(Context.IsAttackingHash1, false);
+                break;
+            case 2:
+                Context.Animator.SetBool(Context.IsAttackingHash2, false);
+                break;
+            case 3:
+                Context.Animator.SetBool(Context.IsAttackingHash3, false);
+                break;
+        }
     }
 
     public override void CheckSwitchStates()
     {
         AnimatorStateInfo stateInfo = Context.Animator.GetCurrentAnimatorStateInfo(0);
         // Debug.Log(stateInfo.normalizedTime);
-        if (stateInfo.IsName("Attacking"))    
+        if (stateInfo.IsName("Attack1") || stateInfo.IsName("Attack2") || stateInfo.IsName("Attack3"))    
         {
             if (stateInfo.normalizedTime >= 1.0f)  
             {
