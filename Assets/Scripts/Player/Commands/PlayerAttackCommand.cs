@@ -18,8 +18,9 @@ public class PlayerAttackCommand : ICommand
     public void Execute()
     {
         int damage = CalculateDamage();
-
-        if (IsCritical())
+        bool isCritical = RandomizeCritical();
+        
+        if (isCritical)
         {
             Debug.Log("Critical!");
             damage = CalculateCritical(damage);
@@ -27,6 +28,7 @@ public class PlayerAttackCommand : ICommand
         }
 
         _target.TakeDamage(damage);
+        _target.EnemyStateMachine.showDamageText(damage, isCritical);
         
         Vector3 directionToTarget = _target.transform.position - _context.transform.position;
         directionToTarget.y = 0;
@@ -43,7 +45,7 @@ public class PlayerAttackCommand : ICommand
         return damageOutput + _random.Next(10);
     }
 
-    private bool IsCritical()
+    private bool RandomizeCritical()
     {
         float criticalChance = Player.Instance.CriticalRate;
         float randomValue = UnityEngine.Random.value;

@@ -35,6 +35,7 @@ public class EnemyStateMachine : MonoBehaviour
     [SerializeField] private GameObject sword;
     [SerializeField] private GameObject exclamationText;
     [SerializeField] private GameObject questionText;
+    [SerializeField] private GameObject damageTextPrefab;
     
     private int _recalculationCount = 0;
     private const int MaxRecalculationAttempts = 10;
@@ -224,6 +225,27 @@ public class EnemyStateMachine : MonoBehaviour
     public void PlayerKnockBack()
     {
         PlayerStateMachine.Instance.Animator.SetTrigger(PlayerStateMachine.Instance.IsHitHash);
+    }
+
+    public void showDamageText(int damage, bool isCritical = false)
+    {
+        var canvas = GetComponentInChildren<Canvas>().transform;
+        var damageText = Instantiate(damageTextPrefab, canvas);
+        var textMesh = damageText.GetComponent<TextMeshPro>();
+
+        textMesh.text = damage.ToString();
+        damageText.transform.localPosition = new Vector3(0, 50.0f, 0); 
+        
+        if (isCritical)
+        {
+            textMesh.color = new Color(1f, 0.3f, 0f); 
+            textMesh.fontSize = 20; 
+        }
+        else
+        {
+            textMesh.color = Color.white; 
+            textMesh.fontSize = 12; 
+        }
     }
 
     public int IsHitHash

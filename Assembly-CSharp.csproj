@@ -166,7 +166,7 @@
     <Compile Include="Assets/Scripts/Enemy/Commands/EnemyCheckLOSCommand.cs" />
     <Compile Include="Assets/Scripts/Map/Builders/RoomBuilder.cs" />
     <Compile Include="Assets/Scripts/Utils/Map/HighlightManager.cs" />
-    <Compile Include="Assets/Scripts/Utils/Camera/CameraFollow.cs" />
+    <Compile Include="Assets/Scripts/Utils/Camera/CameraController.cs" />
     <Compile Include="Assets/Scripts/Gameplay/EventChannels/PlayerTurnEventChannel.cs" />
     <Compile Include="Assets/Scripts/Gameplay/System/ICommand.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/SuperCharacterController/Code/Core/SuperCharacterController.cs" />
@@ -182,6 +182,7 @@
     <Compile Include="Assets/Scripts/Player/StateMachine/States/PlayerDeathState.cs" />
     <Compile Include="Assets/Scripts/Utils/Canvas/BillboardCanvas.cs" />
     <Compile Include="Assets/Scripts/Utils/Event Channels/CameraShakeEventChannel.cs" />
+    <Compile Include="Assets/Scripts/Utils/Effects/DamageText.cs" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMPro.cginc" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMP_Bitmap.shader" />
