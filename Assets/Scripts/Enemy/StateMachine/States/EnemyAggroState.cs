@@ -34,6 +34,7 @@ public class EnemyAggroState : EnemyBaseState
 
     public override void UpdateState()
     {
+        CheckDeathState();
         CheckSwitchStates();
         
         if (TurnManager.Instance.CurrentTurn == TurnType.PlayerTurn || _commandQueued) return;

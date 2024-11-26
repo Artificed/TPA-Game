@@ -18,6 +18,7 @@ public class PlayerBattleIdleState : PlayerBaseState
 
     public override void UpdateState()
     {
+        CheckSwitchStates();
         if(commandQueued) return;
         
         if (Input.GetKeyDown(KeyCode.Space))

@@ -17,6 +17,7 @@ public class EnemyReadyAttackState : EnemyBaseState
 
     public override void UpdateState()
     {
+        CheckDeathState();
         CheckSwitchStates();
         
         if (_commandQueued || TurnManager.Instance.CurrentTurn == TurnType.PlayerTurn) return;

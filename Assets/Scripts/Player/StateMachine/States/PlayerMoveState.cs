@@ -70,8 +70,7 @@ public class PlayerMoveState : PlayerBaseState
             Vector2Int endPosition2D = new Vector2Int((int) endPosition.x, (int) endPosition.z);
             float travelPercent = 0f;
 
-            Context.Unit.LookAt(endPosition);
-
+            Context.transform.LookAt(endPosition);
             while (travelPercent < 1f)
             {
                 travelPercent += Time.deltaTime * Context.MovementSpeed;

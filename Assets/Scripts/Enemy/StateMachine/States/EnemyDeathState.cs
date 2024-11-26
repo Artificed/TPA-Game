@@ -11,11 +11,12 @@ public class EnemyDeathState : EnemyBaseState
     public override void EnterState()
     {
         Debug.Log("Enemy Died!");
+        Context.Animator.SetTrigger(Context.IsDeadHash);
     }
 
     public override void UpdateState()
     {
-        
+        CheckSwitchStates();
     }
 
     public override void ExitState()
@@ -25,6 +26,12 @@ public class EnemyDeathState : EnemyBaseState
 
     public override void CheckSwitchStates()
     {
-        
+        AnimatorStateInfo stateInfo = Context.Animator.GetCurrentAnimatorStateInfo(0);
+
+        if (stateInfo.IsName("Death") && stateInfo.normalizedTime >= 1.0f)
+        {
+            TurnManager.Instance.RemoveEnemy(Context.Enemy);
+            Object.Destroy(Context.gameObject);
+        }
     }
 }
