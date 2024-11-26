@@ -255,4 +255,10 @@ public class PlayerStateMachine : MonoBehaviour
         get => _isHitHash;
         set => _isHitHash = value;
     }
+
+    public int IsDeadHash
+    {
+        get => _isDeadHash;
+        set => _isDeadHash = value;
+    }
 }

@@ -2,26 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine.Utility;
 using UnityEngine;
+using Random = System.Random;
 
 public class PlayerAttackCommand : ICommand
 {
     private PlayerStateMachine _context;
     private Enemy _target;
+    private Random _random;
 
     public PlayerAttackCommand(PlayerStateMachine context, Enemy target)
     {
         _context = context;
         _target = target;
+        _random = new Random();
     }
 
     public void Execute()
     {
-        _target.TakeDamage(Player.Instance.Attack);
+        int damage = CalculateDamage();
+
+        if (IsCritical())
+        {
+            damage = CalculateCritical(damage);
+        }
+
+        _target.TakeDamage(damage);
         
         Vector3 directionToTarget = _target.transform.position - _context.transform.position;
         directionToTarget.y = 0;
         _context.transform.forward = directionToTarget.normalized;
-        // _context.transform.LookAt(Vector3.forward);
         _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
+    }
+
+    private int CalculateDamage()
+    {
+        int defenseScalingFactor = 100;
+        int defenseFactor = 1 - (_target.Defense / (_target.Defense + defenseScalingFactor));
+        int damageOutput = Player.Instance.Attack * defenseFactor;
+
+        return damageOutput + _random.Next(10);
+    }
+
+    private bool IsCritical()
+    {
+        float criticalChance = Player.Instance.CriticalRate;
+        float randomValue = UnityEngine.Random.value;
+        return randomValue <= criticalChance;
+    }
+
+    private int CalculateCritical(int damage)
+    {
+        return (int) (Player.Instance.CriticalDamage * damage);
     }
 }

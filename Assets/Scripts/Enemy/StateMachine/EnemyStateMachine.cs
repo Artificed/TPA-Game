@@ -93,7 +93,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     private bool IsPathBlockedByEnemy(List<Tile> path)
     {
-        List<Enemy> enemies = TurnManager.Instance.Enemies;
+        List<Enemy> enemies = TurnManager.Instance.ActiveEnemies;
         List<Vector2Int> enemyPositions = new List<Vector2Int>();
         
         foreach (Enemy enemy in enemies)

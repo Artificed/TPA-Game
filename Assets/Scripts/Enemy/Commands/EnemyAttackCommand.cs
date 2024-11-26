@@ -17,24 +17,10 @@ public class EnemyAttackCommand : ICommand
     {
         if (CheckPlayerPosition())
         {
-            int damage = _context.Enemy.Attack;
-            switch (_context.Enemy.EnemyType)
-             {
-                 case EnemyType.Common:
-                     damage = Mathf.CeilToInt((damage) + _random.Next(1)); 
-                     break;
-             
-                 case EnemyType.Medium:
-                     damage = Mathf.CeilToInt((damage) + _random.Next(6)); 
-                     break;
-             
-                 case EnemyType.Elite:
-                     damage = Mathf.CeilToInt((damage) + _random.Next(10)); 
-                     break;
-             }
-             Debug.Log("Enemy is Attacking!");
-             Player.Instance.TakeDamage(damage);
-             _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
+            int damage = CalculateDamage();
+            Debug.Log("Enemy is Attacking!");
+            Player.Instance.TakeDamage(damage);
+            _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
         }
         else
         {
@@ -61,5 +47,28 @@ public class EnemyAttackCommand : ICommand
         }
 
         return true;
+    }
+    
+    private int CalculateDamage()
+    {
+        int defenseScalingFactor = 100;
+        int defenseFactor = 1 - (Player.Instance.Defense / (Player.Instance.Defense + defenseScalingFactor));
+        int damageOutput = _context.Enemy.Attack * defenseFactor;
+
+        switch (_context.Enemy.EnemyType)
+        {
+            case EnemyType.Common:
+                damageOutput = Mathf.CeilToInt((damageOutput) + _random.Next(1)); 
+                break;
+             
+            case EnemyType.Medium:
+                damageOutput = Mathf.CeilToInt((damageOutput) + _random.Next(6)); 
+                break;
+             
+            case EnemyType.Elite:
+                damageOutput = Mathf.CeilToInt((damageOutput) + _random.Next(10)); 
+                break;
+        }
+        return damageOutput;
     }
 }

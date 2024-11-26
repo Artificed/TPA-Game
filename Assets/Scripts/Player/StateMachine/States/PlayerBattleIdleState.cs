@@ -18,6 +18,7 @@ public class PlayerBattleIdleState : PlayerBaseState
 
     public override void UpdateState()
     {
+        CheckDeathState();
         CheckSwitchStates();
         if(commandQueued) return;
         
@@ -93,7 +94,7 @@ public class PlayerBattleIdleState : PlayerBaseState
 
     private Enemy GetEnemy(Vector2Int targetCords)
     {
-        foreach (Enemy enemy in TurnManager.Instance.Enemies)
+        foreach (Enemy enemy in TurnManager.Instance.ActiveEnemies)
         {
             Vector2Int enemyCoords = new Vector2Int(
                 Mathf.FloorToInt(enemy.EnemyStateMachine.Unit.position.x),

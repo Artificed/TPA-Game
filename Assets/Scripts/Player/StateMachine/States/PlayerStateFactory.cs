@@ -34,4 +34,9 @@ public class PlayerStateFactory
     {
         return new PlayerMoveBattleState(_context, this);
     }
+
+    public PlayerBaseState CreateDeath()
+    {
+        return new PlayerDeathState(_context, this);
+    }
 }

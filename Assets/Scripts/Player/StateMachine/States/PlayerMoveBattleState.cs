@@ -81,7 +81,7 @@ public class PlayerMoveBattleState : PlayerBaseState
         Context.ClearPath();
         Context.PlayerTurnEventChannel.RaiseEvent();
         
-        if (TurnManager.Instance.Enemies.Count > 0)
+        if (TurnManager.Instance.ActiveEnemies.Count > 0)
         {
             SwitchState(Factory.CreateBattleIdle());
             Debug.Log("Player still in battle");
@@ -95,7 +95,7 @@ public class PlayerMoveBattleState : PlayerBaseState
 
     private bool ValidDestination(Vector2Int targetCoords)
     {
-        List<Enemy> enemies = TurnManager.Instance.Enemies;
+        List<Enemy> enemies = TurnManager.Instance.ActiveEnemies;
         foreach (Enemy enemy in enemies)
         {
             Vector2Int enemyCoords = new Vector2Int((int) enemy.EnemyStateMachine.Unit.position.x, (int) enemy.EnemyStateMachine.Unit.position.z);

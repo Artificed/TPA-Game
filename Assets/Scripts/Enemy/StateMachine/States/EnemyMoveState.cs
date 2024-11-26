@@ -83,7 +83,7 @@ public class EnemyMoveState : EnemyBaseState
     
     private bool ValidDestination(Vector2Int targetCoords)
     {
-        List<Enemy> enemies = TurnManager.Instance.Enemies;
+        List<Enemy> enemies = TurnManager.Instance.ActiveEnemies;
         foreach (Enemy enemy in enemies)
         {
             Vector2Int enemyCoords = new Vector2Int((int) enemy.EnemyStateMachine.Unit.position.x, (int) enemy.EnemyStateMachine.Unit.position.z);

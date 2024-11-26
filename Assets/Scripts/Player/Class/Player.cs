@@ -50,6 +50,12 @@ public class Player : MonoBehaviour
         expCap = data.expCap;
         level = data.level;
         zhen = data.zhen;
+        
+        playerHealthEventChannel?.RaiseEvent(health, maxHealth);
+        playerExpEventChannel?.RaiseEvent(exp, expCap);
+        playerLevelEventChannel?.RaiseEvent(level);
+        playerFloorChangeEventChannel?.RaiseEvent(1);
+        zhenCounterEventChannel?.RaiseEvent(zhen);
     }
 
     public void TakeDamage(int damage)
@@ -82,4 +88,10 @@ public class Player : MonoBehaviour
         get => attack;
         set => attack = value;
     }
+
+    public int Health => health;
+    public int Level => level;
+    public int Defense => defense;
+    public float CriticalRate => criticalRate;
+    public float CriticalDamage => criticalDamage;
 }

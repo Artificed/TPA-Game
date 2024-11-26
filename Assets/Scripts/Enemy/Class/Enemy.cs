@@ -65,4 +65,5 @@ public class Enemy: MonoBehaviour
     public EnemyType EnemyType => enemyType;
     public int Attack => attack;
     public int Health => health;
+    public int Defense => defense;
 }

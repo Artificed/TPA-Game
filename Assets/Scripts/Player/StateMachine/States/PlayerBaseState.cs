@@ -23,4 +23,12 @@ public abstract class PlayerBaseState
         Context.CurrentState = nextState;
         Context.CurrentState.EnterState();
     }
+
+    public void CheckDeathState()
+    {
+        if (Player.Instance.Health <= 0)
+        {
+            SwitchState(Factory.CreateDeath());
+        }
+    }
 }

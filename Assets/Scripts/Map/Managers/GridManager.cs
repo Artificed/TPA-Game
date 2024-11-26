@@ -39,8 +39,8 @@ public class GridManager : MonoBehaviour
     
     private void Awake()
     {
-        _level = 5;
-        
+        _level = Player.Instance.Level;
+            
         _rooms = new List<Room>();
         _mst = new List<(Vector2, Vector2)>();
         
