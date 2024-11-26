@@ -40,4 +40,9 @@ public class EnemyStateFactory
     {
         return new EnemyAttackState(_context, this);
     }
+
+    public EnemyBaseState CreateDeath()
+    {
+        return new EnemyDeathState(_context, this);
+    }
 }

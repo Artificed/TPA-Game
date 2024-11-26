@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class EnemyAttackCommand : ICommand
 {
     private EnemyStateMachine _context;
+    private Random _random = new Random();
 
     public EnemyAttackCommand(EnemyStateMachine context)
     {
@@ -15,8 +17,24 @@ public class EnemyAttackCommand : ICommand
     {
         if (CheckPlayerPosition())
         {
-            // Debug.Log("Enemy is Attacking!");
-            _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
+            int damage = _context.Enemy.Attack;
+            switch (_context.Enemy.EnemyType)
+             {
+                 case EnemyType.Common:
+                     damage = Mathf.CeilToInt((damage) + _random.Next(1)); 
+                     break;
+             
+                 case EnemyType.Medium:
+                     damage = Mathf.CeilToInt((damage) + _random.Next(6)); 
+                     break;
+             
+                 case EnemyType.Elite:
+                     damage = Mathf.CeilToInt((damage) + _random.Next(10)); 
+                     break;
+             }
+             Debug.Log("Enemy is Attacking!");
+             Player.Instance.TakeDamage(damage);
+             _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
         }
         else
         {

@@ -36,34 +36,12 @@ public class Enemy: MonoBehaviour
     {
         float levelMultiplier = 1 + (level * 0.2f);
         this.enemyName = enemyName;
-        Random _random = new Random();
         
-        switch (enemyType)
-        {
-            case EnemyType.Common:
-                attack = Mathf.CeilToInt((data.attack * levelMultiplier) + _random.Next(2)); 
-                health = Mathf.CeilToInt((data.health * levelMultiplier) + _random.Next(3));
-                maxHealth = health;
-                defense = Mathf.CeilToInt((data.defense * levelMultiplier) + _random.Next(2));
-                xpDrop = Mathf.CeilToInt((data.xpDrop * levelMultiplier) + _random.Next(3));
-                break;
-        
-            case EnemyType.Medium:
-                attack = Mathf.CeilToInt((data.attack * levelMultiplier) + _random.Next(6)); 
-                health = Mathf.CeilToInt((data.health * levelMultiplier) + _random.Next(20));
-                maxHealth = health;
-                defense = Mathf.CeilToInt((data.defense * levelMultiplier) + _random.Next(4));
-                xpDrop = Mathf.CeilToInt((data.xpDrop * levelMultiplier) + _random.Next(8));
-                break;
-        
-            case EnemyType.Elite:
-                attack = Mathf.CeilToInt((data.attack * levelMultiplier) + _random.Next(10)); 
-                health = Mathf.CeilToInt((data.health * levelMultiplier) + _random.Next(50));
-                maxHealth = health;
-                defense = Mathf.CeilToInt((data.defense * levelMultiplier) + _random.Next(10));
-                xpDrop = Mathf.CeilToInt((data.xpDrop * levelMultiplier) + _random.Next(20));
-                break;
-        }
+        attack = Mathf.CeilToInt((data.attack * levelMultiplier)); 
+        health = Mathf.CeilToInt((data.health * levelMultiplier));
+        maxHealth = health;
+        defense = Mathf.CeilToInt((data.defense * levelMultiplier));
+        xpDrop = Mathf.CeilToInt((data.xpDrop * levelMultiplier));
         
         hasSword = data.hasSword;
         armorType = data.armorType;
@@ -84,5 +62,7 @@ public class Enemy: MonoBehaviour
         enemyUIController.UpdateHealthBar(health, maxHealth);
     }
 
+    public EnemyType EnemyType => enemyType;
+    public int Attack => attack;
     public int Health => health;
 }

@@ -24,4 +24,12 @@ public abstract class EnemyBaseState
         Context.CurrentState = nextState;
         Context.CurrentState.EnterState();
     }
+
+    public void CheckDeathState()
+    {
+        if (Context.Enemy.Health <= 0)
+        {
+            SwitchState(Factory.CreateDeath());
+        }
+    }
 }

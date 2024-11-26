@@ -68,7 +68,8 @@ public class PlayerMoveBattleState : PlayerBaseState
             
         float travelPercent = 0f;
 
-        Context.Unit.LookAt(endPosition);
+        Context.transform.LookAt(endPosition);
+        Debug.Log(endPosition);
         
         while (travelPercent < 1f)
         {

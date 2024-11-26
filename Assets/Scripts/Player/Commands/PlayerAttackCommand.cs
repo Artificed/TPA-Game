@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine.Utility;
 using UnityEngine;
 
 public class PlayerAttackCommand : ICommand
@@ -19,7 +20,8 @@ public class PlayerAttackCommand : ICommand
         
         Vector3 directionToTarget = _target.transform.position - _context.transform.position;
         directionToTarget.y = 0;
-        _context.transform.rotation = Quaternion.LookRotation(directionToTarget);
+        _context.transform.forward = directionToTarget.normalized;
+        // _context.transform.LookAt(Vector3.forward);
         _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
     }
 }
