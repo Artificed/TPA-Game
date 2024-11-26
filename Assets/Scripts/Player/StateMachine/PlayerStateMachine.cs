@@ -7,6 +7,7 @@ public class PlayerStateMachine : MonoBehaviour
 {
     [SerializeField] private EnemyAlertEventChannel enemyAlertEventChannel;
     [SerializeField] private PlayerTurnEventChannel playerTurnEventChannel;
+    [SerializeField] private CameraShakeEventChannel cameraShakeEventChannel;
     public static PlayerStateMachine Instance { get; private set; }
     
     [SerializeField] private float movementSpeed;
@@ -260,5 +261,11 @@ public class PlayerStateMachine : MonoBehaviour
     {
         get => _isDeadHash;
         set => _isDeadHash = value;
+    }
+
+    public CameraShakeEventChannel CameraShakeEventChannel
+    {
+        get => cameraShakeEventChannel;
+        set => cameraShakeEventChannel = value;
     }
 }

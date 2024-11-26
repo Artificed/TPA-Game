@@ -150,7 +150,7 @@
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Actions/Movement/HitContext.cs" />
     <Compile Include="Assets/Scripts/Map/MST/Prim.cs" />
     <Compile Include="Assets/Scripts/Player/StateMachine/States/PlayerBattleIdleState.cs" />
-    <Compile Include="Assets/Scripts/Utils/DecorationManager.cs" />
+    <Compile Include="Assets/Scripts/Utils/Map/DecorationManager.cs" />
     <Compile Include="Assets/Scripts/Enemy/StateMachine/States/EnemyMoveState.cs" />
     <Compile Include="Assets/Asset Folders/RPG Button 7/FreeFlyCamera/Demo/Scripts/ToggleGameObjectEnable.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Lookups/AnimationParameters.cs" />
@@ -165,8 +165,8 @@
     <Compile Include="Assets/Scripts/Map/Components/Tile.cs" />
     <Compile Include="Assets/Scripts/Enemy/Commands/EnemyCheckLOSCommand.cs" />
     <Compile Include="Assets/Scripts/Map/Builders/RoomBuilder.cs" />
-    <Compile Include="Assets/Scripts/Utils/HighlightManager.cs" />
-    <Compile Include="Assets/Scripts/Utils/CameraFollow.cs" />
+    <Compile Include="Assets/Scripts/Utils/Map/HighlightManager.cs" />
+    <Compile Include="Assets/Scripts/Utils/Camera/CameraFollow.cs" />
     <Compile Include="Assets/Scripts/Gameplay/EventChannels/PlayerTurnEventChannel.cs" />
     <Compile Include="Assets/Scripts/Gameplay/System/ICommand.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/SuperCharacterController/Code/Core/SuperCharacterController.cs" />
@@ -180,7 +180,8 @@
     <Compile Include="Assets/Scripts/Player/Event Channels/ZhenCounterEventChannel.cs" />
     <Compile Include="Assets/Scripts/Enemy/StateMachine/States/EnemyDeathState.cs" />
     <Compile Include="Assets/Scripts/Player/StateMachine/States/PlayerDeathState.cs" />
-    <Compile Include="Assets/Scripts/Utils/BillboardCanvas.cs" />
+    <Compile Include="Assets/Scripts/Utils/Canvas/BillboardCanvas.cs" />
+    <Compile Include="Assets/Scripts/Utils/Event Channels/CameraShakeEventChannel.cs" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMPro.cginc" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMP_Bitmap.shader" />

@@ -11,7 +11,7 @@ public class PlayerMoveBattleState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Player Entering Battle Move State");
+        // Debug.Log("Player Entering Battle Move State");
         Context.Animator.SetBool(Context.IsMovingHash, true);   
         _movementCoroutine = Context.StartCoroutine(FollowPath());
         Context.CancellingPath = false;
@@ -35,7 +35,7 @@ public class PlayerMoveBattleState : PlayerBaseState
     {
         if (Context.Path.Count == 0)
         {
-            Debug.Log("Count 0");
+            // Debug.Log("Count 0");
             SwitchState(Factory.CreateBattleIdle());
             yield break;
         }
@@ -43,7 +43,7 @@ public class PlayerMoveBattleState : PlayerBaseState
         Tile targetNode = Context.Path[1];
         if (targetNode.Blocked)
         {
-            Debug.Log("Target Node BLocked!");
+            // Debug.Log("Target Node BLocked!");
             Context.ClearPath();
             SwitchState(Factory.CreateBattleIdle());
             yield break;
@@ -56,7 +56,7 @@ public class PlayerMoveBattleState : PlayerBaseState
             
         if (!ValidDestination(endPosition2D))
         {
-            Debug.Log("Blocked by enemy/player at follow path");
+            // Debug.Log("Blocked by enemy/player at follow path");
             Context.ClearPath();
             if (TurnManager.Instance.IsBattling)
             {
@@ -69,7 +69,7 @@ public class PlayerMoveBattleState : PlayerBaseState
         float travelPercent = 0f;
 
         Context.transform.LookAt(endPosition);
-        Debug.Log(endPosition);
+        // Debug.Log(endPosition);
         
         while (travelPercent < 1f)
         {
@@ -84,12 +84,12 @@ public class PlayerMoveBattleState : PlayerBaseState
         if (TurnManager.Instance.ActiveEnemies.Count > 0)
         {
             SwitchState(Factory.CreateBattleIdle());
-            Debug.Log("Player still in battle");
+            // Debug.Log("Player still in battle");
         }
         else
         {
             SwitchState(Factory.CreateIdle());
-            Debug.Log("Player Transitioning to idle from battle");
+            // Debug.Log("Player Transitioning to idle from battle");
         }
     }
 

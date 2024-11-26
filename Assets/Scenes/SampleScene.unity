@@ -1281,6 +1281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAlertEventChannel: {fileID: 11400000, guid: 9722275e9f1344b7d95fc06d53163658, type: 2}
   playerTurnEventChannel: {fileID: 11400000, guid: 0467e93ca70dd400b8e78bb63edebfb0, type: 2}
+  cameraShakeEventChannel: {fileID: 11400000, guid: fd68f7240969a44bda1c879f21f9173b, type: 2}
   movementSpeed: 2
   unit: {fileID: 81751962}
   animator: {fileID: 864673582}
@@ -1529,7 +1530,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0.043619405, y: 0, z: 0, w: 0.9990483}
-  m_LocalPosition: {x: 0, y: 0, z: -5.18}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1543,12 +1544,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fa1a6f676ef94c0b8aa501a51951c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 81751962}
+  cameraShakeEventChannel: {fileID: 11400000, guid: fd68f7240969a44bda1c879f21f9173b, type: 2}
 --- !u!1 &1071410857
 GameObject:
   m_ObjectHideFlags: 0
@@ -2072,6 +2074,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1414896388}
+  - component: {fileID: 1414896389}
   m_Layer: 0
   m_Name: Camera Pivot
   m_TagString: Untagged
@@ -2087,7 +2090,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1414896387}
   m_LocalRotation: {x: 0.23911765, y: 0.36964378, z: -0.09904577, w: 0.8923991}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2095,6 +2098,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
+--- !u!114 &1414896389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414896387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fa1a6f676ef94c0b8aa501a51951c40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 81751962}
+  cameraShakeEventChannel: {fileID: 11400000, guid: fd68f7240969a44bda1c879f21f9173b, type: 2}
 --- !u!1 &1415825684
 GameObject:
   m_ObjectHideFlags: 0

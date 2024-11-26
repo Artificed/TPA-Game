@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine.Utility;
 using UnityEngine;
 using Random = System.Random;
 
@@ -9,7 +8,6 @@ public class PlayerAttackCommand : ICommand
     private PlayerStateMachine _context;
     private Enemy _target;
     private Random _random;
-
     public PlayerAttackCommand(PlayerStateMachine context, Enemy target)
     {
         _context = context;
@@ -23,7 +21,9 @@ public class PlayerAttackCommand : ICommand
 
         if (IsCritical())
         {
+            Debug.Log("Critical!");
             damage = CalculateCritical(damage);
+            _context.CameraShakeEventChannel.RaiseEvent(0.2f, 0.02f);
         }
 
         _target.TakeDamage(damage);
