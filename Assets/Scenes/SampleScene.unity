@@ -1061,7 +1061,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 0.78431374, a: 1}
   m_Intensity: 2
-  m_Range: 4
+  m_Range: 5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -1072,7 +1072,7 @@ Light:
     m_Strength: 1
     m_Bias: 0.05
     m_NormalBias: 0.4
-    m_NearPlane: 0.05
+    m_NearPlane: 0.06
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -1289,6 +1289,7 @@ MonoBehaviour:
   pathFinder: {fileID: 0}
   attackAnimationsCount: 3
   sword: {fileID: 53104752}
+  damageTextPrefab: {fileID: 6644836857670722429, guid: 268a2a792881f4d68947c61e0db739a8, type: 3}
 --- !u!114 &864673586
 MonoBehaviour:
   m_ObjectHideFlags: 0

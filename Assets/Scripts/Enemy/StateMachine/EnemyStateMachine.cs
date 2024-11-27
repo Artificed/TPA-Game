@@ -15,6 +15,7 @@ public class EnemyStateMachine : MonoBehaviour
     [SerializeField] private AStar pathFinder;
     [SerializeField] private EnemyAlertEventChannel enemyAlertEventChannel;
     [SerializeField] private EnemyActionCompleteEventChannel enemyActionCompleteEventChannel;
+    [SerializeField] private CameraShakeEventChannel cameraShakeEventChannel;
     
     private GridManager _gridManager = GridManager.Instance;
     
@@ -354,4 +355,6 @@ public class EnemyStateMachine : MonoBehaviour
         get => enemy;
         set => enemy = value;
     }
+
+    public CameraShakeEventChannel CameraShakeEventChannel => cameraShakeEventChannel;
 }

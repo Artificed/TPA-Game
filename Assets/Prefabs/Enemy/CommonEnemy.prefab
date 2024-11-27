@@ -2126,6 +2126,7 @@ MonoBehaviour:
   pathFinder: {fileID: 5304292868584244638}
   enemyAlertEventChannel: {fileID: 11400000, guid: 9722275e9f1344b7d95fc06d53163658, type: 2}
   enemyActionCompleteEventChannel: {fileID: 11400000, guid: f1ea792e7f2564a31aa0ce572943051c, type: 2}
+  cameraShakeEventChannel: {fileID: 11400000, guid: fd68f7240969a44bda1c879f21f9173b, type: 2}
   sword: {fileID: 0}
   exclamationText: {fileID: 530808521624506741}
   questionText: {fileID: 635110935254752640}
@@ -2149,6 +2150,8 @@ MonoBehaviour:
   defense: 0
   xpDrop: 0
   hasSword: 0
+  criticalRate: 0
+  criticalDamage: 0
   armorType: 0
   color: {r: 0, g: 0, b: 0, a: 0}
   enemyType: 0

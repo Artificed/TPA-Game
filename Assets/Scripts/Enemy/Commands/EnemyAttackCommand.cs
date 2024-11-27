@@ -18,8 +18,17 @@ public class EnemyAttackCommand : ICommand
         if (CheckPlayerPosition())
         {
             int damage = CalculateDamage();
-            Debug.Log("Enemy is Attacking!");
+            bool isCritical = RandomizeCritical();
+            
+            if (isCritical)
+            {
+                damage = CalculateCritical(damage);
+                _context.CameraShakeEventChannel.RaiseEvent(0.2f, 0.02f);
+            }
+            
             Player.Instance.TakeDamage(damage);
+            PlayerStateMachine.Instance.showDamageText(damage, isCritical);
+            
             _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
         }
         else
@@ -70,5 +79,17 @@ public class EnemyAttackCommand : ICommand
                 break;
         }
         return damageOutput;
+    }
+    
+    private bool RandomizeCritical()
+    {
+        float criticalChance = _context.Enemy.CriticalRate;
+        float randomValue = UnityEngine.Random.value;
+        return randomValue <= criticalChance;
+    }
+
+    private int CalculateCritical(int damage)
+    {
+        return (int) (_context.Enemy.CriticalDamage * damage);
     }
 }

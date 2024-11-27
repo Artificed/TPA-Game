@@ -10,6 +10,8 @@ public class EnemyDataSO : ScriptableObject
     public int defense;
     public int xpDrop;
     public bool hasSword;
+    public float criticalRate;
+    public float criticalDamage;
     public ArmorType armorType;
     public Color nameColor;
     public GameObject enemyPrefab;

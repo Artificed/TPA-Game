@@ -16,6 +16,8 @@ public class Enemy: MonoBehaviour
     [SerializeField] private int defense;
     [SerializeField] private int xpDrop;
     [SerializeField] private bool hasSword;
+    [SerializeField] private float criticalRate;
+    [SerializeField] private float criticalDamage;
     [SerializeField] private ArmorType armorType;
     [SerializeField] private Color color;
     
@@ -42,6 +44,9 @@ public class Enemy: MonoBehaviour
         maxHealth = health;
         defense = Mathf.CeilToInt((data.defense * levelMultiplier));
         xpDrop = Mathf.CeilToInt((data.xpDrop * levelMultiplier));
+
+        criticalRate = data.criticalRate;
+        criticalDamage = data.criticalDamage;
         
         hasSword = data.hasSword;
         armorType = data.armorType;
@@ -66,4 +71,6 @@ public class Enemy: MonoBehaviour
     public int Attack => attack;
     public int Health => health;
     public int Defense => defense;
+    public float CriticalRate => criticalRate;
+    public float CriticalDamage => criticalDamage;
 }

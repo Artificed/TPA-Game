@@ -22,7 +22,6 @@ public class PlayerAttackCommand : ICommand
         
         if (isCritical)
         {
-            Debug.Log("Critical!");
             damage = CalculateCritical(damage);
             _context.CameraShakeEventChannel.RaiseEvent(0.2f, 0.02f);
         }
