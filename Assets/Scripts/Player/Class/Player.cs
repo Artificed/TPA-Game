@@ -35,7 +35,6 @@ public class Player : MonoBehaviour
         }
         Instance = this;
         Initialize(playerDataSo);
-        DontDestroyOnLoad(gameObject); 
     }
     
     public void Initialize(PlayerDataSO data)
