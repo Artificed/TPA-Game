@@ -15,30 +15,30 @@ public class EnemyAttackCommand : ICommand
 
     public void Execute()
     {
-        if (CheckPlayerPosition())
+        if(!ValidPlayerPosition())
         {
-            int damage = CalculateDamage();
-            bool isCritical = RandomizeCritical();
-            
-            if (isCritical)
-            {
-                damage = CalculateCritical(damage);
-                _context.CameraShakeEventChannel.RaiseEvent(0.2f, 0.02f);
-            }
-            
-            Player.Instance.TakeDamage(damage);
-            PlayerStateMachine.Instance.showDamageText(damage, isCritical);
-            
-            _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
-        }
-        else
-        {
-            // Debug.Log("Player too far, back to aggro!");
             _context.CurrentState.SwitchState(_context.StateFactory.CreateAggro());
+            return;
         }
+        
+        int damage = _context.Enemy.Attack;
+        bool isCritical = RandomizeCritical();
+        
+        if (isCritical)
+        {
+            damage = CalculateCritical(damage);
+            _context.CameraShakeEventChannel.RaiseEvent(0.2f, 0.02f);
+        }
+
+        damage = CalculateDamageOutput(damage);
+        
+        Player.Instance.TakeDamage(damage);
+        PlayerStateMachine.Instance.showDamageText(damage, isCritical);
+        
+        _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
     }
     
-    public bool CheckPlayerPosition()
+    public bool ValidPlayerPosition()
     {
         Vector2Int enemyCords = new Vector2Int(
             Mathf.RoundToInt(_context.Unit.position.x / _context.GridManager.UnityGridSize),
@@ -58,26 +58,27 @@ public class EnemyAttackCommand : ICommand
         return true;
     }
     
-    private int CalculateDamage()
+    private int CalculateDamageOutput(int damage)
     {
-        int defenseScalingFactor = 100;
-        int defenseFactor = 1 - (Player.Instance.Defense / (Player.Instance.Defense + defenseScalingFactor));
-        int damageOutput = _context.Enemy.Attack * defenseFactor;
-
         switch (_context.Enemy.EnemyType)
         {
             case EnemyType.Common:
-                damageOutput = Mathf.CeilToInt((damageOutput) + _random.Next(1)); 
+                damage = Mathf.CeilToInt((damage) + _random.Next(1)); 
                 break;
              
             case EnemyType.Medium:
-                damageOutput = Mathf.CeilToInt((damageOutput) + _random.Next(6)); 
+                damage = Mathf.CeilToInt((damage) + _random.Next(6)); 
                 break;
              
             case EnemyType.Elite:
-                damageOutput = Mathf.CeilToInt((damageOutput) + _random.Next(10)); 
+                damage = Mathf.CeilToInt((damage) + _random.Next(10)); 
                 break;
         }
+        
+        int defenseScalingFactor = 100;
+        int defenseFactor = 1 - (Player.Instance.Defense / (Player.Instance.Defense + defenseScalingFactor));
+        int damageOutput = damage * defenseFactor;
+
         return damageOutput;
     }
     

@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
         defense += (int) ((defense + Random.Range(0, 2)) * 0.25);
         criticalRate +=  (float) (criticalRate * 0.25);
         criticalDamage += (float) (criticalDamage * 0.25);
-        expCap += (int) ((expCap + Random.Range(0, 3)) * 0.25);
+        expCap += (int) ((expCap + Random.Range(0, 3)) * 0.75);
         
         playerHealthEventChannel?.RaiseEvent(health, maxHealth);
         playerExpEventChannel?.RaiseEvent(exp, expCap);

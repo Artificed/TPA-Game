@@ -17,7 +17,7 @@ public class PlayerAttackCommand : ICommand
 
     public void Execute()
     {
-        int damage = CalculateDamage();
+        int damage = Player.Instance.Attack;
         bool isCritical = RandomizeCritical();
         
         if (isCritical)
@@ -26,6 +26,8 @@ public class PlayerAttackCommand : ICommand
             _context.CameraShakeEventChannel.RaiseEvent(0.2f, 0.02f);
         }
 
+        damage = CalculateDamageOutput(damage);
+        
         if (EnemyDead(damage))
         {
             Player.Instance.AddExp(_target.XpDrop);
@@ -41,13 +43,15 @@ public class PlayerAttackCommand : ICommand
         _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
     }
 
-    private int CalculateDamage()
+    private int CalculateDamageOutput(int damage)
     {
+        damage += _random.Next(10);
+        
         int defenseScalingFactor = 100;
         int defenseFactor = 1 - (_target.Defense / (_target.Defense + defenseScalingFactor));
-        int damageOutput = Player.Instance.Attack * defenseFactor;
+        int damageOutput = damage * defenseFactor;
 
-        return damageOutput + _random.Next(10);
+        return damageOutput;
     }
 
     private bool RandomizeCritical()
