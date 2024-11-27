@@ -46,6 +46,18 @@ public class PlayerBattleIdleState : PlayerBaseState
                 }
             }
         }
+        
+        else if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            PlayerLifeStealSkillCommand playerLifeStealSkillCommand = new PlayerLifeStealSkillCommand();
+            playerLifeStealSkillCommand.Execute();
+        } 
+        
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            PlayerBashSkillCommand playerBashSkillCommand = new PlayerBashSkillCommand();
+            playerBashSkillCommand.Execute();
+        }
     }
 
     private void HandleTileRaycast(RaycastHit hit)

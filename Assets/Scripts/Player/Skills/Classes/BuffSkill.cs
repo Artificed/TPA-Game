@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BuffSkill : Skill
 {
-    private bool isActive;
+    private int _activeTime;
+    private int _remainingTurns;
     
     public override void Initialize(SkillDataSO data)
     {
@@ -12,18 +13,26 @@ public class BuffSkill : Skill
         Description = data.description;
         UnlockLevel = data.unlockLevel;
         CooldownTime = data.cooldownTime;
+        _activeTime = data.activeTime;
         ImageIcon = data.imageIcon;
         SkillKey = data.skillKey;
-
+        
         IsUnlocked = Player.Instance.Level >= UnlockLevel;
-
-        isActive = false;
+        
         RemainingCooldown = 0;
+        _remainingTurns = 0;
     }
 
-    public bool IsActive
+    public int ActiveTime => _activeTime;
+    public int RemainingTurns => _remainingTurns;
+
+    public void DecreaseActiveTime()
     {
-        get => isActive;
-        set => isActive = value;
+        _activeTime--;
+    }
+
+    public void DecreaseTurns()
+    {
+        _remainingTurns--;
     }
 }

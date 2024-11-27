@@ -1,14 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SkillContainer : MonoBehaviour
+public class SkillContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Image skillDisplay;
     [SerializeField] private TextMeshProUGUI skillKey;
-
+    [SerializeField] private Image lockedDisplay;
+    [SerializeField] private TextMeshProUGUI lockedText;
+    [SerializeField] private TextMeshProUGUI descriptionText;
+    [SerializeField] private GameObject descriptionContainer;
+    
     private Skill _skill;
 
     public void Initialize(Skill skill)
@@ -19,17 +25,47 @@ public class SkillContainer : MonoBehaviour
             new Rect(0, 0, _skill.GetImageIcon.width, _skill.GetImageIcon.height), 
             new Vector2(0.5f, 0.5f));
         
+        if(!skill.GetUnlocked)
+        {
+            lockedText.text = "Locked";
+            lockedDisplay.gameObject.SetActive(true);
+        }
+        
         skillKey.text = _skill.GetSkillKey.ToString();
     }
-    
-    void Start()
+
+    public void OnPointerEnter(PointerEventData eventData)
     {
+        if(_skill == null) return;
         
+        descriptionContainer.SetActive(true);
+        if (_skill.GetUnlocked)
+        {
+            descriptionText.text = _skill.GetDescription;
+        }
+        else
+        {
+            descriptionText.text = "Unlocked at level " + _skill.GetUnlockLevel;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnPointerExit(PointerEventData eventData)
     {
-        
+        if(_skill == null) return;
+        descriptionContainer.SetActive(false);
+    }
+
+    public void HandleActiveSkillToggle(bool isActive)
+    {
+        if (isActive)
+        {
+            lockedText.text = "";
+            lockedDisplay.color = new Color(1f, 0.6f, 0f, 0.4f);
+            lockedDisplay.gameObject.SetActive(true);
+        }
+        else
+        {
+            lockedDisplay.gameObject.SetActive(false);
+        }
     }
 }

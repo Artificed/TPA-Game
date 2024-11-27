@@ -10,6 +10,9 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private EnemyAlertEventChannel enemyAlertEventChannel;
     [SerializeField] private PlayerTurnEventChannel playerTurnEventChannel;
     [SerializeField] private CameraShakeEventChannel cameraShakeEventChannel;
+    [SerializeField] private PlayerActiveSkillEventChannel playerActiveSkillEventChannel;
+    [SerializeField] private PlayerBuffSkillEventChannel playerBuffSkillEventChannel;
+    
     public static PlayerStateMachine Instance { get; private set; }
     
     [SerializeField] private float movementSpeed;
@@ -24,6 +27,7 @@ public class PlayerStateMachine : MonoBehaviour
     private int _isAttackingHash3;
     private int _isHitHash;
     private int _isDeadHash;
+    private int _isBuffHash;
     
     [SerializeField] private int attackAnimationsCount = 3;
     [SerializeField] private GameObject sword;
@@ -79,6 +83,7 @@ public class PlayerStateMachine : MonoBehaviour
         _isAttackingHash3 = Animator.StringToHash("isAttacking3");
         _isHitHash = Animator.StringToHash("isHit");
         _isDeadHash = Animator.StringToHash("isDead");
+        _isBuffHash = Animator.StringToHash("isBuffing");
         
         gridManager = FindObjectOfType<GridManager>();
         pathFinder = FindObjectOfType<AStar>();
@@ -302,5 +307,23 @@ public class PlayerStateMachine : MonoBehaviour
     {
         get => cameraShakeEventChannel;
         set => cameraShakeEventChannel = value;
+    }
+
+    public int IsBuffHash
+    {
+        get => _isBuffHash;
+        set => _isBuffHash = value;
+    }
+
+    public PlayerActiveSkillEventChannel PlayerActiveSkillEventChannel
+    {
+        get => playerActiveSkillEventChannel;
+        set => playerActiveSkillEventChannel = value;
+    }
+
+    public PlayerBuffSkillEventChannel PlayerBuffSkillEventChannel
+    {
+        get => playerBuffSkillEventChannel;
+        set => playerBuffSkillEventChannel = value;
     }
 }

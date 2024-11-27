@@ -58,7 +58,7 @@
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Extensions/ControllerExtensions.cs" />
     <Compile Include="Assets/Scripts/Enemy/StateMachine/States/EnemyAlertState.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Lookups/Animations/AnimatorTrigger.cs" />
-    <Compile Include="Assets/Scripts/Player/Event Channels/PlayerFloorChangeEventChannel.cs" />
+    <Compile Include="Assets/Scripts/Player/EventChannels/DataChannels/PlayerFloorChangeEventChannel.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/SuperCharacterController/Code/Core/SuperStateMachine.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/RPGCharacterMovementController.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Lookups/CharacterState.cs" />
@@ -91,7 +91,7 @@
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Extensions/AnimatorExtensions.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Actions/Movement/DiveRoll.cs" />
     <Compile Include="Assets/Asset Folders/RPG Button 7/FreeFlyCamera/Scripts/FreeFlyCamera.cs" />
-    <Compile Include="Assets/Scripts/Player/Event Channels/PlayerExpEventChannel.cs" />
+    <Compile Include="Assets/Scripts/Player/EventChannels/DataChannels/PlayerExpEventChannel.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/SuperCharacterController/Code/Examples/PlayerInputController.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Actions/Movement/MovementActionHandler.cs" />
     <Compile Include="Assets/Scripts/Map/Components/Room.cs" />
@@ -110,7 +110,7 @@
     <Compile Include="Assets/Scripts/Player/Data/PlayerDataSO.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/RPGCharacterWeaponController.cs" />
     <Compile Include="Assets/Asset Folders/BrokenVector/LowPolyDungeon/Demo Scenes/PlayerMovement.cs" />
-    <Compile Include="Assets/Scripts/Player/Event Channels/EnemyLeftEventChannel.cs" />
+    <Compile Include="Assets/Scripts/Player/EventChannels/DataChannels/EnemyLeftEventChannel.cs" />
     <Compile Include="Assets/Scripts/Player/StateMachine/States/PlayerMoveState.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Actions/SimpleActionHandler.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Demo Elements/Code/NoJumpSlime.cs" />
@@ -124,7 +124,7 @@
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/SuperCharacterController/Code/Examples/PlayerMachineDebug.cs" />
     <Compile Include="Assets/Scripts/Enemy/StateMachine/States/EnemyStateFactory.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Lookups/HandlerTypes.cs" />
-    <Compile Include="Assets/Scripts/Player/Event Channels/PlayerLevelEventChannel.cs" />
+    <Compile Include="Assets/Scripts/Player/EventChannels/DataChannels/PlayerLevelEventChannel.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/RPGCharacterAnimatorEvents.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/AnimationVariations.cs" />
     <Compile Include="Assets/Scripts/Enemy/Class/Enemy.cs" />
@@ -132,7 +132,7 @@
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Extensions/WeaponExtensions.cs" />
     <Compile Include="Assets/Scripts/Enemy/Commands/EnemyAttackCommand.cs" />
     <Compile Include="Assets/Scripts/Enemy/UI/EnemyUIController.cs" />
-    <Compile Include="Assets/Scripts/Player/Event Channels/ZhenCounterEventChannel.cs" />
+    <Compile Include="Assets/Scripts/Player/EventChannels/DataChannels/ZhenCounterEventChannel.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Lookups/Animations/TwoHandedSwordAttack.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Actions/Character/Attack.cs" />
     <Compile Include="Assets/Scripts/Player/StateMachine/States/PlayerDeathState.cs" />
@@ -152,7 +152,7 @@
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Actions/Movement/Jump.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Actions/Weapon/SwitchWeapon.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/SuperCharacterController/Code/Core/BSPTree.cs" />
-    <Compile Include="Assets/Scripts/Player/Event Channels/PlayerHealthEventChannel.cs" />
+    <Compile Include="Assets/Scripts/Player/EventChannels/DataChannels/PlayerHealthEventChannel.cs" />
     <Compile Include="Assets/Scripts/Map/MST/Edge.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Demo Elements/Code/NPC.cs" />
     <Compile Include="Assets/Asset Folders/ExplosiveLLC/RPG Character Mecanim Animation Pack FREE/Code/Lookups/Animations/UnarmedAttack.cs" />
@@ -186,9 +186,13 @@
     <Compile Include="Assets/Scripts/Player/Skills/Manager/SkillManager.cs" />
     <Compile Include="Assets/Scripts/Player/Skills/Classes/Skill.cs" />
     <Compile Include="Assets/Scripts/Player/Skills/Data/SkillDataSO.cs" />
-    <Compile Include="Assets/Scripts/Player/Skills/Classes/BuffSkill.cs" />
     <Compile Include="Assets/Scripts/Player/Skills/Classes/ActiveSkill.cs" />
+    <Compile Include="Assets/Scripts/Player/Skills/Classes/BuffSkill.cs" />
     <Compile Include="Assets/Scripts/Player/Skills/Data/SkillContainer.cs" />
+    <Compile Include="Assets/Scripts/Player/Commands/PlayerLifeStealSkillCommand.cs" />
+    <Compile Include="Assets/Scripts/Player/Commands/PlayerBashSkillCommand.cs" />
+    <Compile Include="Assets/Scripts/Player/EventChannels/SkillEvents/PlayerBuffSkillEventChannel.cs" />
+    <Compile Include="Assets/Scripts/Player/EventChannels/SkillEvents/PlayerActiveSkillEventChannel.cs" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMPro.cginc" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMP_Bitmap.shader" />

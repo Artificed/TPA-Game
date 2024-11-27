@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class ActiveSkill : Skill
 {
-    private int _activeTime;
-    private int _remainingTurns;
+    private bool isActive;
     
     public override void Initialize(SkillDataSO data)
     {
@@ -13,25 +12,24 @@ public class ActiveSkill : Skill
         Description = data.description;
         UnlockLevel = data.unlockLevel;
         CooldownTime = data.cooldownTime;
-        _activeTime = data.activeTime;
         ImageIcon = data.imageIcon;
         SkillKey = data.skillKey;
-        
+
         IsUnlocked = Player.Instance.Level >= UnlockLevel;
-        
+
+        isActive = false;
         RemainingCooldown = 0;
-        _remainingTurns = 0;
     }
 
-    public int ActiveTime => _activeTime;
-
-    public void DecreaseActiveTime()
+    public bool IsActive
     {
-        _activeTime--;
+        get => isActive;
+        set => isActive = value;
     }
 
-    public void DecreaseTurns()
+    public void ToggleActive()
     {
-        _remainingTurns--;
+        isActive = !isActive;
+        PlayerStateMachine.Instance.PlayerActiveSkillEventChannel.RaiseEvent(this);
     }
 }

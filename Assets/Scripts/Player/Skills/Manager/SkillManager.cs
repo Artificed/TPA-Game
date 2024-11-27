@@ -8,15 +8,17 @@ public class SkillManager : MonoBehaviour
     public static SkillManager Instance { get; private set; }
     
     private List<Skill> _skills;
-    private List<Skill> _activeSkills;
+    private List<Skill> _usableSkills;
 
     [SerializeField] private List<SkillDataSO> skillDataSos;
     [SerializeField] private List<SkillContainer> skillContainers;
 
+    [SerializeField] private PlayerBuffSkillEventChannel playerBuffSkillEventChannel;
+    [SerializeField] private PlayerActiveSkillEventChannel playerActiveSkillEventChannel;
     private void Awake()
     {
         _skills = new List<Skill>();
-        _activeSkills = new List<Skill>();
+        _usableSkills = new List<Skill>();
     }
 
     private void Start()
@@ -38,13 +40,13 @@ public class SkillManager : MonoBehaviour
         {
             if (skillDataSo.activeTime == -1)
             {
-                Skill skill = new BuffSkill();
+                Skill skill = new ActiveSkill();
                 skill.Initialize(skillDataSo);
                 _skills.Add(skill);
             }
             else
             {
-                Skill skill = new ActiveSkill();
+                Skill skill = new BuffSkill();
                 skill.Initialize(skillDataSo);
                 _skills.Add(skill);
             }
@@ -57,6 +59,41 @@ public class SkillManager : MonoBehaviour
         {
             skillContainers[skill.GetSkillKey - 1].Initialize(skill);
         }
+    }
+
+    public Skill GetSkill(string skillName)
+    {
+        foreach (var skill in _skills)
+        {
+            if (skill.GetSkillName.Equals(skillName))
+            {
+                return skill;
+            }
+        }
+        return null;
+    }
+
+    private void UpdateActiveSkillUI(ActiveSkill activeSkill)
+    {
+        Debug.Log("test");
+        skillContainers[activeSkill.GetSkillKey - 1].HandleActiveSkillToggle(activeSkill.IsActive);
+    }
+
+    private void UpdateBuffSkillUI(BuffSkill buffSkill)
+    {
+        
+    }
+
+    private void OnEnable()
+    {
+        playerActiveSkillEventChannel.activeSkillEvent.AddListener(UpdateActiveSkillUI);
+        playerBuffSkillEventChannel.buffSkillEvent.AddListener(UpdateBuffSkillUI);
+    }
+
+    private void OnDisable()
+    {
+        playerActiveSkillEventChannel.activeSkillEvent.RemoveListener(UpdateActiveSkillUI);
+        playerBuffSkillEventChannel.buffSkillEvent.RemoveListener(UpdateBuffSkillUI);
     }
 
     // Update is called once per frame
