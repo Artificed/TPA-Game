@@ -23,6 +23,11 @@ public class BuffSkill : Skill
         _remainingTurns = 0;
     }
 
+    public override void HandlePlayerTurn()
+    {
+        
+    }
+
     public int ActiveTime => _activeTime;
     public int RemainingTurns => _remainingTurns;
 

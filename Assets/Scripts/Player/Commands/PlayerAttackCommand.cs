@@ -25,7 +25,9 @@ public class PlayerAttackCommand : ICommand
             damage = CalculateCritical(damage);
             _context.CameraShakeEventChannel.RaiseEvent(0.2f, 0.02f);
         }
-
+        
+        damage = RandomizeDamage(damage);
+        damage = ApplySkills(damage);
         damage = CalculateDamageOutput(damage);
         
         if (EnemyDead(damage))
@@ -37,21 +39,22 @@ public class PlayerAttackCommand : ICommand
         _target.TakeDamage(damage);
         _target.EnemyStateMachine.showDamageText(damage, isCritical);
         
-        Vector3 directionToTarget = _target.transform.position - _context.transform.position;
-        directionToTarget.y = 0;
-        _context.transform.forward = directionToTarget.normalized;
+        RotatePlayer();
         _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
     }
 
     private int CalculateDamageOutput(int damage)
     {
-        damage += _random.Next(10);
-        
         int defenseScalingFactor = 100;
         int defenseFactor = 1 - (_target.Defense / (_target.Defense + defenseScalingFactor));
         int damageOutput = damage * defenseFactor;
 
         return damageOutput;
+    }
+
+    private int RandomizeDamage(int damage)
+    {
+        return damage + _random.Next(10);
     }
 
     private bool RandomizeCritical()
@@ -69,5 +72,25 @@ public class PlayerAttackCommand : ICommand
     private bool EnemyDead(int damage)
     {
         return damage >= _target.Health;
+    }
+
+    private int ApplySkills(int damage)
+    {
+        ActiveSkill bashSkill = (ActiveSkill) SkillManager.Instance.GetSkill("Bash");
+        if (bashSkill.IsActive)
+        {
+            damage += (int) (damage * 0.5);
+            Debug.Log("Bash Used - Damage: " + damage);
+            bashSkill.UseSkill();
+        }
+
+        return damage;
+    }
+
+    private void RotatePlayer()
+    {
+        Vector3 directionToTarget = _target.transform.position - _context.transform.position;
+        directionToTarget.y = 0;
+        _context.transform.forward = directionToTarget.normalized;
     }
 }

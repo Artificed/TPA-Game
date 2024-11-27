@@ -38,6 +38,17 @@ public class PlayerIdleState: PlayerBaseState
                 SwitchState(Factory.CreateMoving());
             }
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            PlayerLifeStealSkillCommand playerLifeStealSkillCommand = new PlayerLifeStealSkillCommand();
+            // TurnManager.Instance.AddQueue(playerLifeStealSkillCommand);
+        } 
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            PlayerBashSkillCommand playerBashSkillCommand = new PlayerBashSkillCommand();
+            // TurnManager.Instance.AddQueue(playerBashSkillCommand);
+            playerBashSkillCommand.Execute();
+        }
     }
     
     public override void ExitState()

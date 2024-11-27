@@ -15,6 +15,8 @@ public class SkillManager : MonoBehaviour
 
     [SerializeField] private PlayerBuffSkillEventChannel playerBuffSkillEventChannel;
     [SerializeField] private PlayerActiveSkillEventChannel playerActiveSkillEventChannel;
+
+    [SerializeField] private PlayerTurnEventChannel playerTurnEventChannel;
     private void Awake()
     {
         _skills = new List<Skill>();
@@ -75,7 +77,6 @@ public class SkillManager : MonoBehaviour
 
     private void UpdateActiveSkillUI(ActiveSkill activeSkill)
     {
-        Debug.Log("test");
         skillContainers[activeSkill.GetSkillKey - 1].HandleActiveSkillToggle(activeSkill.IsActive);
     }
 
@@ -84,21 +85,25 @@ public class SkillManager : MonoBehaviour
         
     }
 
+    private void HandlePlayerTurn()
+    {
+        foreach (var skill in _skills)
+        {
+            skill.HandlePlayerTurn();
+        }
+    }
+
     private void OnEnable()
     {
         playerActiveSkillEventChannel.activeSkillEvent.AddListener(UpdateActiveSkillUI);
         playerBuffSkillEventChannel.buffSkillEvent.AddListener(UpdateBuffSkillUI);
+        playerTurnEventChannel.playerTurnEvent.AddListener(HandlePlayerTurn);
     }
 
     private void OnDisable()
     {
         playerActiveSkillEventChannel.activeSkillEvent.RemoveListener(UpdateActiveSkillUI);
         playerBuffSkillEventChannel.buffSkillEvent.RemoveListener(UpdateBuffSkillUI);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        playerTurnEventChannel.playerTurnEvent.RemoveListener(HandlePlayerTurn);
     }
 }

@@ -21,15 +21,30 @@ public class ActiveSkill : Skill
         RemainingCooldown = 0;
     }
 
-    public bool IsActive
+    public override void HandlePlayerTurn()
     {
-        get => isActive;
-        set => isActive = value;
+        if(RemainingCooldown < 1) return;
+        RemainingCooldown--;
+        PlayerStateMachine.Instance.PlayerActiveSkillEventChannel.RaiseEvent(this);
     }
 
     public void ToggleActive()
     {
+        if(RemainingCooldown > 0) return;
         isActive = !isActive;
         PlayerStateMachine.Instance.PlayerActiveSkillEventChannel.RaiseEvent(this);
+    }
+
+    public void UseSkill()
+    {
+        isActive = false;
+        RemainingCooldown = CooldownTime;
+        PlayerStateMachine.Instance.PlayerActiveSkillEventChannel.RaiseEvent(this);
+    }
+    
+    public bool IsActive
+    {
+        get => isActive;
+        set => isActive = value;
     }
 }

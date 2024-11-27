@@ -15,6 +15,8 @@ public class SkillContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private GameObject descriptionContainer;
     
+    private Color _darkOverlay = new Color(0f, 0f, 0f, 0.8f);
+    private Color _orangeOverlay = new Color(1f, 0.6f, 0f, 0.4f);
     private Skill _skill;
 
     public void Initialize(Skill skill)
@@ -60,12 +62,20 @@ public class SkillContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (isActive)
         {
             lockedText.text = "";
-            lockedDisplay.color = new Color(1f, 0.6f, 0f, 0.4f);
+            lockedDisplay.color = _orangeOverlay;
             lockedDisplay.gameObject.SetActive(true);
+            return;
         }
-        else
+
+        if (_skill.GetRemainingCooldown > 0)
         {
-            lockedDisplay.gameObject.SetActive(false);
+            lockedText.text = _skill.GetRemainingCooldown.ToString();
+            lockedDisplay.color = _darkOverlay;
+            lockedText.fontSize = 20;
+            lockedDisplay.gameObject.SetActive(true);
+            return;
         }
+        
+        lockedDisplay.gameObject.SetActive(false);
     }
 }

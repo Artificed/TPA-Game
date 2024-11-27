@@ -50,12 +50,13 @@ public class PlayerBattleIdleState : PlayerBaseState
         else if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             PlayerLifeStealSkillCommand playerLifeStealSkillCommand = new PlayerLifeStealSkillCommand();
-            playerLifeStealSkillCommand.Execute();
+            // TurnManager.Instance.AddQueue(playerLifeStealSkillCommand);
         } 
         
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             PlayerBashSkillCommand playerBashSkillCommand = new PlayerBashSkillCommand();
+            // TurnManager.Instance.AddQueue(playerBashSkillCommand);
             playerBashSkillCommand.Execute();
         }
     }

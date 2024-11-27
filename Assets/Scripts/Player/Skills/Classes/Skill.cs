@@ -18,6 +18,7 @@ public abstract class Skill
     protected int SkillKey;
     
     public abstract void Initialize(SkillDataSO data);
+    public abstract void HandlePlayerTurn();
 
     public Texture2D GetImageIcon => ImageIcon;
     public int GetSkillKey => SkillKey;
@@ -25,4 +26,5 @@ public abstract class Skill
     public string GetDescription => Description;
     public int GetUnlockLevel => UnlockLevel;
     public string GetSkillName => SkillName;
+    public int GetRemainingCooldown => RemainingCooldown;
 }
