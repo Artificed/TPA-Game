@@ -14,8 +14,9 @@ public abstract class Skill
     
     protected int RemainingCooldown;
     protected SkillDataSO SkillDataSo;
-
     protected int SkillKey;
+
+    protected bool ImmediateAttackBuffer;
     
     public abstract void Initialize(SkillDataSO data);
     public abstract void HandlePlayerTurn();

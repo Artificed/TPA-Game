@@ -19,10 +19,16 @@ public class ActiveSkill : Skill
 
         isActive = false;
         RemainingCooldown = 0;
+        ImmediateAttackBuffer = true;
     }
 
     public override void HandlePlayerTurn()
     {
+        if (ImmediateAttackBuffer)
+        {
+            ImmediateAttackBuffer = false;
+            return;
+        }
         if(RemainingCooldown < 1) return;
         RemainingCooldown--;
         PlayerStateMachine.Instance.PlayerActiveSkillEventChannel.RaiseEvent(this);
@@ -31,6 +37,7 @@ public class ActiveSkill : Skill
     public void ToggleActive()
     {
         if(RemainingCooldown > 0) return;
+        ImmediateAttackBuffer = true;
         isActive = !isActive;
         PlayerStateMachine.Instance.PlayerActiveSkillEventChannel.RaiseEvent(this);
     }
