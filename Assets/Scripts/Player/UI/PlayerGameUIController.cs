@@ -56,7 +56,7 @@ public class PlayerGameUIController : MonoBehaviour
     
     private void UpdateEnemyLeftUI(int enemyLeft)
     {
-        enemyLeftText.text = "Enemy Left " + enemyLeft;
+        enemyLeftText.text = "Enemy Left: " + enemyLeft;
     }
     
     private void OnEnable()

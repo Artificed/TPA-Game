@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageText : MonoBehaviour
+public class StatusText : MonoBehaviour
 {
     private float _destroyTime = 0.6f;  
     private float _floatSpeed = 0.15f; 

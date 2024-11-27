@@ -9,6 +9,7 @@ public class EnemyDataSO : ScriptableObject
     public int health;
     public int defense;
     public int xpDrop;
+    public int zhenDrop;
     public bool hasSword;
     public float criticalRate;
     public float criticalDamage;

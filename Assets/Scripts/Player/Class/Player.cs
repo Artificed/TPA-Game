@@ -73,20 +73,41 @@ public class Player : MonoBehaviour
     public void AddExp(int expAdded)
     {
         exp += expAdded;
-        if (exp > expCap)
+        if (exp >= expCap)
         {
-            level++;
-            exp -= expCap;
-            playerLevelEventChannel?.RaiseEvent(level);
-            // TODO: Increase exp cap
+            LevelUp();
+            PlayerStateMachine.Instance.showLevelUpText();
         }
         playerExpEventChannel?.RaiseEvent(exp, expCap);
+    }
+
+    public void AddZhen(int zhenAdded)
+    {
+        zhen += zhenAdded;
+        zhenCounterEventChannel?.RaiseEvent(zhen);
     }
 
     public int Attack
     {
         get => attack;
         set => attack = value;
+    }
+
+    public void LevelUp()
+    {
+        level++;
+        exp -= expCap;
+        
+        maxHealth += (int) ((maxHealth + Random.Range(0, 3)) * 0.25);
+        attack += (int) ((attack + Random.Range(0, 3)) * 0.25);
+        defense += (int) ((defense + Random.Range(0, 2)) * 0.25);
+        criticalRate +=  (float) (criticalRate * 0.25);
+        criticalDamage += (float) (criticalDamage * 0.25);
+        expCap += (int) ((expCap + Random.Range(0, 3)) * 0.25);
+        
+        playerHealthEventChannel?.RaiseEvent(health, maxHealth);
+        playerExpEventChannel?.RaiseEvent(exp, expCap);
+        playerLevelEventChannel?.RaiseEvent(level);
     }
 
     public int Health => health;

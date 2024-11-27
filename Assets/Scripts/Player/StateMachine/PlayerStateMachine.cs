@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerStateMachine : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class PlayerStateMachine : MonoBehaviour
     
     [SerializeField] private int attackAnimationsCount = 3;
     [SerializeField] private GameObject sword;
-    [SerializeField] private GameObject damageTextPrefab;
+    [SerializeField] private GameObject statusTextPrefab;
     
     private List<Tile> path = new List<Tile>();
     private PlayerBaseState _currentState;
@@ -159,7 +160,7 @@ public class PlayerStateMachine : MonoBehaviour
     public void showDamageText(int damage, bool isCritical = false)
     {
         var canvas = GetComponentInChildren<Canvas>().transform;
-        var damageText = Instantiate(damageTextPrefab, canvas);
+        var damageText = Instantiate(statusTextPrefab, canvas);
         var textMesh = damageText.GetComponent<TextMeshPro>();
 
         textMesh.text = damage.ToString();
@@ -175,6 +176,17 @@ public class PlayerStateMachine : MonoBehaviour
             textMesh.color = Color.white; 
             textMesh.fontSize = 12; 
         }
+    }
+
+    public void showLevelUpText()
+    { 
+        var canvas = GetComponentInChildren<Canvas>().transform;
+        var levelUpText = Instantiate(statusTextPrefab, canvas);
+        var textMesh = levelUpText.GetComponent<TextMeshPro>();
+        textMesh.text = "Level Up!";
+        levelUpText.transform.localPosition = new Vector3(0, 50.0f, 0); 
+        textMesh.color = new Color(1f, 0.7f, 0f);
+        textMesh.fontSize = 14;
     }
 
     public PlayerBaseState CurrentState

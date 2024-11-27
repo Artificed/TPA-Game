@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 public class Enemy: MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class Enemy: MonoBehaviour
     [SerializeField] private int attack;
     [SerializeField] private int defense;
     [SerializeField] private int xpDrop;
+    [SerializeField] private int zhenDrop;
     [SerializeField] private bool hasSword;
     [SerializeField] private float criticalRate;
     [SerializeField] private float criticalDamage;
@@ -40,11 +41,12 @@ public class Enemy: MonoBehaviour
         this.enemyName = enemyName;
         
         attack = Mathf.CeilToInt((data.attack * levelMultiplier)); 
-        health = Mathf.CeilToInt((data.health * levelMultiplier));
+        health = Mathf.CeilToInt((data.health * levelMultiplier) + Random.Range(0, 5));
         maxHealth = health;
-        defense = Mathf.CeilToInt((data.defense * levelMultiplier));
-        xpDrop = Mathf.CeilToInt((data.xpDrop * levelMultiplier));
-
+        defense = Mathf.CeilToInt((data.defense * levelMultiplier) + Random.Range(0, 2));
+        xpDrop = Mathf.CeilToInt((data.xpDrop * levelMultiplier) + Random.Range(0, 3));
+        zhenDrop = Mathf.CeilToInt((data.zhenDrop * levelMultiplier) + Random.Range(0, 3));
+        
         criticalRate = data.criticalRate;
         criticalDamage = data.criticalDamage;
         
@@ -73,4 +75,6 @@ public class Enemy: MonoBehaviour
     public int Defense => defense;
     public float CriticalRate => criticalRate;
     public float CriticalDamage => criticalDamage;
+    public int XpDrop => xpDrop;
+    public int ZhenDrop => zhenDrop;
 }

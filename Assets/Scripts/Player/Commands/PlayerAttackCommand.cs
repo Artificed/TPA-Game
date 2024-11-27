@@ -26,6 +26,12 @@ public class PlayerAttackCommand : ICommand
             _context.CameraShakeEventChannel.RaiseEvent(0.2f, 0.02f);
         }
 
+        if (EnemyDead(damage))
+        {
+            Player.Instance.AddExp(_target.XpDrop);
+            Player.Instance.AddZhen(_target.ZhenDrop);
+        }
+        
         _target.TakeDamage(damage);
         _target.EnemyStateMachine.showDamageText(damage, isCritical);
         
@@ -54,5 +60,10 @@ public class PlayerAttackCommand : ICommand
     private int CalculateCritical(int damage)
     {
         return (int) (Player.Instance.CriticalDamage * damage);
+    }
+
+    private bool EnemyDead(int damage)
+    {
+        return damage >= _target.Health;
     }
 }
