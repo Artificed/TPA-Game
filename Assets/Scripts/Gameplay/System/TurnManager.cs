@@ -25,7 +25,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private EnemyLeftEventChannel enemyLeftEventChannel;
     [SerializeField] private FloorClearedEventChannel floorClearedEventChannel;
     
-    private void Awake()
+    private void Start()
     {
         if (Instance != null && Instance != this)
         {

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Player : MonoBehaviour
 {
@@ -34,9 +36,13 @@ public class Player : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+
+    private void Start()
+    {
         Initialize(playerDataSo);
     }
-    
+
     public void Initialize(PlayerDataSO data)
     {
         health = data.health;

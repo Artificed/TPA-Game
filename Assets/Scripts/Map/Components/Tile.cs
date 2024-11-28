@@ -24,19 +24,16 @@ public class Tile : MonoBehaviour
     [SerializeField] private TileType tileType;
     [SerializeField] private GridManager gridManager;
     [SerializeField] private HighlightManager highlightManager;
-    
-    private void Awake()
+
+    // Start is called before the first frame update
+    void Start()
     {
         gridManager = FindObjectOfType<GridManager>();
         _tileRenderer = GetComponentInChildren<Renderer>();
         highlightManager = FindObjectOfType<HighlightManager>();
         _originalColor = _tileRenderer.material.color;
         _highlightColor = new Color(1.0f, 1.0f, 1.0f, 0.2f);;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
+        
         SetCoords();
         if(blocked)
         {

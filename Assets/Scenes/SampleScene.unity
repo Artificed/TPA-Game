@@ -722,6 +722,7 @@ GameObject:
   - component: {fileID: 279900456}
   - component: {fileID: 279900457}
   - component: {fileID: 279900458}
+  - component: {fileID: 279900459}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -835,7 +836,7 @@ MonoBehaviour:
   expSlider: {fileID: 511545786}
   healthText: {fileID: 1149204582}
   expText: {fileID: 394897971}
-  level: 1
+  floor: 1
   levelText: {fileID: 2091168954}
   zhenCountText: {fileID: 268212060}
   floorText: {fileID: 726535044}
@@ -881,6 +882,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDeathEventChannel: {fileID: 11400000, guid: 4dd7ab3ca6fd4412ba62989e8d8c1d19, type: 2}
   deathCanvas: {fileID: 1013821085}
+--- !u!114 &279900459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279900451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16fc11fc9312429f898963df97af966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorClearedEventChannel: {fileID: 11400000, guid: 2846d98d1c02a4531b61ef8282ec880f, type: 2}
+  floorClearedCanvas: {fileID: 1460236118}
 --- !u!224 &283096658 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1240070384506207451, guid: e7cfb05d7846848969facae3f3fb90fa, type: 3}
@@ -2562,6 +2577,7 @@ GameObject:
   - component: {fileID: 1013821087}
   - component: {fileID: 1013821086}
   - component: {fileID: 1013821090}
+  - component: {fileID: 1013821091}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2667,6 +2683,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDeathEventChannel: {fileID: 11400000, guid: 4dd7ab3ca6fd4412ba62989e8d8c1d19, type: 2}
   deathCanvas: {fileID: 2115920022}
+--- !u!114 &1013821091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013821085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16fc11fc9312429f898963df97af966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorClearedEventChannel: {fileID: 11400000, guid: 2846d98d1c02a4531b61ef8282ec880f, type: 2}
+  floorClearedCanvas: {fileID: 1460236118}
 --- !u!1001 &1044424666
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4160,7 +4190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1460236119
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4971,6 +5001,7 @@ MonoBehaviour:
   playerTurnEventChannel: {fileID: 11400000, guid: 0467e93ca70dd400b8e78bb63edebfb0, type: 2}
   enemyActionCompleteEventChannel: {fileID: 11400000, guid: f1ea792e7f2564a31aa0ce572943051c, type: 2}
   enemyLeftEventChannel: {fileID: 11400000, guid: abbc201eff816409b8aed659af8e7210, type: 2}
+  floorClearedEventChannel: {fileID: 11400000, guid: 2846d98d1c02a4531b61ef8282ec880f, type: 2}
 --- !u!1 &2091168952
 GameObject:
   m_ObjectHideFlags: 0

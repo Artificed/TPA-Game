@@ -44,18 +44,6 @@ public class PlayerStateMachine : MonoBehaviour
 
     private bool _withinEnemyRange;
     
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this; 
-        }
-    }
-    
     private void OnEnable()
     {
         if (enemyAlertEventChannel != null)
@@ -80,6 +68,15 @@ public class PlayerStateMachine : MonoBehaviour
     
     void Start()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this; 
+        }
+        
         _isMovingHash = Animator.StringToHash("isMoving");
         _isAttackingHash1 = Animator.StringToHash("isAttacking1");
         _isAttackingHash2 = Animator.StringToHash("isAttacking2");

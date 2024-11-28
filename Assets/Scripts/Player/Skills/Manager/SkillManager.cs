@@ -16,13 +16,11 @@ public class SkillManager : MonoBehaviour
     [SerializeField] private PlayerActiveSkillEventChannel playerActiveSkillEventChannel;
 
     [SerializeField] private PlayerTurnEventChannel playerTurnEventChannel;
-    private void Awake()
-    {
-        _skills = new List<Skill>();
-    }
 
     private void Start()
     {
+        _skills = new List<Skill>();
+        
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);

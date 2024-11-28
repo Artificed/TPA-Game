@@ -37,7 +37,7 @@ public class GridManager : MonoBehaviour
 
     private int _level;
     
-    private void Awake()
+    private void Start()
     {
         _level = Player.Instance.Level;
             

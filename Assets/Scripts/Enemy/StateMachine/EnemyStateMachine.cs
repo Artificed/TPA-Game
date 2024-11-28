@@ -41,13 +41,10 @@ public class EnemyStateMachine : MonoBehaviour
     private int _recalculationCount = 0;
     private const int MaxRecalculationAttempts = 10;
 
-    private void Awake()
-    {
-        enemy = GetComponent<Enemy>();
-    }
-
     void Start()
     {
+        enemy = GetComponent<Enemy>();
+        
         _playerTransform = PlayerStateMachine.Instance.transform;
         
         _isAlertHash = Animator.StringToHash("isAlert");

@@ -22,7 +22,7 @@ public class AStar : MonoBehaviour
 
     Vector2Int[] searchOrder = { Vector2Int.right, Vector2Int.left, Vector2Int.up, Vector2Int.down };
 
-    private void Awake()
+    private void Start()
     {
         gridManager = FindObjectOfType<GridManager>();
         if (gridManager != null)

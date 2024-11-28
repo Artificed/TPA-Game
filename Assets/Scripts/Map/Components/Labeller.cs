@@ -10,7 +10,7 @@ public class Labeller : MonoBehaviour
     public Vector2Int coordinates = new Vector2Int();
     private GridManager gridManager;
 
-    private void Awake()
+    private void Start()
     {
         InitializeComponents();
         UpdateLabel();
