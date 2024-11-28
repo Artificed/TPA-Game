@@ -13,6 +13,7 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private PlayerActiveSkillEventChannel playerActiveSkillEventChannel;
     [SerializeField] private PlayerBuffSkillEventChannel playerBuffSkillEventChannel;
     [SerializeField] private BuffDisplayEventChannel buffDisplayEventChannel;
+    [SerializeField] private GameObject buffAura;
     
     public static PlayerStateMachine Instance { get; private set; }
     
@@ -332,5 +333,15 @@ public class PlayerStateMachine : MonoBehaviour
     {
         get => buffDisplayEventChannel;
         set => buffDisplayEventChannel = value;
+    }
+
+    public void ActivateParticles()
+    {
+        buffAura.SetActive(true);
+    }
+
+    public void DeactivateParticles()
+    {
+        buffAura.SetActive(false);
     }
 }

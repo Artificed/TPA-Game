@@ -7,7 +7,7 @@ public class PlayerLifeStealSkillCommand : ICommand
     public void Execute()
     {
         BuffSkill lifeStealSkill = (BuffSkill) SkillManager.Instance.GetSkill("Life Steal");
-        if (!lifeStealSkill.GetUnlocked) return;
+        if (Player.Instance.Level < lifeStealSkill.GetUnlockLevel) return;
         lifeStealSkill.ToggleSkill();  
     }
 }

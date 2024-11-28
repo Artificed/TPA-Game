@@ -46,7 +46,7 @@ public class SkillContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         descriptionContainer.SetActive(true);
         if (_skill.GetUnlocked)
         {
-            descriptionText.text = _skill.GetDescription;
+            descriptionText.text = _skill.GetSkillName + " - " + _skill.GetDescription;
         }
         else
         {
@@ -84,6 +84,8 @@ public class SkillContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void HandleBuffSkillUsage()
     {
+        if (Player.Instance.Level < _skill.GetUnlockLevel) return;
+        
         if (_skill.GetRemainingCooldown > 0)
         {
             buffDisplayEventChannel.OnBuffLoaded((BuffSkill) _skill);

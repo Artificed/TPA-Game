@@ -2061,6 +2061,7 @@ MonoBehaviour:
   playerActiveSkillEventChannel: {fileID: 11400000, guid: bf578248eeb9c4d99b4624f7d24438c0, type: 2}
   playerBuffSkillEventChannel: {fileID: 11400000, guid: b2fa6cc6c552c48bb9a679ba80bbeffa, type: 2}
   buffDisplayEventChannel: {fileID: 11400000, guid: b0d8ceeadae8942c79acd06cd95e4d9e, type: 2}
+  buffAura: {fileID: 2250826825904004295}
   movementSpeed: 2
   unit: {fileID: 81751962}
   animator: {fileID: 864673582}
@@ -3811,6 +3812,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 300399357522545840, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.078431375
+      objectReference: {fileID: 0}
     - target: {fileID: 2250826826817353317, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -3871,6 +3876,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: HumanMale
       objectReference: {fileID: 0}
+    - target: {fileID: 5662074253211705548, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.078431375
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662074253211705548, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662074253211705548, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5662074253211705548, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5867130631070212541, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6723269184187645544, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6860818071315086814, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.078431375
+      objectReference: {fileID: 0}
     - target: {fileID: 7994952066124165845, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -3879,6 +3912,23 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: ce3689e7958cd43258b25b9f6337e938, type: 2}
+    - target: {fileID: 8312737316833534704, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342748109943962333, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.078431375
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186537326399618341, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2250826826817353316, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
+--- !u!1 &2250826825904004295 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5867130631070212541, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
+  m_PrefabInstance: {fileID: 2250826825904004294}
+  m_PrefabAsset: {fileID: 0}

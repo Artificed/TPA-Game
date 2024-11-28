@@ -33,7 +33,7 @@ public class BuffSkill : Skill
     public void ToggleSkill()
     {
         if(RemainingCooldown > 0) return;
-        Debug.Log("Skill Toggled");
+        PlayerStateMachine.Instance.ActivateParticles();
         
         _remainingTurns = _activeTime;
         RemainingCooldown = CooldownTime;
@@ -50,6 +50,7 @@ public class BuffSkill : Skill
         if (_remainingTurns < 1)
         {
             PlayerStateMachine.Instance.BuffDisplayEventChannel.RemoveBuff(this);
+            PlayerStateMachine.Instance.DeactivateParticles();
             return;
         }
         

@@ -7,7 +7,7 @@ public class PlayerBashSkillCommand : ICommand
     public void Execute()
     {
         ActiveSkill bashSkill = (ActiveSkill) SkillManager.Instance.GetSkill("Bash");
-        if (!bashSkill.GetUnlocked) return;
+        if (Player.Instance.Level < bashSkill.GetUnlockLevel) return;
         bashSkill.ToggleActive();
     }
 }
