@@ -31,6 +31,7 @@ public class PlayerDeathState : PlayerBaseState
         if (stateInfo.IsName("Death") && stateInfo.normalizedTime >= 1.0f)
         {
             Object.Destroy(Context.gameObject);
+            Context.PlayerDeathEventChannel.RaiseEvent();
         }
     }
 }

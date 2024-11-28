@@ -24,8 +24,8 @@ public class EnemyAlertHelper : MonoBehaviour
 
         foreach (var enemy in enemies)
         {
-            if (enemy == null) continue;
-
+            if (enemy == null || playerTransform == null) continue;
+            
             float distance = Vector3.Distance(playerTransform.position, enemy.transform.position);
             if (distance <= alertRange)
             {
