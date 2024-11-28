@@ -35,6 +35,7 @@ public class GridManager : MonoBehaviour
     
     [SerializeField] private EnemyFactory enemyFactory;
 
+    private Tile _playerTile;
     private int _level;
     
     private void Start()
@@ -235,6 +236,9 @@ public class GridManager : MonoBehaviour
         if (unblockedTiles.Count == 0) return;
 
         Tile randomTile = unblockedTiles[_random.Next(unblockedTiles.Count)];
+
+        _playerTile = randomTile;
+        
         Vector3 playerPosition = randomTile.transform.position;
         playerPosition.y = 0.1f;
         player.transform.position = playerPosition;
@@ -265,6 +269,7 @@ public class GridManager : MonoBehaviour
     private void SpawnEnemiesInRoom(Room room, int enemyCount)
     {
         List<Tile> unblockedTiles = room.GetTiles().FindAll(tile => !tile.Blocked);
+        unblockedTiles.Remove(_playerTile);
 
         if (unblockedTiles.Count < enemyCount)
         {

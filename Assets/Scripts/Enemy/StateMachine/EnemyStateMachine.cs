@@ -29,7 +29,9 @@ public class EnemyStateMachine : MonoBehaviour
     
     private int _isAlertHash;
     private int _isMovingHash;
-    private int _isAttackingHash;
+    private int _isAttackingHash1;
+    private int _isAttackingHash2;
+    private int _isAttackingHash3;
     private int _isHitHash;
     private int _isDeadHash;
 
@@ -49,7 +51,9 @@ public class EnemyStateMachine : MonoBehaviour
         
         _isAlertHash = Animator.StringToHash("isAlert");
         _isMovingHash = Animator.StringToHash("isMoving");
-        _isAttackingHash = Animator.StringToHash("isAttacking");
+        _isAttackingHash1 = Animator.StringToHash("isAttacking1");
+        _isAttackingHash2 = Animator.StringToHash("isAttacking2");
+        _isAttackingHash3 = Animator.StringToHash("isAttacking3");
         _isHitHash = Animator.StringToHash("isHit");
         _isDeadHash = Animator.StringToHash("isDead");
                     
@@ -323,10 +327,22 @@ public class EnemyStateMachine : MonoBehaviour
         set => _isMovingHash = value;
     }
 
-    public int IsAttackingHash
+    public int IsAttackingHash1
     {
-        get => _isAttackingHash;
-        set => _isAttackingHash = value;
+        get => _isAttackingHash1;
+        set => _isAttackingHash1 = value;
+    }
+
+    public int IsAttackingHash2
+    {
+        get => _isAttackingHash2;
+        set => _isAttackingHash2 = value;
+    }
+
+    public int IsAttackingHash3
+    {
+        get => _isAttackingHash3;
+        set => _isAttackingHash3 = value;
     }
 
     public EnemyActionCompleteEventChannel EnemyActionCompleteEventChannel
