@@ -104,4 +104,6 @@ public class SkillManager : MonoBehaviour
         playerBuffSkillEventChannel.buffSkillEvent.RemoveListener(UpdateBuffSkillUI);
         playerTurnEventChannel.playerTurnEvent.RemoveListener(HandlePlayerTurn);
     }
+
+    public List<Skill> Skills => _skills;
 }

@@ -1,18 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BuffsBar : MonoBehaviour
 {
     [SerializeField] private GameObject container;
     [SerializeField] private GameObject buffPrefab;
-        
-    private List<BuffContainer> _buffContainers = new List<BuffContainer>();
-
     [SerializeField] private BuffDisplayEventChannel buffDisplayEventChannel;
     
-    private void RefreshContainer()
+    private List<BuffContainer> _buffContainers = new List<BuffContainer>();
+    private List<BuffSkill> _buffSkills = new List<BuffSkill>();
+
+    private void RepositionContainer()
     {
         float totalWidth = 0f;
         foreach (BuffContainer buffContainer in _buffContainers)
@@ -30,16 +31,47 @@ public class BuffsBar : MonoBehaviour
         }
     }
     
+    private void RefreshContainer()
+    {
+        foreach (BuffContainer buffContainer in _buffContainers)
+        {
+            Destroy(buffContainer.gameObject);
+        }
+
+        _buffContainers.Clear();
+        _buffSkills.Clear();
+
+        List<BuffSkill> buffSkills = SkillManager.Instance.Skills
+            .Where(skill => skill is BuffSkill)  
+            .Cast<BuffSkill>() 
+            .ToList();
+
+        foreach (BuffSkill buffSkill in buffSkills)
+        {
+            GameObject buffObject = Instantiate(buffPrefab, container.transform);
+            BuffContainer buffContainer = buffObject.GetComponent<BuffContainer>();
+            buffContainer.Initialize(buffSkill);
+
+            _buffContainers.Add(buffContainer);
+            _buffSkills.Add(buffSkill);
+        }
+
+        RepositionContainer();
+    }
+    
     private void AddBuff(BuffSkill buffSkill)
     {
+        if (_buffSkills.Contains(buffSkill)) return;
+        
         GameObject buffObject = Instantiate(buffPrefab, container.transform);
 
         BuffContainer buffContainer = buffObject.GetComponent<BuffContainer>();
         buffContainer.Initialize(buffSkill);
 
         _buffContainers.Add(buffContainer);
+        _buffSkills.Add(buffSkill);
 
-        RefreshContainer();
+        RepositionContainer();
     }
 
     private void RemoveBuff(BuffSkill buffSkill)
@@ -58,23 +90,26 @@ public class BuffsBar : MonoBehaviour
         if (buffToRemove != null)
         {
             _buffContainers.Remove(buffToRemove);
-            Destroy(buffToRemove);
+            _buffSkills.Remove(buffSkill);
+            
+            buffDisplayEventChannel.RemoveBuff(buffSkill);
+            
+            Destroy(buffToRemove.gameObject);
+            RepositionContainer();
         }
-
-        RefreshContainer();
     }
-    
+
     private void OnEnable()
     {
         buffDisplayEventChannel.OnBuffLoaded += AddBuff;
-        buffDisplayEventChannel.OnBuffLoaded += RemoveBuff;
+        buffDisplayEventChannel.OnBuffRemoved += RemoveBuff;
         buffDisplayEventChannel.OnBuffRefreshed += RefreshContainer;
     }
 
     private void OnDisable()
     {
         buffDisplayEventChannel.OnBuffLoaded -= AddBuff;
-        buffDisplayEventChannel.OnBuffLoaded -= RemoveBuff;
+        buffDisplayEventChannel.OnBuffRemoved -= RemoveBuff;
         buffDisplayEventChannel.OnBuffRefreshed -= RefreshContainer;
     }
 }

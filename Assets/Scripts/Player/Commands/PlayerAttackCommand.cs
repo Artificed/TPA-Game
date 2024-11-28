@@ -87,10 +87,11 @@ public class PlayerAttackCommand : ICommand
         BuffSkill lifeStealSkill = (BuffSkill) SkillManager.Instance.GetSkill("Life Steal");
         if (lifeStealSkill.RemainingTurns > 0)
         {
+            Debug.Log("Remaining Turns: " + lifeStealSkill.RemainingTurns);
             int healthHealed = (int) (0.2 * damage); // confirm this later
             Player.Instance.HealHealth(healthHealed);
             lifeStealSkill.UseSkill();
-        } 
+        }
         
         return damage;
     }

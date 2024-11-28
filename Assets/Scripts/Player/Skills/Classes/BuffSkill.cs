@@ -26,27 +26,35 @@ public class BuffSkill : Skill
     public override void HandlePlayerTurn()
     {
         DecreaseCooldown();
-        DecreaseActiveTime();
+        Debug.Log("Cooldown decreased");
         PlayerStateMachine.Instance.PlayerBuffSkillEventChannel.RaiseEvent(this);
     }
 
     public void ToggleSkill()
     {
         if(RemainingCooldown > 0) return;
+        Debug.Log("Skill Toggled");
         
         _remainingTurns = _activeTime;
         RemainingCooldown = CooldownTime;
         
         PlayerStateMachine.Instance.Animator.SetTrigger(PlayerStateMachine.Instance.IsBuffHash);
-        PlayerStateMachine.Instance.PlayerBuffSkillEventChannel.RaiseEvent(this);
         PlayerStateMachine.Instance.BuffDisplayEventChannel.TransferBuff(this);
+        PlayerStateMachine.Instance.PlayerBuffSkillEventChannel.RaiseEvent(this);
     }
 
     public override void UseSkill()
     {
-        if(_activeTime < 1) return;
-        _activeTime--;
+        _remainingTurns--;
+        
+        if (_remainingTurns < 1)
+        {
+            PlayerStateMachine.Instance.BuffDisplayEventChannel.RemoveBuff(this);
+            return;
+        }
+        
         PlayerStateMachine.Instance.PlayerBuffSkillEventChannel.RaiseEvent(this);
+        PlayerStateMachine.Instance.BuffDisplayEventChannel.RefreshBuffs();
     }
 
     private void DecreaseCooldown()
@@ -54,13 +62,7 @@ public class BuffSkill : Skill
         if(RemainingCooldown < 1) return;
         RemainingCooldown--;
     }
-
-    private void DecreaseActiveTime()
-    {
-        if(_activeTime < 1) return;
-        _activeTime--;
-    }
-
+    
     public int RemainingTurns
     {
         get => _remainingTurns;

@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
     
     public void HealHealth(int healthHealed)
     {
-        health = Mathf.Clamp(health - healthHealed, 0, maxHealth);
+        health = Mathf.Clamp(health + healthHealed, 0, maxHealth);
         playerHealthEventChannel?.RaiseEvent(health, maxHealth);
     }
 
