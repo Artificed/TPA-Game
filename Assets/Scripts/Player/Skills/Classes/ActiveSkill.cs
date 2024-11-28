@@ -42,7 +42,7 @@ public class ActiveSkill : Skill
         PlayerStateMachine.Instance.PlayerActiveSkillEventChannel.RaiseEvent(this);
     }
 
-    public void UseSkill()
+    public override void UseSkill()
     {
         isActive = false;
         RemainingCooldown = CooldownTime;

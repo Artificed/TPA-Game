@@ -12,6 +12,7 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private CameraShakeEventChannel cameraShakeEventChannel;
     [SerializeField] private PlayerActiveSkillEventChannel playerActiveSkillEventChannel;
     [SerializeField] private PlayerBuffSkillEventChannel playerBuffSkillEventChannel;
+    [SerializeField] private BuffDisplayEventChannel buffDisplayEventChannel;
     
     public static PlayerStateMachine Instance { get; private set; }
     
@@ -325,5 +326,11 @@ public class PlayerStateMachine : MonoBehaviour
     {
         get => playerBuffSkillEventChannel;
         set => playerBuffSkillEventChannel = value;
+    }
+
+    public BuffDisplayEventChannel BuffDisplayEventChannel
+    {
+        get => buffDisplayEventChannel;
+        set => buffDisplayEventChannel = value;
     }
 }

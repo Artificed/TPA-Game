@@ -20,6 +20,7 @@ public abstract class Skill
     
     public abstract void Initialize(SkillDataSO data);
     public abstract void HandlePlayerTurn();
+    public abstract void UseSkill();
 
     public Texture2D GetImageIcon => ImageIcon;
     public int GetSkillKey => SkillKey;

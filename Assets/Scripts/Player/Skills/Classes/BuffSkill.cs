@@ -25,19 +25,45 @@ public class BuffSkill : Skill
 
     public override void HandlePlayerTurn()
     {
-        
+        DecreaseCooldown();
+        DecreaseActiveTime();
+        PlayerStateMachine.Instance.PlayerBuffSkillEventChannel.RaiseEvent(this);
     }
 
-    public int ActiveTime => _activeTime;
-    public int RemainingTurns => _remainingTurns;
-
-    public void DecreaseActiveTime()
+    public void ToggleSkill()
     {
+        if(RemainingCooldown > 0) return;
+        
+        _remainingTurns = _activeTime;
+        RemainingCooldown = CooldownTime;
+        
+        PlayerStateMachine.Instance.Animator.SetTrigger(PlayerStateMachine.Instance.IsBuffHash);
+        PlayerStateMachine.Instance.PlayerBuffSkillEventChannel.RaiseEvent(this);
+        PlayerStateMachine.Instance.BuffDisplayEventChannel.TransferBuff(this);
+    }
+
+    public override void UseSkill()
+    {
+        if(_activeTime < 1) return;
+        _activeTime--;
+        PlayerStateMachine.Instance.PlayerBuffSkillEventChannel.RaiseEvent(this);
+    }
+
+    private void DecreaseCooldown()
+    {
+        if(RemainingCooldown < 1) return;
+        RemainingCooldown--;
+    }
+
+    private void DecreaseActiveTime()
+    {
+        if(_activeTime < 1) return;
         _activeTime--;
     }
 
-    public void DecreaseTurns()
+    public int RemainingTurns
     {
-        _remainingTurns--;
+        get => _remainingTurns;
+        set => _remainingTurns = value;
     }
 }

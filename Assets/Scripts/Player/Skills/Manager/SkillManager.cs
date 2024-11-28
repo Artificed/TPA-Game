@@ -8,7 +8,6 @@ public class SkillManager : MonoBehaviour
     public static SkillManager Instance { get; private set; }
     
     private List<Skill> _skills;
-    private List<Skill> _usableSkills;
 
     [SerializeField] private List<SkillDataSO> skillDataSos;
     [SerializeField] private List<SkillContainer> skillContainers;
@@ -20,7 +19,6 @@ public class SkillManager : MonoBehaviour
     private void Awake()
     {
         _skills = new List<Skill>();
-        _usableSkills = new List<Skill>();
     }
 
     private void Start()
@@ -77,12 +75,12 @@ public class SkillManager : MonoBehaviour
 
     private void UpdateActiveSkillUI(ActiveSkill activeSkill)
     {
-        skillContainers[activeSkill.GetSkillKey - 1].HandleActiveSkillToggle(activeSkill.IsActive);
+        skillContainers[activeSkill.GetSkillKey - 1].HandleActiveSkillToggle();
     }
 
     private void UpdateBuffSkillUI(BuffSkill buffSkill)
     {
-        
+        skillContainers[buffSkill.GetSkillKey - 1].HandleBuffSkillUsage();
     }
 
     private void HandlePlayerTurn()

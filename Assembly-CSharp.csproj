@@ -193,6 +193,9 @@
     <Compile Include="Assets/Scripts/Player/Commands/PlayerBashSkillCommand.cs" />
     <Compile Include="Assets/Scripts/Player/EventChannels/SkillEvents/PlayerBuffSkillEventChannel.cs" />
     <Compile Include="Assets/Scripts/Player/EventChannels/SkillEvents/PlayerActiveSkillEventChannel.cs" />
+    <Compile Include="Assets/Scripts/Player/Skills/Data/BuffsBar.cs" />
+    <Compile Include="Assets/Scripts/Player/Skills/Data/BuffContainer.cs" />
+    <Compile Include="Assets/Scripts/Player/EventChannels/DataChannels/BuffDisplayEventChannel.cs" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMPro.cginc" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets/Asset Folders/TextMesh Pro/Shaders/TMP_Bitmap.shader" />

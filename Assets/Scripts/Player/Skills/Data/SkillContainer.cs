@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,6 +15,8 @@ public class SkillContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private TextMeshProUGUI lockedText;
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private GameObject descriptionContainer;
+
+    [SerializeField] private BuffDisplayEventChannel buffDisplayEventChannel;
     
     private Color _darkOverlay = new Color(0f, 0f, 0f, 0.8f);
     private Color _orangeOverlay = new Color(1f, 0.6f, 0f, 0.4f);
@@ -57,9 +60,9 @@ public class SkillContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         descriptionContainer.SetActive(false);
     }
 
-    public void HandleActiveSkillToggle(bool isActive)
+    public void HandleActiveSkillToggle()
     {
-        if (isActive)
+        if (((ActiveSkill)_skill).IsActive)
         {
             lockedText.text = "";
             lockedDisplay.color = _orangeOverlay;
@@ -67,6 +70,22 @@ public class SkillContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             return;
         }
 
+        if (_skill.GetRemainingCooldown > 0)
+        {
+            buffDisplayEventChannel.OnBuffLoaded((BuffSkill) _skill);
+            
+            lockedText.text = _skill.GetRemainingCooldown.ToString();
+            lockedDisplay.color = _darkOverlay;
+            lockedText.fontSize = 20;
+            lockedDisplay.gameObject.SetActive(true);
+            return;
+        }
+        
+        lockedDisplay.gameObject.SetActive(false);
+    }
+
+    public void HandleBuffSkillUsage()
+    {
         if (_skill.GetRemainingCooldown > 0)
         {
             lockedText.text = _skill.GetRemainingCooldown.ToString();

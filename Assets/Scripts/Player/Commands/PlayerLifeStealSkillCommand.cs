@@ -6,7 +6,8 @@ public class PlayerLifeStealSkillCommand : ICommand
 {
     public void Execute()
     {
-        Skill skill = SkillManager.Instance.GetSkill("Life Steal");
-        
+        BuffSkill lifeStealSkill = (BuffSkill) SkillManager.Instance.GetSkill("Life Steal");
+        if (!lifeStealSkill.GetUnlocked) return;
+        lifeStealSkill.ToggleSkill();  
     }
 }

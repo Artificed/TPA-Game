@@ -80,10 +80,18 @@ public class PlayerAttackCommand : ICommand
         if (bashSkill.IsActive)
         {
             damage += (int) (damage * 0.5);
-            Debug.Log("Bash Used - Damage: " + damage);
+            // Debug.Log("Bash Used - Damage: " + damage);
             bashSkill.UseSkill();
         }
 
+        BuffSkill lifeStealSkill = (BuffSkill) SkillManager.Instance.GetSkill("Life Steal");
+        if (lifeStealSkill.RemainingTurns > 0)
+        {
+            int healthHealed = (int) (0.2 * damage); // confirm this later
+            Player.Instance.HealHealth(healthHealed);
+            lifeStealSkill.UseSkill();
+        } 
+        
         return damage;
     }
 
