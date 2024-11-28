@@ -11,7 +11,6 @@ public class DeathMenu : MonoBehaviour
     
     public void HandlePlayerDeath()
     {
-        Debug.Log("reached");
         deathCanvas.SetActive(true);
         Time.timeScale = 0;
     }

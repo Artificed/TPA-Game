@@ -23,6 +23,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private PlayerTurnEventChannel playerTurnEventChannel;
     [SerializeField] private EnemyActionCompleteEventChannel enemyActionCompleteEventChannel;   
     [SerializeField] private EnemyLeftEventChannel enemyLeftEventChannel;
+    [SerializeField] private FloorClearedEventChannel floorClearedEventChannel;
     
     private void Awake()
     {
@@ -67,7 +68,14 @@ public class TurnManager : MonoBehaviour
     private void UpdateEnemyCount()
     {
         _enemies = new List<Enemy>(FindObjectsOfType<Enemy>());
-        enemyLeftEventChannel?.RaiseEvent(_enemies.Count);
+        if (_enemies.Count == 0)
+        {
+            floorClearedEventChannel?.RaiseEvent();
+        }
+        else 
+        {
+            enemyLeftEventChannel?.RaiseEvent(_enemies.Count);
+        }
     }
     
     void Update()

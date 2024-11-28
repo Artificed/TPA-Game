@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerGameUIController : MonoBehaviour
@@ -13,7 +14,7 @@ public class PlayerGameUIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI expText;
     
-    [SerializeField] private int level;
+    [SerializeField] private int floor;
     [SerializeField] private TextMeshProUGUI levelText;
 
     [SerializeField] private TextMeshProUGUI zhenCountText;
