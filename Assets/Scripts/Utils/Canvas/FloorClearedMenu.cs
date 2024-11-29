@@ -16,7 +16,6 @@ public class FloorClearedMenu : MonoBehaviour
     {
         if(_floorChanged) return;
         
-        Debug.Log("Floor Incremented!");
         Player.Instance.Floor++;
         Player.Instance.SavePlayerData();
         floorClearedCanvas.SetActive(true);
