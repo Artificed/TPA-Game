@@ -36,11 +36,11 @@ public class GridManager : MonoBehaviour
     [SerializeField] private EnemyFactory enemyFactory;
 
     private Tile _playerTile;
-    private int _level;
+    private int _floor;
     
     private void Start()
     {
-        _level = Player.Instance.Level;
+        _floor = Player.Instance.Floor;
             
         _rooms = new List<Room>();
         _mst = new List<(Vector2, Vector2)>();
@@ -247,7 +247,7 @@ public class GridManager : MonoBehaviour
     public void InitializeEnemies()
     {
         int totalRooms = _rooms.Count;
-        int totalEnemies = Mathf.CeilToInt(5 + _level * 0.2f);
+        int totalEnemies = Mathf.CeilToInt(5 + _floor * 0.2f);
         
         int baseEnemiesPerRoom = totalEnemies / totalRooms;
         int remainingEnemies = totalEnemies % totalRooms;
@@ -289,31 +289,31 @@ public class GridManager : MonoBehaviour
 
             usedTiles.Add(chosenTile);
 
-            EnemyType randomType = GetRandomEnemyType(_level);
+            EnemyType randomType = GetRandomEnemyType();
             
             switch (randomType)
             {
                 case EnemyType.Common:
-                    enemyFactory.CreateCommonEnemy(chosenTile.coords, _level);
+                    enemyFactory.CreateCommonEnemy(chosenTile.coords, _floor);
                     break;
 
                 case EnemyType.Medium:
-                    enemyFactory.CreateMediumEnemy(chosenTile.coords, _level);
+                    enemyFactory.CreateMediumEnemy(chosenTile.coords, _floor);
                     break;
 
                 case EnemyType.Elite:
-                    enemyFactory.CreateEliteEnemy(chosenTile.coords, _level);
+                    enemyFactory.CreateEliteEnemy(chosenTile.coords, _floor);
                     break;
             }
             generatedEnemies++;
         }
     }
     
-    private EnemyType GetRandomEnemyType(int level)
+    private EnemyType GetRandomEnemyType()
     {
-        float commonWeight = Mathf.Max(100 - (level * 1.5f), 20); 
-        float mediumWeight = Mathf.Clamp(level * 1.2f, 5, 50);    
-        float eliteWeight = Mathf.Clamp(level * 0.8f - 10, 0, 30);
+        float commonWeight = Mathf.Max(100 - (_floor * 1.5f), 20); 
+        float mediumWeight = Mathf.Clamp(_floor * 1.2f, 5, 50);    
+        float eliteWeight = Mathf.Clamp(_floor * 0.8f - 10, 0, 30);
 
         float totalWeight = commonWeight + mediumWeight + eliteWeight;
 

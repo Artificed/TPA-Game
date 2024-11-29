@@ -15,4 +15,5 @@ public class PlayerDataSO : ScriptableObject
     public int expCap;
     public int level;
     public int zhen;
+    public int floor;
 }

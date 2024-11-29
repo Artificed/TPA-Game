@@ -16,8 +16,10 @@ public class Player : MonoBehaviour
     [SerializeField] private int expCap;
     [SerializeField] private int level;
     [SerializeField] private int zhen;
-
-    [SerializeField] private PlayerDataSO playerDataSo;
+    [SerializeField] private int floor;
+    
+    [SerializeField] private PlayerDataSO baseStats;
+    [SerializeField] private PlayerDataSO data;
     
     [SerializeField] private PlayerHealthEventChannel playerHealthEventChannel;
     [SerializeField] private PlayerExpEventChannel playerExpEventChannel;
@@ -40,26 +42,44 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Initialize(playerDataSo);
+        Initialize();
     }
 
-    public void Initialize(PlayerDataSO data)
+    public void Initialize()
     {
-        health = data.health;
-        maxHealth = data.maxHealth;
-        attack = data.attack;
-        defense = data.defense;
-        criticalRate = data.criticalRate;
-        criticalDamage = data.criticalDamage;
-        exp = data.exp;
-        expCap = data.expCap;
-        level = data.level;
-        zhen = data.zhen;
+        if (data.level != 0)
+        {
+            health = data.health;
+            maxHealth = data.maxHealth;
+            attack = data.attack;
+            defense = data.defense;
+            criticalRate = data.criticalRate;
+            criticalDamage = data.criticalDamage;
+            exp = data.exp;
+            expCap = data.expCap;
+            level = data.level;
+            zhen = data.zhen;
+            floor = data.floor;
+        }
+        else
+        {
+            health = baseStats.health;
+            maxHealth = baseStats.maxHealth;
+            attack = baseStats.attack;
+            defense = baseStats.defense;
+            criticalRate = baseStats.criticalRate;
+            criticalDamage = baseStats.criticalDamage;
+            exp = baseStats.exp;
+            expCap = baseStats.expCap;
+            level = baseStats.level;
+            zhen = baseStats.zhen;
+            floor = baseStats.floor;
+        }
         
         playerHealthEventChannel?.RaiseEvent(health, maxHealth);
         playerExpEventChannel?.RaiseEvent(exp, expCap);
         playerLevelEventChannel?.RaiseEvent(level);
-        playerFloorChangeEventChannel?.RaiseEvent(1);
+        playerFloorChangeEventChannel?.RaiseEvent(floor);
         zhenCounterEventChannel?.RaiseEvent(zhen);
     }
 
@@ -113,6 +133,27 @@ public class Player : MonoBehaviour
         playerHealthEventChannel?.RaiseEvent(health, maxHealth);
         playerExpEventChannel?.RaiseEvent(exp, expCap);
         playerLevelEventChannel?.RaiseEvent(level);
+    }
+
+    public void SavePlayerData()
+    {
+        data.health = health;
+        data.maxHealth = maxHealth;
+        data.attack = attack;
+        data.defense = defense;
+        data.criticalRate = criticalRate;
+        data.criticalDamage = criticalDamage;
+        data.exp = exp;
+        data.expCap = expCap;
+        data.level = level;
+        data.zhen = zhen;
+        data.floor = floor;
+    }
+
+    public int Floor
+    {
+        get => floor;
+        set => floor = value;
     }
 
     public int Health => health;
