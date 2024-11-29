@@ -2,30 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private int health;
-    [SerializeField] private int maxHealth;
-    [SerializeField] private int attack;
-    [SerializeField] private int defense;
-    [SerializeField] private float criticalRate;
-    [SerializeField] private float criticalDamage;
-    [SerializeField] private int exp;
-    [SerializeField] private int expCap;
-    [SerializeField] private int level;
-    [SerializeField] private int zhen;
-    [SerializeField] private int floor;
-    
-    [SerializeField] public int healthUpgradeLevel;
-    [SerializeField] public int attackUpgradeLevel;
-    [SerializeField] public int defenseUpgradeLevel;
-    [SerializeField] public int criticalRateUpgradeLevel;
-    [SerializeField] public int criticalDamageUpgradeLevel;
-    
     [SerializeField] private PlayerDataSO baseStats;
     [SerializeField] private PlayerDataSO data;
+    
+    [SerializeField] private PlayerSaveData fileData;
     
     [SerializeField] private PlayerHealthEventChannel playerHealthEventChannel;
     [SerializeField] private PlayerExpEventChannel playerExpEventChannel;
@@ -53,93 +38,87 @@ public class Player : MonoBehaviour
 
     public void Initialize()
     {
-        if (data.level > 1)
+        if (fileData.level > 1)
         {
-            health = (int) CalculateStat(GetUpgradedHealth(), data.level, 1.20f);
-            maxHealth = (int) CalculateStat(GetUpgradedHealth(), data.level, 1.20f);
-            attack = (int) CalculateStat(GetUpgradedAttack(), data.level, 1.20f);
-            defense = (int) CalculateStat(GetUpgradedDefense(), data.level, 1.20f);
-            criticalRate = CalculateStat(GetUpgradedCriticalRate(), data.level, 1.10f);
-            criticalDamage = CalculateStat(GetUpgradedCriticalDamage(), data.level, 1.20f);
-            exp = data.exp;
-            expCap = (int) CalculateStat(baseStats.expCap, data.level, 2f);
-            level = data.level;
-            zhen = data.zhen;
-            floor = data.floor;
+            data.health = (int) CalculateStat(GetUpgradedHealth(), fileData.level, 1.20f);
+            data.maxHealth = (int) CalculateStat(GetUpgradedHealth(), fileData.level, 1.20f);
+            data.attack = (int) CalculateStat(GetUpgradedAttack(), fileData.level, 1.20f);
+            data.defense = (int) CalculateStat(GetUpgradedDefense(), fileData.level, 1.20f);
+            data.criticalRate = CalculateStat(GetUpgradedCriticalRate(), fileData.level, 1.10f);
+            data.criticalDamage = CalculateStat(GetUpgradedCriticalDamage(), fileData.level, 1.20f);
+            data.exp = fileData.exp;
+            data.expCap = (int) CalculateStat(baseStats.expCap, fileData.level, 2f);
+            data.level = fileData.level;
+            data.zhen = fileData.zhen;
+            data.floor = fileData.floor;
         }
         else
         {
-            health = GetUpgradedHealth();
-            maxHealth = GetUpgradedHealth();
-            attack = GetUpgradedAttack();
-            defense = GetUpgradedDefense();
-            criticalRate = GetUpgradedCriticalRate();
-            criticalDamage = GetUpgradedCriticalDamage();
-            exp = baseStats.exp;
-            expCap = baseStats.expCap;
-            level = 1; 
-            zhen = baseStats.zhen;
-            floor = baseStats.floor;
+            data.health = GetUpgradedHealth();
+            data.maxHealth = GetUpgradedHealth();
+            data.attack = GetUpgradedAttack();
+            data.defense = GetUpgradedDefense();
+            data.criticalRate = GetUpgradedCriticalRate();
+            data.criticalDamage = GetUpgradedCriticalDamage();
+            data.exp = baseStats.exp;
+            data.expCap = baseStats.expCap;
+            data.level = 1; 
+            data.zhen = baseStats.zhen;
+            data.floor = baseStats.floor;
         }
         
-        playerHealthEventChannel?.RaiseEvent(health, maxHealth);
-        playerExpEventChannel?.RaiseEvent(exp, expCap);
-        playerLevelEventChannel?.RaiseEvent(level);
-        playerFloorChangeEventChannel?.RaiseEvent(floor);
-        zhenCounterEventChannel?.RaiseEvent(zhen);
+        playerHealthEventChannel?.RaiseEvent(data.health, data.maxHealth);
+        playerExpEventChannel?.RaiseEvent(data.exp, data.expCap);
+        playerLevelEventChannel?.RaiseEvent(data.level);
+        playerFloorChangeEventChannel?.RaiseEvent(data.floor);
+        zhenCounterEventChannel?.RaiseEvent(data.zhen);
     }
 
     public void TakeDamage(int damage)
     {
-        health = Mathf.Clamp(health - damage, 0, maxHealth);
-        playerHealthEventChannel?.RaiseEvent(health, maxHealth);
+        data.health = Mathf.Clamp(data.health - damage, 0, data.maxHealth);
+        playerHealthEventChannel?.RaiseEvent(data.health, data.maxHealth);
     }
     
     public void HealHealth(int healthHealed)
     {
-        health = Mathf.Clamp(health + healthHealed, 0, maxHealth);
-        playerHealthEventChannel?.RaiseEvent(health, maxHealth);
+        data.health = Mathf.Clamp(data.health + healthHealed, 0, data.maxHealth);
+        playerHealthEventChannel?.RaiseEvent(data.health, data.maxHealth);
     }
 
     public void AddExp(int expAdded)
     {
-        exp += expAdded;
-        if (exp >= expCap)
+        data.exp += expAdded;
+        if (data.exp >= data.expCap)
         {
             LevelUp();
             PlayerStateMachine.Instance.showLevelUpText();
         }
-        playerExpEventChannel?.RaiseEvent(exp, expCap);
+        playerExpEventChannel?.RaiseEvent(data.exp, data.expCap);
     }
 
     public void AddZhen(int zhenAdded)
     {
-        zhen += zhenAdded;
-        zhenCounterEventChannel?.RaiseEvent(zhen);
-    }
-
-    public int Attack
-    {
-        get => attack;
-        set => attack = value;
+        data.zhen += zhenAdded;
+        zhenCounterEventChannel?.RaiseEvent(data.zhen);
     }
 
     public void LevelUp()
     {
-        level++;
-        exp -= expCap;
+        data.level++;
+        data.exp -= data.expCap;
         
-        maxHealth = (int) CalculateStat(GetUpgradedHealth(), level, 1.20f);
-        attack = (int) CalculateStat(GetUpgradedAttack(), level, 1.20f);
-        defense = (int) CalculateStat(GetUpgradedDefense(), level, 1.20f);
-        criticalRate = CalculateStat(GetUpgradedCriticalRate(), level, 1.20f);
-        criticalDamage = CalculateStat(GetUpgradedCriticalDamage(), level, 1.20f);
+        data.maxHealth = (int) CalculateStat(GetUpgradedHealth(), data.level, 1.20f);
+        data.attack = (int) CalculateStat(GetUpgradedAttack(), data.level, 1.20f);
+        data.defense = (int) CalculateStat(GetUpgradedDefense(), data.level, 1.20f);
+        data.criticalRate = CalculateStat(GetUpgradedCriticalRate(), data.level, 1.20f);
+        data.criticalDamage = CalculateStat(GetUpgradedCriticalDamage(), data.level, 1.20f);
         
-        expCap = (int) CalculateStat(baseStats.expCap, level, 2.0f);
+        data.expCap = (int) CalculateStat(baseStats.expCap, data.level, 2.0f);
         
-        playerHealthEventChannel?.RaiseEvent(health, maxHealth);
-        playerExpEventChannel?.RaiseEvent(exp, expCap);
-        playerLevelEventChannel?.RaiseEvent(level);
+        playerHealthEventChannel?.RaiseEvent(data.health, data.maxHealth);
+        playerExpEventChannel?.RaiseEvent(data.exp, data.expCap);
+        playerLevelEventChannel?.RaiseEvent(data.level);
     }
 
     private float CalculateStat(float baseStat, int level, float scalingFactor)
@@ -150,59 +129,67 @@ public class Player : MonoBehaviour
 
     private int GetUpgradedHealth()
     {
-        return baseStats.maxHealth + healthUpgradeLevel * 10;
+        return baseStats.maxHealth + data.healthUpgradeLevel * 10;
     }
     
     private int GetUpgradedAttack()
     {
-        return baseStats.attack + attackUpgradeLevel * 2;
+        return baseStats.attack + data.attackUpgradeLevel * 2;
     }
 
     private int GetUpgradedDefense()
     {
-        return baseStats.defense + defenseUpgradeLevel * 5;
+        return baseStats.defense + data.defenseUpgradeLevel * 5;
     }
 
     private float GetUpgradedCriticalRate()
     {
-        return baseStats.criticalRate + criticalRateUpgradeLevel * 0.02f;
+        return baseStats.criticalRate + data.criticalRateUpgradeLevel * 0.02f;
     }
     
     private float GetUpgradedCriticalDamage()
     {
-        return baseStats.criticalDamage + criticalDamageUpgradeLevel * 0.05f;
+        return baseStats.criticalDamage + data.criticalDamageUpgradeLevel * 0.05f;
     }
     
     public void SavePlayerData()
     {
-        data.health = health;
-        data.maxHealth = maxHealth;
-        data.attack = attack;
-        data.defense = defense;
-        data.criticalRate = criticalRate;
-        data.criticalDamage = criticalDamage;
-        data.exp = exp;
-        data.expCap = expCap;
-        data.level = level;
-        data.zhen = zhen;
-        data.floor = floor;
+        fileData.exp = data.exp;
+        fileData.level = data.level;
+        fileData.zhen = data.zhen;
+        fileData.floor = data.floor;
 
-        data.healthUpgradeLevel = healthUpgradeLevel;
-        data.attackUpgradeLevel = attackUpgradeLevel;
-        data.defenseUpgradeLevel = defenseUpgradeLevel;
-        data.criticalRateUpgradeLevel = criticalRateUpgradeLevel;
-        data.criticalDamageUpgradeLevel = criticalDamageUpgradeLevel;
+        fileData.healthUpgradeLevel = data.healthUpgradeLevel;
+        fileData.attackUpgradeLevel = data.attackUpgradeLevel;
+        fileData.defenseUpgradeLevel = data.defenseUpgradeLevel;
+        fileData.criticalRateUpgradeLevel = data.criticalRateUpgradeLevel;
+        fileData.criticalDamageUpgradeLevel = data.criticalDamageUpgradeLevel;
     }
 
+    public int Attack
+    {
+        get => data.attack;
+        set => data.attack = value;
+    }
+    
     public int Floor
     {
-        get => floor;
-        set => floor = value;
+        get => data.floor;
+        set => data.floor = value;
     }
 
-    public int Health => health;
-    public int Level => level;
-    public int Defense => defense;
-    public float CriticalRate => criticalRate;
-    public float CriticalDamage => criticalDamage;
+    public int Health => data.health;
+    public int MaxHealth => data.maxHealth;
+    public int Defense => data.defense;
+    public float CriticalRate => data.criticalRate;
+    public float CriticalDamage => data.criticalDamage;
+    public int Exp => data.exp;
+    public int ExpCap => data.expCap;
+    public int Level => data.level;
+    public int Zhen => data.zhen;
+    public int HealthUpgradeLevel => data.healthUpgradeLevel;
+    public int AttackUpgradeLevel => data.attackUpgradeLevel;
+    public int DefenseUpgradeLevel => data.defenseUpgradeLevel;
+    public int CriticalRateUpgradeLevel => data.criticalRateUpgradeLevel;
+    public int CriticalDamageUpgradeLevel => data.criticalDamageUpgradeLevel;
 }

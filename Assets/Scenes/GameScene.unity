@@ -2546,6 +2546,11 @@ MonoBehaviour:
   level: 0
   zhen: 0
   floor: 0
+  healthUpgradeLevel: 0
+  attackUpgradeLevel: 0
+  defenseUpgradeLevel: 0
+  criticalRateUpgradeLevel: 0
+  criticalDamageUpgradeLevel: 0
   baseStats: {fileID: 11400000, guid: 2b88e817cf0054742b82aae09ce541c7, type: 2}
   data: {fileID: 11400000, guid: d059927d3050147e9a833aeb816a7bd4, type: 2}
   playerHealthEventChannel: {fileID: 11400000, guid: 3b1378bfab07c4e68a0b44ec5a06e3ba, type: 2}
@@ -5789,7 +5794,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1693790402}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1013821091}
+        m_TargetAssemblyTypeName: FloorClearedMenu, Assembly-CSharp
+        m_MethodName: HandleButtonPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1693790402
 MonoBehaviour:
   m_ObjectHideFlags: 0
