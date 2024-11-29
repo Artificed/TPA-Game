@@ -50,14 +50,12 @@ public class PlayerBattleIdleState : PlayerBaseState
         else if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             PlayerLifeStealSkillCommand playerLifeStealSkillCommand = new PlayerLifeStealSkillCommand();
-            // TurnManager.Instance.AddQueue(playerLifeStealSkillCommand);
             playerLifeStealSkillCommand.Execute();
         } 
         
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             PlayerBashSkillCommand playerBashSkillCommand = new PlayerBashSkillCommand();
-            // TurnManager.Instance.AddQueue(playerBashSkillCommand);
             playerBashSkillCommand.Execute();
         }
     }
@@ -71,6 +69,8 @@ public class PlayerBattleIdleState : PlayerBaseState
             Mathf.RoundToInt(Context.Unit.position.x / Context.GridManager.UnityGridSize),
             Mathf.RoundToInt(Context.Unit.position.z / Context.GridManager.UnityGridSize)
         );
+        
+        if(startCords == targetCords) return;
 
         PlayerMoveCommand playerMoveCommand = new PlayerMoveCommand(Context, startCords, targetCords);
         TurnManager.Instance.AddQueue(playerMoveCommand);
@@ -84,7 +84,6 @@ public class PlayerBattleIdleState : PlayerBaseState
     
         if (!IsEnemyInRange(targetCords)) return;
 
-        // Context.transform.LookAt(GetEnemy(targetCords).transform);
         TurnManager.Instance.CurrentEnemyTarget = GetEnemy(targetCords).EnemyStateMachine;
         PlayerAttackCommand playerAttackCommand = new PlayerAttackCommand(Context, GetEnemy(targetCords));
         TurnManager.Instance.AddQueue(playerAttackCommand);

@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
     {
         if (data.level != 0)
         {
-            health = data.health;
+            health = data.maxHealth;
             maxHealth = data.maxHealth;
             attack = data.attack;
             defense = data.defense;
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            health = baseStats.health;
+            health = baseStats.maxHealth;
             maxHealth = baseStats.maxHealth;
             attack = baseStats.attack;
             defense = baseStats.defense;

@@ -34,6 +34,8 @@ public class PlayerIdleState: PlayerBaseState
                     Mathf.RoundToInt(Context.Unit.position.z / Context.GridManager.UnityGridSize)
                 );
                 
+                if(startCords == targetCords) return;
+                
                 Context.SetNewDestination(startCords, targetCords);
                 SwitchState(Factory.CreateMoving());
             }

@@ -10,12 +10,18 @@ public class FloorClearedMenu : MonoBehaviour
 
     [SerializeField] private PlayerFloorChangeEventChannel playerFloorChangeEventChannel; 
     
+    private bool _floorChanged = false;
+    
     public void HandleFloorChange()
     {
+        if(_floorChanged) return;
+        
+        Debug.Log("Floor Incremented!");
         Player.Instance.Floor++;
         Player.Instance.SavePlayerData();
         floorClearedCanvas.SetActive(true);
         Time.timeScale = 0;
+        _floorChanged = true;
     }
 
     private void OnEnable()
