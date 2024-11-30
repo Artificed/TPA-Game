@@ -21,7 +21,6 @@ public class UpgradeIconHandler : MonoBehaviour, IPointerEnterHandler, IPointerE
     private Color pressedColor = new Color(1f, 1f, 1f, 0.02f);
     
     private Color currentTargetColor; 
-    private bool isPointerOver = false;
     
     void Start()
     {

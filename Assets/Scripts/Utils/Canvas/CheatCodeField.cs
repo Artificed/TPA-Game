@@ -16,6 +16,8 @@ public class CheatCodeField : MonoBehaviour
     [SerializeField] private AudioClip cheatSound;
     [SerializeField] private AudioSource audioSource;
     
+    [SerializeField] private PlayerFloorCountEventChannel playerFloorCountEventChannel;
+    
     void Update()
     {
         HandlePlaceholder();
@@ -50,6 +52,7 @@ public class CheatCodeField : MonoBehaviour
             audioSource.PlayOneShot(cheatSound);
             playerDataSo.floor = 100;
             cheatCodeInputField.text = "";
+            playerFloorCountEventChannel.RaiseEvent();
         }
     }
 }
