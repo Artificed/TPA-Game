@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ButtonHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
@@ -10,7 +11,10 @@ public class ButtonHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private Sprite buttonHovered;
     
     [SerializeField] private AudioClip buttonHoverSound;
-    [SerializeField] private AudioClip buttonClickSound;
+    [SerializeField] private AudioClip normalClickSound;
+    [SerializeField] private AudioClip buttonPurchaseSound;
+
+    [SerializeField] private AudioClip currentClickSound;
     
     [SerializeField] private AudioSource audioSource;
 
@@ -18,6 +22,7 @@ public class ButtonHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         button = GetComponent<Button>();
         audioSource = GetComponent<AudioSource>();
+        currentClickSound = normalClickSound;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -33,6 +38,12 @@ public class ButtonHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        audioSource.PlayOneShot(buttonClickSound);
+        audioSource.PlayOneShot(currentClickSound);
+        currentClickSound = normalClickSound;
+    }
+
+    public void UsePurchaseSound()
+    {
+        currentClickSound = buttonPurchaseSound;
     }
 }

@@ -19,6 +19,10 @@ public class UpgradeCanvas : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemUpgradeCost;
     [SerializeField] private GameObject upgradeButton;
     [SerializeField] private GameObject errorText;
+
+    [SerializeField] private ButtonHandler upgradeButtonHandler;
+    
+    [SerializeField] private TextMeshProUGUI cheatCodeTextField;
     
     [SerializeField] private PlayerDataSO playerDataSo;
     [SerializeField] private PlayerUpgradesSO playerUpgradesSo;
@@ -71,6 +75,7 @@ public class UpgradeCanvas : MonoBehaviour
 
     private void HandlePurchase()
     {
+        upgradeButtonHandler.UsePurchaseSound();
         playerDataSo.zhen -= currentUpgradeSo.currentCost;
         zhenCounter.text = playerDataSo.zhen.ToString();
         
@@ -98,13 +103,13 @@ public class UpgradeCanvas : MonoBehaviour
         } 
         if (currentUpgradeSo.itemName.Equals("Luck Up"))
         {
-            playerDataSo.criticalRate += currentUpgradeSo.upgradeValue;
+            playerDataSo.criticalRate += (float) currentUpgradeSo.upgradeValue / 100;
             playerUpgradesSo.criticalChanceUpgradeLevel++;
             playerUpgradesSo.criticalChanceUpgradeCost = currentUpgradeSo.currentCost;
         } 
         if (currentUpgradeSo.itemName.Equals("Crit Dmg Up"))
         {
-            playerDataSo.criticalDamage += currentUpgradeSo.upgradeValue;
+            playerDataSo.criticalDamage += (float) currentUpgradeSo.upgradeValue / 100;
             playerUpgradesSo.criticalDamageUpgradeLevel++;
             playerUpgradesSo.criticalDamageUpgradeCost = currentUpgradeSo.currentCost;
         }
