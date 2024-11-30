@@ -16,10 +16,4 @@ public class PlayerDataSO : ScriptableObject
     public int level;
     public int zhen;
     public int floor;
-
-    public int healthUpgradeLevel;
-    public int attackUpgradeLevel;
-    public int defenseUpgradeLevel;
-    public int criticalRateUpgradeLevel;
-    public int criticalDamageUpgradeLevel;
 }

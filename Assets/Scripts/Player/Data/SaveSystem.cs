@@ -6,12 +6,12 @@ public static class SaveSystem
 {
     private static string path = Application.persistentDataPath + "/player.pl";
     
-    public static void SaveGameData(Player player)
+    public static void SaveGameData(PlayerDataSO player, PlayerUpgradesSO playerUpgrades)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        SaveData saveData = new SaveData(player);
+        SaveData saveData = new SaveData(player, playerUpgrades);
         
         formatter.Serialize(stream, saveData);
         stream.Close();
@@ -26,8 +26,6 @@ public static class SaveSystem
 
             SaveData saveData = (SaveData) formatter.Deserialize(stream);
             stream.Close();
-
-            Player.Instance.FileData = saveData;
             
             return saveData;
         }

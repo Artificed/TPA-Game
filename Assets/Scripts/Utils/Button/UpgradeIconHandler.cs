@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +27,8 @@ public class UpgradeIconHandler : MonoBehaviour, IPointerEnterHandler, IPointerE
     {
         buttonImage.color = normalColor;
         currentTargetColor = normalColor;
+
+        upgradeDataSo.OnDataChanged += LoadUpgradeData;
         
         LoadUpgradeData();
     }
@@ -61,5 +64,10 @@ public class UpgradeIconHandler : MonoBehaviour, IPointerEnterHandler, IPointerE
     public void OnPointerExit(PointerEventData eventData)
     {
         currentTargetColor = normalColor;
+    }
+
+    private void OnDestroy()
+    {
+        upgradeDataSo.OnDataChanged -= LoadUpgradeData;
     }
 }
