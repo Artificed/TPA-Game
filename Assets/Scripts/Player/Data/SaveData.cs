@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerSaveData
+public class SaveData
 {
     public int exp;
     public int level;
@@ -22,7 +22,7 @@ public class PlayerSaveData
     public int criticalRateUpgradeCost;
     public int criticalDamageUpgradeCost;
     
-    public PlayerSaveData(Player player)
+    public SaveData(Player player)
     {
         this.exp = player.Exp;
         this.level = player.Level;

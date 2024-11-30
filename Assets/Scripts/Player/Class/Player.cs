@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerDataSO baseStats;
     [SerializeField] private PlayerDataSO data;
     
-    [SerializeField] private PlayerSaveData fileData;
+    [SerializeField] private SaveData fileData;
     
     [SerializeField] private PlayerHealthEventChannel playerHealthEventChannel;
     [SerializeField] private PlayerExpEventChannel playerExpEventChannel;
@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
             return;
         }
         Instance = this;
+        // SaveSystem.LoadGameData();
     }
 
     private void Start()
@@ -176,6 +177,12 @@ public class Player : MonoBehaviour
     {
         get => data.floor;
         set => data.floor = value;
+    }
+
+    public SaveData FileData
+    {
+        get => fileData;
+        set => fileData = value;
     }
 
     public int Health => data.health;

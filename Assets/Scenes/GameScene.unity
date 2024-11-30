@@ -2535,24 +2535,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bb06b74bed54e3d8bc5b13a7a01550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 0
-  attack: 0
-  defense: 0
-  criticalRate: 0
-  criticalDamage: 0
-  exp: 0
-  expCap: 0
-  level: 0
-  zhen: 0
-  floor: 0
-  healthUpgradeLevel: 0
-  attackUpgradeLevel: 0
-  defenseUpgradeLevel: 0
-  criticalRateUpgradeLevel: 0
-  criticalDamageUpgradeLevel: 0
   baseStats: {fileID: 11400000, guid: 2b88e817cf0054742b82aae09ce541c7, type: 2}
   data: {fileID: 11400000, guid: d059927d3050147e9a833aeb816a7bd4, type: 2}
+  fileData:
+    exp: 0
+    level: 1
+    zhen: 0
+    floor: 0
+    healthUpgradeLevel: 0
+    attackUpgradeLevel: 0
+    defenseUpgradeLevel: 0
+    criticalRateUpgradeLevel: 0
+    criticalDamageUpgradeLevel: 0
+    healthUpgradeCost: 0
+    attackUpgradeCost: 0
+    defenseUpgradeCost: 0
+    criticalRateUpgradeCost: 0
+    criticalDamageUpgradeCost: 0
   playerHealthEventChannel: {fileID: 11400000, guid: 3b1378bfab07c4e68a0b44ec5a06e3ba, type: 2}
   playerExpEventChannel: {fileID: 11400000, guid: a11ceca2caf22400f8559e6b6a8b1db9, type: 2}
   playerLevelEventChannel: {fileID: 11400000, guid: b2fbd01500c55401a97e9f9130af95c7, type: 2}

@@ -6,28 +6,30 @@ public static class SaveSystem
 {
     private static string path = Application.persistentDataPath + "/player.pl";
     
-    public static void SavePlayer(Player player)
+    public static void SaveGameData(Player player)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Create);
 
-        PlayerSaveData playerSaveData = new PlayerSaveData(player);
+        SaveData saveData = new SaveData(player);
         
-        formatter.Serialize(stream, playerSaveData);
+        formatter.Serialize(stream, saveData);
         stream.Close();
     }
 
-    public static PlayerSaveData LoadPlayer()
+    public static SaveData LoadGameData()
     {
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 
-            PlayerSaveData playerSaveData = (PlayerSaveData) formatter.Deserialize(stream);
+            SaveData saveData = (SaveData) formatter.Deserialize(stream);
             stream.Close();
+
+            Player.Instance.FileData = saveData;
             
-            return playerSaveData;
+            return saveData;
         }
         else
         {
