@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
     public void AddExp(int expAdded)
     {
         data.exp += expAdded;
-        if (data.exp >= data.expCap)
+        while (data.exp >= data.expCap)
         {
             LevelUp();
             PlayerStateMachine.Instance.showLevelUpText();

@@ -18,7 +18,7 @@ public class UpgradeCanvas : MonoBehaviour
     [SerializeField] private GameObject bottomZhenLogo;
     [SerializeField] private TextMeshProUGUI itemUpgradeCost;
     [SerializeField] private GameObject upgradeButton;
-    [SerializeField] private GameObject errorText;
+    [SerializeField] private TextMeshProUGUI errorText;
 
     [SerializeField] private ButtonHandler upgradeButtonHandler;
     
@@ -62,13 +62,17 @@ public class UpgradeCanvas : MonoBehaviour
 
     public void HandleUpgradeClick()
     {
-        if (playerDataSo.zhen < currentUpgradeSo.currentCost)
+        if (currentUpgradeSo.currentLevel >= currentUpgradeSo.maxLevel)
         {
-            errorText.SetActive(true);
+            errorText.text = "Max Level Reached!";
+        }
+        else if (playerDataSo.zhen < currentUpgradeSo.currentCost)
+        {
+            errorText.text = "You don't have enough Zhen!";
         }
         else
         {
-            errorText.SetActive(false);
+            errorText.text = "";
             HandlePurchase();
         }
     }
