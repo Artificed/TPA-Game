@@ -57,4 +57,33 @@ public class SaveData
         this.criticalChanceUpgradeCost = playerUpgrades.criticalChanceUpgradeCost;
         this.criticalDamageUpgradeCost = playerUpgrades.criticalDamageUpgradeCost;
     }
+
+    public void TransferData(PlayerDataSO playerData, PlayerUpgradesSO playerUpgrades)
+    {
+        playerData.exp = this.exp;
+        playerData.level = this.level;
+        playerData.zhen = this.zhen;
+        playerData.floor = this.floor;
+
+        playerData.health = this.health;
+        playerData.maxHealth = this.maxHealth;
+        playerData.attack = this.attack;
+        playerData.defense = this.defense;
+        playerData.criticalRate = this.criticalRate;
+        playerData.criticalDamage = this.criticalDamage;
+        playerData.expCap = this.expCap;
+
+        playerUpgrades.healthUpgradeLevel = this.healthUpgradeLevel;
+        playerUpgrades.attackUpgradeLevel = this.attackUpgradeLevel;
+        playerUpgrades.defenseUpgradeLevel = this.defenseUpgradeLevel;
+        playerUpgrades.criticalChanceUpgradeLevel = this.criticalChanceUpgradeLevel;
+        playerUpgrades.criticalDamageUpgradeLevel = this.criticalDamageUpgradeLevel;
+
+        playerUpgrades.healthUpgradeCost = this.healthUpgradeCost;
+        playerUpgrades.attackUpgradeCost = this.attackUpgradeCost;
+        playerUpgrades.defenseUpgradeCost = this.defenseUpgradeCost;
+        playerUpgrades.criticalChanceUpgradeCost = this.criticalChanceUpgradeCost;
+        playerUpgrades.criticalDamageUpgradeCost = this.criticalDamageUpgradeCost;
+    }
+
 }

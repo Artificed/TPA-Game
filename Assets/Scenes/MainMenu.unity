@@ -1871,6 +1871,7 @@ GameObject:
   - component: {fileID: 1887161307}
   - component: {fileID: 1887161306}
   - component: {fileID: 1887161305}
+  - component: {fileID: 1887161310}
   m_Layer: 5
   m_Name: Continue Button
   m_TagString: Untagged
@@ -2058,7 +2059,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1887161308}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1887161310}
+        m_TargetAssemblyTypeName: MainMenuContinueButton, Assembly-CSharp
+        m_MethodName: HandleContinue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1887161308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2097,6 +2110,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1887161303}
   m_CullTransparentMesh: 1
+--- !u!114 &1887161310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887161303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e10beea7b683a4aa08b6bca523b4bb58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerDataSo: {fileID: 11400000, guid: d059927d3050147e9a833aeb816a7bd4, type: 2}
+  playerUpgradesSo: {fileID: 11400000, guid: e1021aeab5e6d4211ac29ae8741a8128, type: 2}
 --- !u!1 &1966273405
 GameObject:
   m_ObjectHideFlags: 0
