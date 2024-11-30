@@ -3105,6 +3105,7 @@ MonoBehaviour:
   playerDataSo: {fileID: 11400000, guid: d059927d3050147e9a833aeb816a7bd4, type: 2}
   cheatSound: {fileID: 8300000, guid: 6e7b1c32c5c024f53ae51ebe35475b9d, type: 3}
   audioSource: {fileID: 1221908862}
+  playerFloorCountEventChannel: {fileID: 11400000, guid: 963fe276f74c44447bbaa3d79a071761, type: 2}
 --- !u!82 &1221908862
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3750,7 +3751,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Option A
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4416,6 +4417,7 @@ GameObject:
   - component: {fileID: 1758272101}
   - component: {fileID: 1758272100}
   - component: {fileID: 1758272099}
+  - component: {fileID: 1758272105}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -4582,7 +4584,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1758272102}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1758272105}
+        m_TargetAssemblyTypeName: UpgradeMenuExitButton, Assembly-CSharp
+        m_MethodName: HandleExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1758272102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4642,6 +4656,20 @@ RectTransform:
   m_AnchoredPosition: {x: -314.6, y: -187}
   m_SizeDelta: {x: 600, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1758272105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758272098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b528add9e6c4757a8d9c9768018de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerDataSo: {fileID: 11400000, guid: d059927d3050147e9a833aeb816a7bd4, type: 2}
+  playerUpgradesSo: {fileID: 11400000, guid: e1021aeab5e6d4211ac29ae8741a8128, type: 2}
 --- !u!1 &1774310620
 GameObject:
   m_ObjectHideFlags: 0
@@ -4925,9 +4953,8 @@ GameObject:
   - component: {fileID: 1869798810}
   - component: {fileID: 1869798809}
   - component: {fileID: 1869798808}
-  - component: {fileID: 1869798812}
-  - component: {fileID: 1869798811}
   - component: {fileID: 1869798813}
+  - component: {fileID: 1869798811}
   m_Layer: 5
   m_Name: Dropdown
   m_TagString: Untagged
@@ -5007,13 +5034,7 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: Option A
-      m_Image: {fileID: 0}
-    - m_Text: Option B
-      m_Image: {fileID: 0}
-    - m_Text: Option C
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5152,26 +5173,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1869798812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869798806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb984d1e0cdba43b7a90c06054f751f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button: {fileID: 0}
-  buttonNormal: {fileID: 0}
-  buttonHovered: {fileID: 0}
-  buttonHoverSound: {fileID: 8300000, guid: 0c4b1a57c544447d29359953a3a39e06, type: 3}
-  normalClickSound: {fileID: 8300000, guid: b9f825143e5db32428b7de66f72e72de, type: 3}
-  buttonPurchaseSound: {fileID: 0}
-  currentClickSound: {fileID: 0}
-  audioSource: {fileID: 1869798811}
 --- !u!114 &1869798813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5184,8 +5185,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af12d5bfd58d243ef8dcf7ebbcb639cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDataSo: {fileID: 0}
-  dropdown: {fileID: 0}
+  playerDataSo: {fileID: 11400000, guid: d059927d3050147e9a833aeb816a7bd4, type: 2}
+  dropdown: {fileID: 1869798808}
+  dropdownNormal: {fileID: 21300000, guid: a2e2a83536d4eef45ace93d156eab562, type: 3}
+  dropdownHovered: {fileID: 21300000, guid: c9006339b2156b142934eac2999ef67c, type: 3}
+  buttonHoverSound: {fileID: 8300000, guid: 0c4b1a57c544447d29359953a3a39e06, type: 3}
+  normalClickSound: {fileID: 8300000, guid: cee44f8df9d4c244e938d37f5c67a64c, type: 3}
+  audioSource: {fileID: 1869798811}
+  playerFloorCountEventChannel: {fileID: 11400000, guid: 963fe276f74c44447bbaa3d79a071761, type: 2}
 --- !u!1 &1882713772
 GameObject:
   m_ObjectHideFlags: 0

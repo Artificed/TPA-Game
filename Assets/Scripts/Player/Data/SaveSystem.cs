@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class SaveSystem
 {
-    private static string path = Application.persistentDataPath + "/player.pl";
+    private static string path = Application.persistentDataPath + "/data.dat";
     
     public static void SaveGameData(PlayerDataSO player, PlayerUpgradesSO playerUpgrades)
     {
@@ -15,6 +15,8 @@ public static class SaveSystem
         
         formatter.Serialize(stream, saveData);
         stream.Close();
+        
+        Debug.Log("Saved at " + path);
     }
 
     public static SaveData LoadGameData()

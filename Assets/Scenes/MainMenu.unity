@@ -180,7 +180,9 @@ MonoBehaviour:
   buttonNormal: {fileID: 21300000, guid: a2e2a83536d4eef45ace93d156eab562, type: 3}
   buttonHovered: {fileID: 21300000, guid: c9006339b2156b142934eac2999ef67c, type: 3}
   buttonHoverSound: {fileID: 8300000, guid: 0c4b1a57c544447d29359953a3a39e06, type: 3}
-  buttonClickSound: {fileID: 8300000, guid: 9a044e274f0714888835b7b600a2af76, type: 3}
+  normalClickSound: {fileID: 8300000, guid: cee44f8df9d4c244e938d37f5c67a64c, type: 3}
+  buttonPurchaseSound: {fileID: 0}
+  currentClickSound: {fileID: 0}
   audioSource: {fileID: 149862557}
 --- !u!82 &149862557
 AudioSource:
@@ -1385,7 +1387,9 @@ MonoBehaviour:
   buttonNormal: {fileID: 21300000, guid: a2e2a83536d4eef45ace93d156eab562, type: 3}
   buttonHovered: {fileID: 21300000, guid: c9006339b2156b142934eac2999ef67c, type: 3}
   buttonHoverSound: {fileID: 8300000, guid: 0c4b1a57c544447d29359953a3a39e06, type: 3}
-  buttonClickSound: {fileID: 8300000, guid: 9a044e274f0714888835b7b600a2af76, type: 3}
+  normalClickSound: {fileID: 8300000, guid: cee44f8df9d4c244e938d37f5c67a64c, type: 3}
+  buttonPurchaseSound: {fileID: 0}
+  currentClickSound: {fileID: 0}
   audioSource: {fileID: 1510632249}
 --- !u!82 &1510632249
 AudioSource:
@@ -1911,7 +1915,9 @@ MonoBehaviour:
   buttonNormal: {fileID: 21300000, guid: a2e2a83536d4eef45ace93d156eab562, type: 3}
   buttonHovered: {fileID: 21300000, guid: c9006339b2156b142934eac2999ef67c, type: 3}
   buttonHoverSound: {fileID: 8300000, guid: 0c4b1a57c544447d29359953a3a39e06, type: 3}
-  buttonClickSound: {fileID: 8300000, guid: 9a044e274f0714888835b7b600a2af76, type: 3}
+  normalClickSound: {fileID: 8300000, guid: cee44f8df9d4c244e938d37f5c67a64c, type: 3}
+  buttonPurchaseSound: {fileID: 0}
+  currentClickSound: {fileID: 0}
   audioSource: {fileID: 1887161306}
 --- !u!82 &1887161306
 AudioSource:
