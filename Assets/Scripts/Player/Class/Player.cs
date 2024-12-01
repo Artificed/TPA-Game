@@ -38,23 +38,17 @@ public class Player : MonoBehaviour
     {
         if (data.level < 2)
         {
-            data.health = baseStats.health;
-            data.maxHealth = baseStats.maxHealth;
-            data.attack = baseStats.attack;
-            data.defense = baseStats.defense;
-            data.criticalRate = baseStats.criticalRate;
-            data.criticalDamage = baseStats.criticalDamage;
-            data.exp = baseStats.exp;
-            data.expCap = baseStats.expCap;
-            data.level = baseStats.level;
-            data.zhen = baseStats.zhen;
-            data.floor = baseStats.floor;
+            data.Reset();
+        }
+        else
+        {
+            data.health = data.maxHealth;
         }
         
         playerHealthEventChannel?.RaiseEvent(data.health, data.maxHealth);
         playerExpEventChannel?.RaiseEvent(data.exp, data.expCap);
         playerLevelEventChannel?.RaiseEvent(data.level);
-        playerFloorChangeEventChannel?.RaiseEvent(data.floor);
+        playerFloorChangeEventChannel?.RaiseEvent(data.selectedFloor);
         zhenCounterEventChannel?.RaiseEvent(data.zhen);
     }
 

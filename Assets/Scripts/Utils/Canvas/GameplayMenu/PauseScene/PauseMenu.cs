@@ -53,14 +53,4 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1;
         GamePaused = false;
     }
-
-    public void HandleUpgrade()
-    {
-        
-    }
-
-    public void HandleExit()
-    {
-        
-    }
 }

@@ -2537,26 +2537,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats: {fileID: 11400000, guid: 2b88e817cf0054742b82aae09ce541c7, type: 2}
   data: {fileID: 11400000, guid: d059927d3050147e9a833aeb816a7bd4, type: 2}
-  healthUpgradeData: {fileID: 11400000, guid: 286cd42115cba4a418537ee00c9e55fc, type: 2}
-  attackUpgradeData: {fileID: 11400000, guid: 6ede3a35f694d40ee89e24f9679d0a9a, type: 2}
-  defenseUpgradeData: {fileID: 11400000, guid: 012dad4ff92b94eabb2d53ce725acd4b, type: 2}
-  criticalRateUpgradeData: {fileID: 11400000, guid: 27293ff5731874e1fae5edb87aef71e3, type: 2}
-  criticalDamageUpgradeData: {fileID: 11400000, guid: 47633ac3750b6422c87bda8645de4c98, type: 2}
-  fileData:
-    exp: 0
-    level: 1
-    zhen: 0
-    floor: 0
-    healthUpgradeLevel: 0
-    attackUpgradeLevel: 0
-    defenseUpgradeLevel: 0
-    criticalRateUpgradeLevel: 0
-    criticalDamageUpgradeLevel: 0
-    healthUpgradeCost: 0
-    attackUpgradeCost: 0
-    defenseUpgradeCost: 0
-    criticalRateUpgradeCost: 0
-    criticalDamageUpgradeCost: 0
   playerHealthEventChannel: {fileID: 11400000, guid: 3b1378bfab07c4e68a0b44ec5a06e3ba, type: 2}
   playerExpEventChannel: {fileID: 11400000, guid: a11ceca2caf22400f8559e6b6a8b1db9, type: 2}
   playerLevelEventChannel: {fileID: 11400000, guid: b2fbd01500c55401a97e9f9130af95c7, type: 2}
@@ -3078,14 +3058,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 993026633}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb984d1e0cdba43b7a90c06054f751f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b35063bee72641a7bd05fc1ae47d49f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 993026635}
   buttonNormal: {fileID: 21300000, guid: a2e2a83536d4eef45ace93d156eab562, type: 3}
   buttonHovered: {fileID: 21300000, guid: c9006339b2156b142934eac2999ef67c, type: 3}
   buttonHoverSound: {fileID: 8300000, guid: 0c4b1a57c544447d29359953a3a39e06, type: 3}
-  buttonClickSound: {fileID: 8300000, guid: 9a044e274f0714888835b7b600a2af76, type: 3}
+  normalClickSound: {fileID: 8300000, guid: 9a044e274f0714888835b7b600a2af76, type: 3}
+  buttonPurchaseSound: {fileID: 0}
+  currentClickSound: {fileID: 0}
   audioSource: {fileID: 993026638}
 --- !u!1 &1013821085
 GameObject:
@@ -4123,7 +4105,9 @@ MonoBehaviour:
   buttonNormal: {fileID: 21300000, guid: a2e2a83536d4eef45ace93d156eab562, type: 3}
   buttonHovered: {fileID: 21300000, guid: c9006339b2156b142934eac2999ef67c, type: 3}
   buttonHoverSound: {fileID: 8300000, guid: 0c4b1a57c544447d29359953a3a39e06, type: 3}
-  buttonClickSound: {fileID: 8300000, guid: 9a044e274f0714888835b7b600a2af76, type: 3}
+  normalClickSound: {fileID: 0}
+  buttonPurchaseSound: {fileID: 0}
+  currentClickSound: {fileID: 0}
   audioSource: {fileID: 1197041844}
 --- !u!1 &1202056320
 GameObject:
@@ -4454,7 +4438,9 @@ MonoBehaviour:
   buttonNormal: {fileID: 21300000, guid: a2e2a83536d4eef45ace93d156eab562, type: 3}
   buttonHovered: {fileID: 21300000, guid: c9006339b2156b142934eac2999ef67c, type: 3}
   buttonHoverSound: {fileID: 8300000, guid: 0c4b1a57c544447d29359953a3a39e06, type: 3}
-  buttonClickSound: {fileID: 8300000, guid: 9a044e274f0714888835b7b600a2af76, type: 3}
+  normalClickSound: {fileID: 0}
+  buttonPurchaseSound: {fileID: 0}
+  currentClickSound: {fileID: 0}
   audioSource: {fileID: 1205970978}
 --- !u!1 &1230905844
 GameObject:
@@ -5290,7 +5276,9 @@ MonoBehaviour:
   buttonNormal: {fileID: 21300000, guid: a2e2a83536d4eef45ace93d156eab562, type: 3}
   buttonHovered: {fileID: 21300000, guid: c9006339b2156b142934eac2999ef67c, type: 3}
   buttonHoverSound: {fileID: 8300000, guid: 0c4b1a57c544447d29359953a3a39e06, type: 3}
-  buttonClickSound: {fileID: 8300000, guid: 9a044e274f0714888835b7b600a2af76, type: 3}
+  normalClickSound: {fileID: 0}
+  buttonPurchaseSound: {fileID: 0}
+  currentClickSound: {fileID: 0}
   audioSource: {fileID: 1307951970}
 --- !u!1 &1356077685
 GameObject:
@@ -5865,7 +5853,9 @@ MonoBehaviour:
   buttonNormal: {fileID: 21300000, guid: a2e2a83536d4eef45ace93d156eab562, type: 3}
   buttonHovered: {fileID: 21300000, guid: c9006339b2156b142934eac2999ef67c, type: 3}
   buttonHoverSound: {fileID: 8300000, guid: 0c4b1a57c544447d29359953a3a39e06, type: 3}
-  buttonClickSound: {fileID: 8300000, guid: 9a044e274f0714888835b7b600a2af76, type: 3}
+  normalClickSound: {fileID: 0}
+  buttonPurchaseSound: {fileID: 0}
+  currentClickSound: {fileID: 0}
   audioSource: {fileID: 1693790405}
 --- !u!82 &1693790405
 AudioSource:
@@ -6730,7 +6720,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2115920023
 RectTransform:
   m_ObjectHideFlags: 0
