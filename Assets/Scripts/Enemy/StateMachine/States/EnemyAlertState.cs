@@ -26,34 +26,9 @@ public class EnemyAlertState : EnemyBaseState
         
         if(_commandQueued) return;
         
-        CheckInstantHit();
-
         EnemyCheckLOSCommand checkLosCommand = new EnemyCheckLOSCommand(Context);
         TurnManager.Instance.AddQueue(checkLosCommand);
         _commandQueued = true;
-    }
-
-    private void CheckInstantHit()
-    {
-        if (TurnManager.Instance.CurrentTurn == TurnType.EnemyTurn)
-        {
-            Vector2Int enemyCords = new Vector2Int(
-                Mathf.RoundToInt(Context.Unit.position.x / Context.GridManager.UnityGridSize),
-                Mathf.RoundToInt(Context.Unit.position.z / Context.GridManager.UnityGridSize)
-            );
-        
-            Vector2Int playerCords = new Vector2Int(
-                Mathf.RoundToInt(PlayerStateMachine.Instance.Unit.position.x / Context.GridManager.UnityGridSize),
-                Mathf.RoundToInt(PlayerStateMachine.Instance.Unit.position.z / Context.GridManager.UnityGridSize)
-            );
-
-            if (Mathf.Abs(enemyCords.x - playerCords.x) + Mathf.Abs(enemyCords.y - playerCords.y) <= 1)
-            {
-                EnemyAttackCommand enemyAttackCommand = new EnemyAttackCommand(Context);
-                TurnManager.Instance.AddQueue(enemyAttackCommand);
-                _commandQueued = true;
-            }
-        }
     }
 
     public override void ExitState()
