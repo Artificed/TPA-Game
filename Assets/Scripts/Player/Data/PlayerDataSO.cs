@@ -16,4 +16,19 @@ public class PlayerDataSO : ScriptableObject
     public int level;
     public int zhen;
     public int floor;
+
+    public void Reset()
+    {
+        health = 20;
+        maxHealth = 20;
+        attack = 5;
+        defense = 5;
+        criticalRate = 0.05f;
+        criticalDamage = 1.5f;
+        exp = 0;
+        expCap = 5;
+        level = 1;
+        zhen = 0;
+        floor = 1;
+    }
 }

@@ -28,4 +28,10 @@ public class UpgradeDataSO : ScriptableObject
         currentCost = newCost;
         OnDataChanged?.Invoke();
     }
+
+    public void Reset()
+    {
+        currentCost = 10;
+        currentLevel = 0;
+    }
 }
