@@ -11,7 +11,8 @@ public class EnemyFactory: MonoBehaviour
     [SerializeField] private EnemyDataSO commonEnemySO;
     [SerializeField] private EnemyDataSO mediumEnemySO;
     [SerializeField] private EnemyDataSO eliteEnemySO;
-
+    [SerializeField] private EnemyDataSO bossSO;
+    
     [SerializeField] private EnemyNamesSO enemyNamesSO;
 
     private Random _random = new Random();
@@ -29,6 +30,11 @@ public class EnemyFactory: MonoBehaviour
     public GameObject CreateEliteEnemy(Vector2Int coords, int level)
     {
         return CreateEnemy(eliteEnemySO, coords, level);
+    }
+    
+    public GameObject CreateBoss(Vector2Int coords, int level)
+    {
+        return CreateEnemy(bossSO, coords, level);
     }
 
     private GameObject CreateEnemy(EnemyDataSO enemyData, Vector2Int coords, int level)

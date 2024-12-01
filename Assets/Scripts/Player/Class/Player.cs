@@ -36,14 +36,7 @@ public class Player : MonoBehaviour
 
     public void Initialize()
     {
-        if (data.level < 2)
-        {
-            data.Reset();
-        }
-        else
-        {
-            data.health = data.maxHealth;
-        }
+        data.health = data.maxHealth;
         
         playerHealthEventChannel?.RaiseEvent(data.health, data.maxHealth);
         playerExpEventChannel?.RaiseEvent(data.exp, data.expCap);

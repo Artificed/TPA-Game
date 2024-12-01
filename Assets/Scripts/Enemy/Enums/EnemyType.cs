@@ -1,4 +1,4 @@
 public enum EnemyType
 {
-    Common, Medium, Elite
+    Common, Medium, Elite, Boss
 }

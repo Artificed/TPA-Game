@@ -41,6 +41,11 @@ public class GridManager : MonoBehaviour
     private void Start()
     {
         _floor = Player.Instance.SelectedFloor;
+        
+        if (_floor == 0)
+        {
+            roomCount = 1;
+        }
             
         _rooms = new List<Room>();
         _mst = new List<(Vector2, Vector2)>();
@@ -247,7 +252,12 @@ public class GridManager : MonoBehaviour
     public void InitializeEnemies()
     {
         int totalRooms = _rooms.Count;
-        int totalEnemies = Mathf.CeilToInt(5 + _floor * 0.2f);
+
+        int totalEnemies = 1;
+        if(_floor != 0)
+        {
+            totalEnemies = Mathf.CeilToInt(5 + _floor * 0.2f);
+        }
         
         int baseEnemiesPerRoom = totalEnemies / totalRooms;
         int remainingEnemies = totalEnemies % totalRooms;
@@ -304,6 +314,10 @@ public class GridManager : MonoBehaviour
                 case EnemyType.Elite:
                     enemyFactory.CreateEliteEnemy(chosenTile.coords, _floor);
                     break;
+                
+                case EnemyType.Boss:
+                    enemyFactory.CreateBoss(chosenTile.coords, _floor);
+                    break;
             }
             generatedEnemies++;
         }
@@ -311,6 +325,11 @@ public class GridManager : MonoBehaviour
     
     private EnemyType GetRandomEnemyType()
     {
+        if (_floor == 0)
+        {
+            return EnemyType.Boss;
+        }
+        
         float commonWeight = Mathf.Max(100 - (_floor * 1.5f), 20); 
         float mediumWeight = Mathf.Clamp(_floor * 1.2f, 5, 50);    
         float eliteWeight = Mathf.Clamp(_floor * 0.8f - 10, 0, 30);
