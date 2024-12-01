@@ -35,4 +35,9 @@ public static class SaveSystem
             return null;
         }
     }
+
+    public static bool SaveDataExists()
+    {
+        return File.Exists(path);
+    }
 }

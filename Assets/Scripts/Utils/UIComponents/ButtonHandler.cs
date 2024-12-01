@@ -6,17 +6,17 @@ using UnityEngine.UI;
 
 public class ButtonHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    [SerializeField] private Button button;
-    [SerializeField] private Sprite buttonNormal; 
-    [SerializeField] private Sprite buttonHovered;
+    [SerializeField] protected Button button;
+    [SerializeField] protected Sprite buttonNormal; 
+    [SerializeField] protected Sprite buttonHovered;
     
-    [SerializeField] private AudioClip buttonHoverSound;
-    [SerializeField] private AudioClip normalClickSound;
-    [SerializeField] private AudioClip buttonPurchaseSound;
+    [SerializeField] protected AudioClip buttonHoverSound;
+    [SerializeField] protected AudioClip normalClickSound;
+    [SerializeField] protected AudioClip buttonPurchaseSound;
 
-    [SerializeField] private AudioClip currentClickSound;
+    [SerializeField] protected AudioClip currentClickSound;
     
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] protected AudioSource audioSource;
 
     private void Start()
     {
@@ -25,18 +25,18 @@ public class ButtonHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         currentClickSound = normalClickSound;
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public virtual void OnPointerEnter(PointerEventData eventData)
     {
         button.image.sprite = buttonHovered;
         audioSource.PlayOneShot(buttonHoverSound);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public virtual void OnPointerExit(PointerEventData eventData)
     {
         button.image.sprite = buttonNormal;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public virtual void OnPointerClick(PointerEventData eventData)
     {
         audioSource.PlayOneShot(currentClickSound);
         currentClickSound = normalClickSound;
@@ -46,4 +46,6 @@ public class ButtonHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         currentClickSound = buttonPurchaseSound;
     }
+    
+    
 }
