@@ -11,11 +11,14 @@ public class EnemyAggroState : EnemyBaseState
 
     public override void EnterState()
     {
-        // Debug.Log("Enemy Aggro");
-        TurnManager.Instance.AddAggroEnemy(Context.Enemy);
-        SoundFXManager.Instance.PlayEnemyAlertClip(Context.transform);
-        Context.ExclamationText.SetActive(true);
-        Context.StartCoroutine(DeactivateExclamationAfterDelay(1.0f));
+        if (!Context.HasBeenAggroed)
+        {
+            TurnManager.Instance.AddAggroEnemy(Context.Enemy);
+            SoundFXManager.Instance.PlayEnemyAlertClip(Context.transform);
+            Context.ExclamationText.SetActive(true);
+            Context.StartCoroutine(DeactivateExclamationAfterDelay(1.0f));
+            Context.HasBeenAggroed = true;
+        }
         
         Transform playerTransform = PlayerStateMachine.Instance.transform;
         

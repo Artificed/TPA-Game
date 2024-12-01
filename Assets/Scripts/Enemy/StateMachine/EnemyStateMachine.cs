@@ -21,6 +21,8 @@ public class EnemyStateMachine : MonoBehaviour
     
     private Transform _playerTransform;
     private const float alertRange = 5.0f;
+
+    private bool _hasBeenAggroed;
     
     private EnemyStateFactory _stateFactory;
     private EnemyBaseState _currentState;
@@ -46,7 +48,8 @@ public class EnemyStateMachine : MonoBehaviour
     void Start()
     {
         enemy = GetComponent<Enemy>();
-        
+
+        _hasBeenAggroed = false;
         _playerTransform = PlayerStateMachine.Instance.transform;
         
         _isAlertHash = Animator.StringToHash("isAlert");
@@ -379,6 +382,12 @@ public class EnemyStateMachine : MonoBehaviour
     {
         get => enemy;
         set => enemy = value;
+    }
+
+    public bool HasBeenAggroed
+    {
+        get => _hasBeenAggroed;
+        set => _hasBeenAggroed = value;
     }
 
     public CameraShakeEventChannel CameraShakeEventChannel => cameraShakeEventChannel;
