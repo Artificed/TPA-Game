@@ -63,12 +63,6 @@ public class UpgradeCanvas : MonoBehaviour
         
         criticalDamageUpgradeSo.SetCost(playerUpgradesSo.criticalDamageUpgradeCost);
         criticalDamageUpgradeSo.SetLevel(playerUpgradesSo.criticalDamageUpgradeLevel);
-        //
-        // attackUpgradeDataEventChannel.RaiseEvent(attackUpgradeSo);
-        // healthUpgradeDataEventChannel.RaiseEvent(healthUpgradeSo);
-        // defenseUpgradeDataEventChannel.RaiseEvent(defenseUpgradeSo);
-        // criticalChanceUpgradeDataEventChannel.RaiseEvent(criticalChanceUpgradeSo);
-        // criticalDamageUpgradeDataEventChannel.RaiseEvent(criticalDamageUpgradeSo);
     }
 
     private void HandleUpgradeIconClick(UpgradeDataSO upgradeData)

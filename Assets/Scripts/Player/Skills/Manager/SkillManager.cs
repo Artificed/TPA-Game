@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SkillManager : MonoBehaviour
@@ -17,6 +18,8 @@ public class SkillManager : MonoBehaviour
 
     [SerializeField] private PlayerTurnEventChannel playerTurnEventChannel;
 
+    [SerializeField] private PlayerLevelEventChannel playerLevelEventChannel;
+    
     private void Start()
     {
         _skills = new List<Skill>();
@@ -89,11 +92,21 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+    private void CheckUnlocked(int level)
+    {
+        foreach (var skill in _skills)
+        {
+            skill.Unlocked = level >= skill.GetUnlockLevel;
+        }
+    }
+
     private void OnEnable()
     {
         playerActiveSkillEventChannel.activeSkillEvent.AddListener(UpdateActiveSkillUI);
         playerBuffSkillEventChannel.buffSkillEvent.AddListener(UpdateBuffSkillUI);
         playerTurnEventChannel.playerTurnEvent.AddListener(HandlePlayerTurn);
+        
+        playerLevelEventChannel.OnLevelChanged += CheckUnlocked;
     }
 
     private void OnDisable()
@@ -101,6 +114,8 @@ public class SkillManager : MonoBehaviour
         playerActiveSkillEventChannel.activeSkillEvent.RemoveListener(UpdateActiveSkillUI);
         playerBuffSkillEventChannel.buffSkillEvent.RemoveListener(UpdateBuffSkillUI);
         playerTurnEventChannel.playerTurnEvent.RemoveListener(HandlePlayerTurn);
+        
+        playerLevelEventChannel.OnLevelChanged -= CheckUnlocked;
     }
 
     public List<Skill> Skills => _skills;

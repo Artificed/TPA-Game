@@ -30,7 +30,7 @@ public class SkillContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             new Rect(0, 0, _skill.GetImageIcon.width, _skill.GetImageIcon.height), 
             new Vector2(0.5f, 0.5f));
         
-        if(!skill.GetUnlocked)
+        if(!skill.Unlocked)
         {
             lockedText.text = "Locked";
             lockedDisplay.gameObject.SetActive(true);
@@ -44,7 +44,7 @@ public class SkillContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if(_skill == null) return;
         
         descriptionContainer.SetActive(true);
-        if (_skill.GetUnlocked)
+        if (_skill.Unlocked)
         {
             descriptionText.text = _skill.GetSkillName + " - " + _skill.GetDescription;
         }

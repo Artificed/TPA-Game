@@ -21,12 +21,18 @@ public abstract class Skill
     public abstract void Initialize(SkillDataSO data);
     public abstract void HandlePlayerTurn();
     public abstract void UseSkill();
-
+    
     public Texture2D GetImageIcon => ImageIcon;
     public int GetSkillKey => SkillKey;
-    public bool GetUnlocked => IsUnlocked;
     public string GetDescription => Description;
     public int GetUnlockLevel => UnlockLevel;
+
+    public bool Unlocked
+    {
+        get => IsUnlocked;
+        set => IsUnlocked = value;
+    }
+
     public string GetSkillName => SkillName;
     public int GetRemainingCooldown => RemainingCooldown;
 }
