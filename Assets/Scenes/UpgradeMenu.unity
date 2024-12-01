@@ -217,6 +217,10 @@ PrefabInstance:
       propertyPath: upgradeDataSo
       value: 
       objectReference: {fileID: 11400000, guid: 47633ac3750b6422c87bda8645de4c98, type: 2}
+    - target: {fileID: 3548144369093012677, guid: b2916e2a80c594c208d97b4bcaf847e0, type: 3}
+      propertyPath: upgradeDataEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 283529144fea747f080a6e7b02193973, type: 2}
     - target: {fileID: 3548144369093012732, guid: b2916e2a80c594c208d97b4bcaf847e0, type: 3}
       propertyPath: m_Name
       value: CritDmgIcon
@@ -394,6 +398,10 @@ PrefabInstance:
       propertyPath: upgradeDataSo
       value: 
       objectReference: {fileID: 11400000, guid: 6ede3a35f694d40ee89e24f9679d0a9a, type: 2}
+    - target: {fileID: 3548144369093012677, guid: b2916e2a80c594c208d97b4bcaf847e0, type: 3}
+      propertyPath: upgradeDataEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 2450eceb78bbd4082a292ba3da986a65, type: 2}
     - target: {fileID: 3548144369093012732, guid: b2916e2a80c594c208d97b4bcaf847e0, type: 3}
       propertyPath: m_Name
       value: AttackIcon
@@ -2921,6 +2929,10 @@ PrefabInstance:
       propertyPath: upgradeDataSo
       value: 
       objectReference: {fileID: 11400000, guid: 012dad4ff92b94eabb2d53ce725acd4b, type: 2}
+    - target: {fileID: 3548144369093012677, guid: b2916e2a80c594c208d97b4bcaf847e0, type: 3}
+      propertyPath: upgradeDataEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 3e43cefe4a8084a97914cfee0ad1484e, type: 2}
     - target: {fileID: 3548144369093012732, guid: b2916e2a80c594c208d97b4bcaf847e0, type: 3}
       propertyPath: m_Name
       value: DefIcon
@@ -4105,7 +4117,11 @@ MonoBehaviour:
   criticalChanceUpgradeSo: {fileID: 11400000, guid: 27293ff5731874e1fae5edb87aef71e3, type: 2}
   criticalDamageUpgradeSo: {fileID: 11400000, guid: 47633ac3750b6422c87bda8645de4c98, type: 2}
   currentUpgradeSo: {fileID: 0}
-  upgradeDataEventChannel: {fileID: 11400000, guid: b30356fa97d2c42a8a54c99eab14721b, type: 2}
+  healthUpgradeDataEventChannel: {fileID: 11400000, guid: 83643ec2e9d374a93a469867c0eab75f, type: 2}
+  attackUpgradeDataEventChannel: {fileID: 11400000, guid: 2450eceb78bbd4082a292ba3da986a65, type: 2}
+  defenseUpgradeDataEventChannel: {fileID: 11400000, guid: 3e43cefe4a8084a97914cfee0ad1484e, type: 2}
+  criticalChanceUpgradeDataEventChannel: {fileID: 11400000, guid: 0bbea1629ef354c2f911a65c570807b0, type: 2}
+  criticalDamageUpgradeDataEventChannel: {fileID: 11400000, guid: 283529144fea747f080a6e7b02193973, type: 2}
 --- !u!1 &1604153953
 GameObject:
   m_ObjectHideFlags: 0
@@ -5540,6 +5556,10 @@ PrefabInstance:
       propertyPath: upgradeDataSo
       value: 
       objectReference: {fileID: 11400000, guid: 27293ff5731874e1fae5edb87aef71e3, type: 2}
+    - target: {fileID: 3548144369093012677, guid: b2916e2a80c594c208d97b4bcaf847e0, type: 3}
+      propertyPath: upgradeDataEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 0bbea1629ef354c2f911a65c570807b0, type: 2}
     - target: {fileID: 3548144369093012732, guid: b2916e2a80c594c208d97b4bcaf847e0, type: 3}
       propertyPath: m_Name
       value: CritChanceIcon
@@ -5637,6 +5657,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3548144369093012677, guid: b2916e2a80c594c208d97b4bcaf847e0, type: 3}
+      propertyPath: upgradeDataEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 83643ec2e9d374a93a469867c0eab75f, type: 2}
     - target: {fileID: 3548144369093012732, guid: b2916e2a80c594c208d97b4bcaf847e0, type: 3}
       propertyPath: m_Name
       value: HealthUpgrade

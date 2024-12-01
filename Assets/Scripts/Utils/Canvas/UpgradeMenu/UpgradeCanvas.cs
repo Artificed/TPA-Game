@@ -35,11 +35,40 @@ public class UpgradeCanvas : MonoBehaviour
     
     [SerializeField] private UpgradeDataSO currentUpgradeSo;
     
-    [SerializeField] private UpgradeDataEventChannel upgradeDataEventChannel;
+    [SerializeField] private UpgradeDataEventChannel healthUpgradeDataEventChannel;
+    [SerializeField] private UpgradeDataEventChannel attackUpgradeDataEventChannel;
+    [SerializeField] private UpgradeDataEventChannel defenseUpgradeDataEventChannel;
+    [SerializeField] private UpgradeDataEventChannel criticalChanceUpgradeDataEventChannel;
+    [SerializeField] private UpgradeDataEventChannel criticalDamageUpgradeDataEventChannel;
     
     void Start()
     {
+        UpdateUpgradeData();
         zhenCounter.text = playerDataSo.zhen.ToString();
+    }
+
+    private void UpdateUpgradeData()
+    {
+        attackUpgradeSo.SetCost(playerUpgradesSo.attackUpgradeCost);
+        attackUpgradeSo.SetLevel(playerUpgradesSo.attackUpgradeLevel);
+        
+        healthUpgradeSo.SetCost(playerUpgradesSo.healthUpgradeCost);
+        healthUpgradeSo.SetLevel(playerUpgradesSo.healthUpgradeLevel);
+        
+        defenseUpgradeSo.SetCost(playerUpgradesSo.defenseUpgradeCost);
+        defenseUpgradeSo.SetLevel(playerUpgradesSo.defenseUpgradeLevel);
+        
+        criticalChanceUpgradeSo.SetCost(playerUpgradesSo.criticalChanceUpgradeCost);
+        criticalChanceUpgradeSo.SetLevel(playerUpgradesSo.criticalChanceUpgradeLevel);
+        
+        criticalDamageUpgradeSo.SetCost(playerUpgradesSo.criticalDamageUpgradeCost);
+        criticalDamageUpgradeSo.SetLevel(playerUpgradesSo.criticalDamageUpgradeLevel);
+        //
+        // attackUpgradeDataEventChannel.RaiseEvent(attackUpgradeSo);
+        // healthUpgradeDataEventChannel.RaiseEvent(healthUpgradeSo);
+        // defenseUpgradeDataEventChannel.RaiseEvent(defenseUpgradeSo);
+        // criticalChanceUpgradeDataEventChannel.RaiseEvent(criticalChanceUpgradeSo);
+        // criticalDamageUpgradeDataEventChannel.RaiseEvent(criticalDamageUpgradeSo);
     }
 
     private void HandleUpgradeIconClick(UpgradeDataSO upgradeData)
@@ -92,32 +121,36 @@ public class UpgradeCanvas : MonoBehaviour
             playerDataSo.attack += currentUpgradeSo.upgradeValue;
             playerUpgradesSo.attackUpgradeLevel++;
             playerUpgradesSo.attackUpgradeCost = currentUpgradeSo.currentCost;
+            attackUpgradeDataEventChannel.RaiseEvent(currentUpgradeSo);
         }
         if (currentUpgradeSo.itemName.Equals("Health Up"))
         {
             playerDataSo.maxHealth += currentUpgradeSo.upgradeValue;
             playerUpgradesSo.healthUpgradeLevel++;
             playerUpgradesSo.healthUpgradeCost = currentUpgradeSo.currentCost;
+            healthUpgradeDataEventChannel.RaiseEvent(currentUpgradeSo);
         } 
         if (currentUpgradeSo.itemName.Equals("Defense Up"))
         {
             playerDataSo.defense += currentUpgradeSo.upgradeValue;
             playerUpgradesSo.defenseUpgradeLevel++;
             playerUpgradesSo.defenseUpgradeCost = currentUpgradeSo.currentCost;
+            defenseUpgradeDataEventChannel.RaiseEvent(currentUpgradeSo);
         } 
         if (currentUpgradeSo.itemName.Equals("Luck Up"))
         {
             playerDataSo.criticalRate += (float) currentUpgradeSo.upgradeValue / 100;
             playerUpgradesSo.criticalChanceUpgradeLevel++;
             playerUpgradesSo.criticalChanceUpgradeCost = currentUpgradeSo.currentCost;
+            criticalChanceUpgradeDataEventChannel.RaiseEvent(currentUpgradeSo);
         } 
         if (currentUpgradeSo.itemName.Equals("Crit Dmg Up"))
         {
             playerDataSo.criticalDamage += (float) currentUpgradeSo.upgradeValue / 100;
             playerUpgradesSo.criticalDamageUpgradeLevel++;
             playerUpgradesSo.criticalDamageUpgradeCost = currentUpgradeSo.currentCost;
+            criticalDamageUpgradeDataEventChannel.RaiseEvent(currentUpgradeSo);
         }
-        upgradeDataEventChannel.RaiseEvent(currentUpgradeSo);
     }
 
     private void IncreaseAllCosts()
@@ -187,11 +220,19 @@ public class UpgradeCanvas : MonoBehaviour
 
     private void OnEnable()
     {
-        upgradeDataEventChannel.onIconSelected.AddListener(HandleUpgradeIconClick);
+        attackUpgradeDataEventChannel.onIconSelected.AddListener(HandleUpgradeIconClick);
+        healthUpgradeDataEventChannel.onIconSelected.AddListener(HandleUpgradeIconClick);
+        defenseUpgradeDataEventChannel.onIconSelected.AddListener(HandleUpgradeIconClick);
+        criticalChanceUpgradeDataEventChannel.onIconSelected.AddListener(HandleUpgradeIconClick);
+        criticalDamageUpgradeDataEventChannel.onIconSelected.AddListener(HandleUpgradeIconClick);
     }
     
     private void OnDisable()
     {
-        upgradeDataEventChannel.onIconSelected.RemoveListener(HandleUpgradeIconClick);
+        attackUpgradeDataEventChannel.onIconSelected.RemoveListener(HandleUpgradeIconClick);
+        healthUpgradeDataEventChannel.onIconSelected.RemoveListener(HandleUpgradeIconClick);
+        defenseUpgradeDataEventChannel.onIconSelected.RemoveListener(HandleUpgradeIconClick);
+        criticalChanceUpgradeDataEventChannel.onIconSelected.RemoveListener(HandleUpgradeIconClick);
+        criticalDamageUpgradeDataEventChannel.onIconSelected.RemoveListener(HandleUpgradeIconClick);
     }
 }
