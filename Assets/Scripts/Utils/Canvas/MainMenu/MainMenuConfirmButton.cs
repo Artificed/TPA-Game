@@ -28,8 +28,6 @@ public class MainMenuConfirmButton : ButtonHandler
     {
         playerDataSo.Reset();
         playerUpgradesSo.Reset();
-        playerDataSo.Reset();
-        playerUpgradesSo.Reset();
         foreach (var upgradeDataSo in upgradeDataSos)
         {
             upgradeDataSo.Reset();

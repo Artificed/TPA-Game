@@ -12,6 +12,7 @@ public class EnemyAggroState : EnemyBaseState
     public override void EnterState()
     {
         // Debug.Log("Enemy Aggro");
+        TurnManager.Instance.AddAggroEnemy(Context.Enemy);
         Context.ExclamationText.SetActive(true);
         Context.StartCoroutine(DeactivateExclamationAfterDelay(1.0f));
         

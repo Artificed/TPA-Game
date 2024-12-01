@@ -11,6 +11,7 @@ public class TurnManager : MonoBehaviour
 
     private List<Enemy> _enemies;
     private List<Enemy> _activeEnemies;
+    private List<Enemy> _aggroedEnemies;
     private EnemyStateMachine _currentEnemyTarget;
     
     private Queue<ICommand> _turnQueue;
@@ -39,6 +40,7 @@ public class TurnManager : MonoBehaviour
             _currentTurn = TurnType.PlayerTurn;
             _turnQueue = new Queue<ICommand>();
             _activeEnemies = new List<Enemy>();
+            _aggroedEnemies = new List<Enemy>();
             
             playerTurnEventChannel.playerTurnEvent.AddListener(SwitchToEnemyTurn);
             enemyActionCompleteEventChannel.OnActionComplete.AddListener(CommandCompleted);
@@ -54,13 +56,11 @@ public class TurnManager : MonoBehaviour
     {
         if(CurrentTurn == TurnType.EnemyTurn)
         {
-            Debug.Log("One Enemy Turn Completed!");
             _actionsThisTurn++;
         }
         _isCommandExecuting = false;
         if (_actionsThisTurn >= _totalActionsRequired)
         {
-            Debug.Log("All Enemy turns completed, Switching Back To Player Turn");
             SwitchToPlayerTurn();
         }
     }
@@ -81,16 +81,16 @@ public class TurnManager : MonoBehaviour
     void Update()
     {
         UpdateEnemyCount();
-        if(_turnQueue.Count > 0)
-        {
-            Debug.Log("Queue Count: " + _turnQueue.Count);
-        }
+        // if(_turnQueue.Count > 0)
+        // {
+        //     Debug.Log("Queue Count: " + _turnQueue.Count);
+        // }
         // Debug.Log(_currentTurn);
         // Debug.Log(_isCommandExecuting);
-        foreach (var queueItem in _turnQueue)
-        {
-            Debug.Log(queueItem);
-        }
+        // foreach (var queueItem in _turnQueue)
+        // {
+        //     Debug.Log(queueItem);
+        // }
 
         if (_activeEnemies.Count == 0 || _isCommandExecuting)
         {
@@ -155,6 +155,22 @@ public class TurnManager : MonoBehaviour
         }
     }
     
+    public void AddAggroEnemy(Enemy enemy)
+    {
+        if (!_aggroedEnemies.Contains(enemy))
+        {
+            _aggroedEnemies.Add(enemy);
+        }
+    }
+
+    public void RemoveAggroEnemy(Enemy enemy)
+    {
+        if (_aggroedEnemies.Contains(enemy))
+        {
+            _aggroedEnemies.Remove(enemy);
+        }
+    }
+    
     private void ExecuteNext()
     {
         if (_turnQueue.Count > 0)
@@ -185,6 +201,12 @@ public class TurnManager : MonoBehaviour
     {
         get => _activeEnemies;
         set => _activeEnemies = value;
+    }
+
+    public List<Enemy> AggroedEnemies
+    {
+        get => _aggroedEnemies;
+        set => _aggroedEnemies = value;
     }
 
     public EnemyStateMachine CurrentEnemyTarget
