@@ -42,7 +42,7 @@ public class SoundFXManager : MonoBehaviour
         audioSource.Play();
 
         float clipLength = audioSource.clip.length;
-        Destroy(audioSource, clipLength);
+        Destroy(audioSource.gameObject, clipLength);
     }
     
     private void PlayRandomClip(List<AudioClip> clips, Transform spawnTransform, float volume)

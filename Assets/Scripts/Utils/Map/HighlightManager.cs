@@ -18,11 +18,11 @@ public class HighlightManager: MonoBehaviour
         if (pathFinder == null) pathFinder = FindObjectOfType<AStar>();
         pathFinder.SetNewDestination(startCoord, destinationTile.coords);
         List<Tile> path = pathFinder.GetNewPath();
-        
-        foreach (Tile tile in path)
+
+        for (int i = 1; i < path.Count; i++)
         {
-            tile.HighlightTile();
-            _highlightedTiles.Add(tile);
+            path[i].HighlightTile();
+            _highlightedTiles.Add(path[i]);
         }
     }
     
