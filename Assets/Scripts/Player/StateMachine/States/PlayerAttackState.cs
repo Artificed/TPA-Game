@@ -15,6 +15,8 @@ public class PlayerAttackState : PlayerBaseState
     {
         _randomAttack = _random.Next(1, 4);
 
+        SoundFXManager.Instance.PlaySwordClip(Context.transform);
+        
         switch (_randomAttack)
         {
             case 1:

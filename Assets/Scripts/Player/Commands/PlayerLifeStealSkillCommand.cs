@@ -9,5 +9,6 @@ public class PlayerLifeStealSkillCommand : ICommand
         BuffSkill lifeStealSkill = (BuffSkill) SkillManager.Instance.GetSkill("Life Steal");
         if (Player.Instance.Level < lifeStealSkill.GetUnlockLevel) return;
         lifeStealSkill.ToggleSkill();  
+        SoundFXManager.Instance.PlayLifeStealClip(Player.Instance.transform);
     }
 }

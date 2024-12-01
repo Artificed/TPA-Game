@@ -11,6 +11,7 @@ public class EnemyDeathState : EnemyBaseState
     public override void EnterState()
     {
         Debug.Log("Enemy Died!");
+        SoundFXManager.Instance.PlayDeathClip(Context.transform);
         TurnManager.Instance.RemoveAggroEnemy(Context.Enemy);
         Context.Animator.SetTrigger(Context.IsDeadHash);
     }

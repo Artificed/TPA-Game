@@ -71,6 +71,8 @@ public class PlayerMoveBattleState : PlayerBaseState
         Context.transform.LookAt(endPosition);
         // Debug.Log(endPosition);
         
+        SoundFXManager.Instance.PlayPlayerFootStepClip(Context.transform);
+
         while (travelPercent < 1f)
         {
             travelPercent += Time.deltaTime * Context.MovementSpeed;

@@ -159,6 +159,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void PlayerKnockBack()
     {
+        SoundFXManager.Instance.PlayTakeDamageClip(transform);
         TurnManager.Instance.CurrentEnemyTarget.Animator.SetTrigger(TurnManager.Instance.CurrentEnemyTarget.IsHitHash);
     }
     

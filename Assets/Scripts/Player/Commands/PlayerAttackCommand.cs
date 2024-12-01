@@ -23,6 +23,7 @@ public class PlayerAttackCommand : ICommand
         if (isCritical)
         {
             damage = CalculateCritical(damage);
+            SoundFXManager.Instance.PlayCriticalHitClip(_context.transform);
             _context.CameraShakeEventChannel.RaiseEvent(0.2f, 0.02f);
         }
         
@@ -80,6 +81,7 @@ public class PlayerAttackCommand : ICommand
         if (bashSkill.IsActive)
         {
             damage += (int) (damage * 0.5);
+            SoundFXManager.Instance.PlayBashClip(Player.Instance.transform);
             // Debug.Log("Bash Used - Damage: " + damage);
             bashSkill.UseSkill();
         }

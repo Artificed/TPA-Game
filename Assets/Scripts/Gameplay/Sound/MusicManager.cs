@@ -5,23 +5,9 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
-    public static MusicManager Instance;
-
     [SerializeField] private AudioSource musicObject;
     [SerializeField] private AudioClip battleTheme;
     [SerializeField] private AudioClip dungeonTheme;
-    
-    void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
 
     private void Start()
     {

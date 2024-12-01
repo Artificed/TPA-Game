@@ -26,6 +26,7 @@ public class EnemyAttackCommand : ICommand
         
         if (isCritical)
         {
+            SoundFXManager.Instance.PlayCriticalHitClip(_context.transform);
             damage = CalculateCritical(damage);
             _context.CameraShakeEventChannel.RaiseEvent(0.2f, 0.02f);
         }

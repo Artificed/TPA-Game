@@ -216,16 +216,28 @@ public class EnemyStateMachine : MonoBehaviour
 
     public void ShowSword()
     {
-        sword.SetActive(true);
+        if (sword != null)
+        {
+            SoundFXManager.Instance.PlaySwordClip(transform);
+            sword.SetActive(true);
+        }
+        else
+        {
+            SoundFXManager.Instance.PlayPunchClip(transform);
+        }
     }
 
     public void HideSword()
     {
-        sword.SetActive(false);
+        if (sword != null)
+        {
+            sword.SetActive(false);
+        }
     }
 
     public void PlayerKnockBack()
     {
+        SoundFXManager.Instance.PlayTakeDamageClip(transform);
         PlayerStateMachine.Instance.Animator.SetTrigger(PlayerStateMachine.Instance.IsHitHash);
     }
 
