@@ -19,6 +19,7 @@ public class MainMenuConfirmButton : ButtonHandler
     public void HandleNewGame()
     {
         ResetData();
+        SaveSystem.DeleteFile();
         currentClickSound = normalClickSound;
         SceneManager.LoadScene("UpgradeMenu");
     }

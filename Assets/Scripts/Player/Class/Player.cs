@@ -116,6 +116,12 @@ public class Player : MonoBehaviour
         get => data.floor;
         set => data.floor = value;
     }
+    
+    public int SelectedFloor
+    {
+        get => data.selectedFloor;
+        set => data.selectedFloor = value;
+    }
 
     public int Health => data.health;
     public int MaxHealth => data.maxHealth;

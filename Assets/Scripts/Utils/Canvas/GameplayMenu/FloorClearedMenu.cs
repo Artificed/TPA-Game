@@ -17,6 +17,7 @@ public class FloorClearedMenu : MonoBehaviour
         if(_floorChanged) return;
         
         Player.Instance.Floor++;
+        Player.Instance.SelectedFloor++;
         floorClearedCanvas.SetActive(true);
         Time.timeScale = 0;
         _floorChanged = true;

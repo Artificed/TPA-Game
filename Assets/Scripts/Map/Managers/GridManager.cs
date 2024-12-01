@@ -40,7 +40,7 @@ public class GridManager : MonoBehaviour
     
     private void Start()
     {
-        _floor = Player.Instance.Floor;
+        _floor = Player.Instance.SelectedFloor;
             
         _rooms = new List<Room>();
         _mst = new List<(Vector2, Vector2)>();

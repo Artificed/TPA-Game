@@ -36,6 +36,14 @@ public static class SaveSystem
         }
     }
 
+    public static void DeleteFile()
+    {
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+    }
+
     public static bool SaveDataExists()
     {
         return File.Exists(path);

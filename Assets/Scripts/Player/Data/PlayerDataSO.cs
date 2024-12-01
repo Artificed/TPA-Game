@@ -17,6 +17,8 @@ public class PlayerDataSO : ScriptableObject
     public int zhen;
     public int floor;
 
+    public int selectedFloor;
+    
     public void Reset()
     {
         health = 20;
@@ -30,5 +32,6 @@ public class PlayerDataSO : ScriptableObject
         level = 1;
         zhen = 0;
         floor = 1;
+        selectedFloor = 1;
     }
 }
