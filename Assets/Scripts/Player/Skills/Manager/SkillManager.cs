@@ -97,6 +97,7 @@ public class SkillManager : MonoBehaviour
         foreach (var skill in _skills)
         {
             skill.Unlocked = level >= skill.GetUnlockLevel;
+            skillContainers[skill.GetSkillKey - 1].CheckSkillUnlocked(skill);
         }
     }
 

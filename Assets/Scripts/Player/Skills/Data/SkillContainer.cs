@@ -30,13 +30,23 @@ public class SkillContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             new Rect(0, 0, _skill.GetImageIcon.width, _skill.GetImageIcon.height), 
             new Vector2(0.5f, 0.5f));
         
+        CheckSkillUnlocked(skill);
+        
+        skillKey.text = _skill.GetSkillKey.ToString();
+    }
+
+    public void CheckSkillUnlocked(Skill skill)
+    {
         if(!skill.Unlocked)
         {
             lockedText.text = "Locked";
             lockedDisplay.gameObject.SetActive(true);
         }
-        
-        skillKey.text = _skill.GetSkillKey.ToString();
+        else
+        {
+            lockedText.text = "";
+            lockedDisplay.gameObject.SetActive(false);
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
