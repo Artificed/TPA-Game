@@ -82,8 +82,8 @@ public class Player : MonoBehaviour
         data.maxHealth = (int) (data.maxHealth * 1.20f);
         data.attack = (int) (data.attack * 1.20f);
         data.defense = (int) (data.defense * 1.20f);
-        data.criticalRate = (data.criticalRate * 1.20f);
-        data.criticalDamage = (data.criticalDamage * 1.20f);
+        data.criticalRate = (data.criticalRate * 1.05f);
+        data.criticalDamage = (data.criticalDamage * 1.05f);
         
         data.expCap = (int) (data.expCap * 2.0f);
         
