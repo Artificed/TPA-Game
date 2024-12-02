@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerBattleIdleState : PlayerBaseState
 {
-    private bool commandQueued = false;
+    private bool _commandQueued = false;
     public PlayerBattleIdleState(PlayerStateMachine context, PlayerStateFactory factory) : base(context, factory)
     {
     }
@@ -13,20 +13,20 @@ public class PlayerBattleIdleState : PlayerBaseState
     public override void EnterState()
     {
         Debug.Log("Player Battling");
-        commandQueued = false;
+        _commandQueued = false;
     }
 
     public override void UpdateState()
     {
         CheckDeathState();
         CheckSwitchStates();
-        if(commandQueued) return;
+        if(_commandQueued) return;
         
         if (Input.GetKeyDown(KeyCode.Space))
         {
             PlayerSkipCommand playerSkipCommand = new PlayerSkipCommand(Context);
             TurnManager.Instance.AddQueue(playerSkipCommand);
-            commandQueued = true;
+            _commandQueued = true;
         }
         
         else if (Input.GetMouseButtonDown(0))
@@ -74,7 +74,7 @@ public class PlayerBattleIdleState : PlayerBaseState
 
         PlayerMoveBattleCommand playerMoveBattleCommand = new PlayerMoveBattleCommand(Context, startCords, targetCords);
         TurnManager.Instance.AddQueue(playerMoveBattleCommand);
-        commandQueued = true;
+        _commandQueued = true;
     }
 
     private void HandleEnemyRaycast(RaycastHit hit)
@@ -87,7 +87,7 @@ public class PlayerBattleIdleState : PlayerBaseState
         TurnManager.Instance.CurrentEnemyTarget = GetEnemy(targetCords).EnemyStateMachine;
         PlayerAttackCommand playerAttackCommand = new PlayerAttackCommand(Context, GetEnemy(targetCords));
         TurnManager.Instance.AddQueue(playerAttackCommand);
-        commandQueued = true;
+        _commandQueued = true;
     }
 
     private bool IsEnemyInRange(Vector2Int cord)
@@ -123,7 +123,7 @@ public class PlayerBattleIdleState : PlayerBaseState
 
     public override void ExitState()
     {
-        commandQueued = false;
+        _commandQueued = false;
     }
 
     public override void CheckSwitchStates()

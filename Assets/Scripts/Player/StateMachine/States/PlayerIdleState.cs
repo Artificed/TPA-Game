@@ -17,10 +17,7 @@ public class PlayerIdleState: PlayerBaseState
 
     public override void UpdateState()
     {
-        if (TurnManager.Instance.IsBattling)
-        {
-            SwitchState(Factory.CreateBattleIdle());
-        }
+        CheckSwitchStates();
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -28,16 +25,7 @@ public class PlayerIdleState: PlayerBaseState
 
             if (Physics.Raycast(ray, out hit) && hit.transform.CompareTag("Tile"))
             {
-                Vector2Int targetCords = hit.transform.GetComponent<Tile>().coords;
-                Vector2Int startCords = new Vector2Int(
-                    Mathf.RoundToInt(Context.Unit.position.x / Context.GridManager.UnityGridSize),
-                    Mathf.RoundToInt(Context.Unit.position.z / Context.GridManager.UnityGridSize)
-                );
-                
-                if(startCords == targetCords) return;
-                
-                Context.SetNewDestination(startCords, targetCords);
-                SwitchState(Factory.CreateMoving());
+                HandleTileRaycast(hit);
             }
         }
         else if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -51,6 +39,20 @@ public class PlayerIdleState: PlayerBaseState
             playerBashSkillCommand.Execute();
         }
     }
+
+    private void HandleTileRaycast(RaycastHit hit)
+    {
+        Vector2Int targetCords = hit.transform.GetComponent<Tile>().coords;
+        Vector2Int startCords = new Vector2Int(
+            Mathf.RoundToInt(Context.Unit.position.x / Context.GridManager.UnityGridSize),
+            Mathf.RoundToInt(Context.Unit.position.z / Context.GridManager.UnityGridSize)
+        );
+                
+        if(startCords == targetCords) return;
+                
+        Context.SetNewDestination(startCords, targetCords);
+        SwitchState(Factory.CreateMoving());
+    }
     
     public override void ExitState()
     {
@@ -58,5 +60,9 @@ public class PlayerIdleState: PlayerBaseState
     
     public override void CheckSwitchStates()
     {
+        if (TurnManager.Instance.IsBattling)
+        {
+            SwitchState(Factory.CreateBattleIdle());
+        }
     }
 }
