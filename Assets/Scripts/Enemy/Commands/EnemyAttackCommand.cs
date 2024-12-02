@@ -34,7 +34,7 @@ public class EnemyAttackCommand : ICommand
         damage = CalculateDamageOutput(damage);
         
         Player.Instance.TakeDamage(damage);
-        PlayerStateMachine.Instance.showDamageText(damage, isCritical);
+        PlayerStateMachine.Instance.ShowDamageText(damage, isCritical);
         
         _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
     }

@@ -38,7 +38,7 @@ public class PlayerAttackCommand : ICommand
         }
         
         _target.TakeDamage(damage);
-        _target.EnemyStateMachine.showDamageText(damage, isCritical);
+        _target.EnemyStateMachine.ShowDamageText(damage, isCritical);
         
         RotatePlayer();
         _context.CurrentState.SwitchState(_context.StateFactory.CreateAttack());
@@ -92,7 +92,8 @@ public class PlayerAttackCommand : ICommand
             // Debug.Log("Remaining Turns: " + lifeStealSkill.RemainingTurns);
             int healthHealed = (int) (0.2 * damage); // confirm this later
             Player.Instance.HealHealth(healthHealed);
-            lifeStealSkill.UseSkill();
+            _context.ShowDamageText(healthHealed, isHeal:true);
+            // lifeStealSkill.UseSkill();
         }
         
         return damage;

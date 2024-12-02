@@ -1547,7 +1547,7 @@ RectTransform:
   m_GameObject: {fileID: 540171921}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.003, y: 0.0019999999, z: 0.0009999999}
+  m_LocalScale: {x: 3, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 864673583}
@@ -2632,7 +2632,7 @@ MonoBehaviour:
   buffDisplayEventChannel: {fileID: 11400000, guid: b0d8ceeadae8942c79acd06cd95e4d9e, type: 2}
   playerDeathEventChannel: {fileID: 11400000, guid: 4dd7ab3ca6fd4412ba62989e8d8c1d19, type: 2}
   buffAura: {fileID: 2250826825904004295}
-  movementSpeed: 2
+  movementSpeed: 2.5
   unit: {fileID: 81751962}
   animator: {fileID: 864673582}
   gridManager: {fileID: 952847969}
@@ -7202,3 +7202,48 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5867130631070212541, guid: 03324d30e860cf64797a9ff5ebb3beb2, type: 3}
   m_PrefabInstance: {fileID: 2250826825904004294}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &6271120069131353968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6271120069131353982}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.1, z: -0.00999999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6271120069131353969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6271120069131353982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c86f5615970774b098afef22a01bc800, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statusTextPrefab: {fileID: 3176164641134297554, guid: 268a2a792881f4d68947c61e0db739a8, type: 3}
+--- !u!1 &6271120069131353982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6271120069131353968}
+  - component: {fileID: 6271120069131353969}
+  m_Layer: 0
+  m_Name: StatusTextManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1

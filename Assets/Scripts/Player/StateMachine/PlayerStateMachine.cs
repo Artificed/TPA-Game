@@ -163,24 +163,38 @@ public class PlayerStateMachine : MonoBehaviour
         TurnManager.Instance.CurrentEnemyTarget.Animator.SetTrigger(TurnManager.Instance.CurrentEnemyTarget.IsHitHash);
     }
     
-    public void showDamageText(int damage, bool isCritical = false)
+    public void ShowDamageText(int damage, bool isCritical = false, bool isHeal = false)
     {
         var canvas = GetComponentInChildren<Canvas>().transform;
-        var damageText = Instantiate(statusTextPrefab, canvas);
-        var textMesh = damageText.GetComponent<TextMeshPro>();
+        
+        StatusText damageText = ObjectPooler.DequeueObject<StatusText>("statusText");
 
+        damageText.transform.SetParent(canvas, false);
+        damageText.transform.localPosition = new Vector3(0, 0, 0);
+        damageText.transform.localScale = new Vector3(1, 1.5f, 1) / 10;
+        damageText.transform.rotation = canvas.rotation;
+        damageText.transform.Rotate(0, 180, 0);
+        damageText.gameObject.SetActive(true);
+
+        var textMesh = damageText.GetComponent<TextMeshPro>();
         textMesh.text = damage.ToString();
-        damageText.transform.localPosition = new Vector3(0, 50.0f, 0); 
+
+        if (isHeal)
+        {
+            textMesh.color = new Color(0f, .75f, 0f);
+            textMesh.fontSize = 10; 
+            return;
+        }
         
         if (isCritical)
         {
             textMesh.color = new Color(1f, 0.3f, 0f); 
-            textMesh.fontSize = 20; 
+            textMesh.fontSize = 18; 
         }
         else
         {
             textMesh.color = Color.white; 
-            textMesh.fontSize = 12; 
+            textMesh.fontSize = 10; 
         }
     }
 

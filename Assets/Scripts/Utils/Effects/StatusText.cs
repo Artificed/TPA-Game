@@ -7,13 +7,24 @@ public class StatusText : MonoBehaviour
     private float _destroyTime = 0.6f;  
     private float _floatSpeed = 0.15f; 
 
-    void Start()
+    private string _poolKey = "statusText";
+    private float _elapsedTime;
+    
+    void OnEnable()
     {
-        Destroy(gameObject, _destroyTime);
+        _elapsedTime = 0f; 
     }
 
     void Update()
     {
+        _elapsedTime += Time.deltaTime;
+
         transform.position += Vector3.up * _floatSpeed * Time.deltaTime;
+
+        if (_elapsedTime >= _destroyTime)
+        {
+            ObjectPooler.EnqueueObject(this, _poolKey);
+            transform.SetParent(null);
+        }
     }
 }
