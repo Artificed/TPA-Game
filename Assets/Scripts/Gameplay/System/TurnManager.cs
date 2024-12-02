@@ -105,7 +105,7 @@ public class TurnManager : MonoBehaviour
     {
         _isCommandExecuting = false;
         
-        if(PlayerStateMachine.Instance.CurrentState is not PlayerMoveState)
+        if(PlayerStateMachine.Instance.CurrentState is not PlayerMoveState && _activeEnemies.Count > 0)
         {
             _currentTurn = TurnType.EnemyTurn;
             Debug.Log("Switching to enemy turn");
@@ -131,6 +131,7 @@ public class TurnManager : MonoBehaviour
         
         if (!_isBattling)
         {
+            _turnQueue.Clear();
             SwitchToPlayerTurn();
         }
     }
