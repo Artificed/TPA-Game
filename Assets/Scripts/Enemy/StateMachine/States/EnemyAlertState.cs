@@ -22,7 +22,13 @@ public class EnemyAlertState : EnemyBaseState
 
     public override void UpdateState()
     {
-        CheckSwitchStates();
+        if (Context.GetDistanceFromPlayer() > Context.AlertRange)
+        {
+            Debug.Log("Enemy no longer alerted!");
+            SwitchState(Factory.CreateIdle());
+            TurnManager.Instance.RemoveEnemy(Context.Enemy);
+            return;
+        } 
         
         if(_commandQueued) return;
         
@@ -39,12 +45,7 @@ public class EnemyAlertState : EnemyBaseState
 
     public override void CheckSwitchStates()
     {
-        if (Context.GetDistanceFromPlayer() > Context.AlertRange)
-        {
-            Debug.Log("Enemy no longer alerted!");
-            SwitchState(Factory.CreateIdle());
-            TurnManager.Instance.RemoveEnemy(Context.Enemy);
-        } 
+        
     }
 
     public bool CommandQueued

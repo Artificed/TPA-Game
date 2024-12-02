@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerIdleState: PlayerBaseState
 {
+    private bool _commandQueued;
     public PlayerIdleState(PlayerStateMachine context, PlayerStateFactory factory) : base(context, factory)
     {
     }
@@ -13,11 +14,15 @@ public class PlayerIdleState: PlayerBaseState
         // Debug.Log("Player Entering Idle!");
         Context.CancellingPath = false;
         Context.Animator.SetBool(Context.IsMovingHash, false);
+
+        _commandQueued = false;
     }
 
     public override void UpdateState()
     {
         CheckSwitchStates();
+        if(_commandQueued) return;
+        
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -42,6 +47,8 @@ public class PlayerIdleState: PlayerBaseState
 
     private void HandleTileRaycast(RaycastHit hit)
     {
+        if (hit.transform.GetComponent<Tile>().Blocked) return;
+        
         Vector2Int targetCords = hit.transform.GetComponent<Tile>().coords;
         Vector2Int startCords = new Vector2Int(
             Mathf.RoundToInt(Context.Unit.position.x / Context.GridManager.UnityGridSize),
@@ -49,13 +56,16 @@ public class PlayerIdleState: PlayerBaseState
         );
                 
         if(startCords == targetCords) return;
-                
-        Context.SetNewDestination(startCords, targetCords);
-        SwitchState(Factory.CreateMoving());
+
+        PlayerMoveCommand playerMoveCommand = new PlayerMoveCommand(Context, startCords, targetCords);
+        TurnManager.Instance.AddQueue(playerMoveCommand);
+
+        _commandQueued = true;
     }
     
     public override void ExitState()
-    {
+    { 
+        _commandQueued = false;
     }
     
     public override void CheckSwitchStates()

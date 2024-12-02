@@ -89,6 +89,8 @@ public class PlayerMoveState : PlayerBaseState
                 yield break;
             }
         }
+        
+        Context.PlayerTurnEventChannel.RaiseEvent();
 
         SwitchState(Factory.CreateIdle());
     }

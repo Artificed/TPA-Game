@@ -26,7 +26,7 @@ public class BuffSkill : Skill
     public override void HandlePlayerTurn()
     {
         DecreaseCooldown();
-        Debug.Log("Cooldown decreased");
+        // Debug.Log("Cooldown decreased");
         PlayerStateMachine.Instance.PlayerBuffSkillEventChannel.RaiseEvent(this);
     }
 

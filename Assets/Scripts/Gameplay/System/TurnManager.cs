@@ -81,18 +81,18 @@ public class TurnManager : MonoBehaviour
     void Update()
     {
         UpdateEnemyCount();
-        // if(_turnQueue.Count > 0)
-        // {
-        //     Debug.Log("Queue Count: " + _turnQueue.Count);
-        // }
+        if(_turnQueue.Count > 0)
+        {
+            Debug.Log("Queue Count: " + _turnQueue.Count);
+        }
         Debug.Log(_currentTurn);
-        // Debug.Log(_isCommandExecuting);
-        // foreach (var queueItem in _turnQueue)
-        // {
-        //     Debug.Log(queueItem);
-        // }
+        Debug.Log(_isCommandExecuting);
+        foreach (var queueItem in _turnQueue)
+        {
+            Debug.Log(queueItem);
+        }
 
-        if (_activeEnemies.Count == 0 || _isCommandExecuting)
+        if (_isCommandExecuting)
         {
             // Debug.Log("Don't exec next");
             return;
@@ -104,8 +104,12 @@ public class TurnManager : MonoBehaviour
     public void SwitchToEnemyTurn()
     {
         _isCommandExecuting = false;
-        _currentTurn = TurnType.EnemyTurn;
-        Debug.Log("Switching to enemy turn");
+        
+        if(PlayerStateMachine.Instance.CurrentState is not PlayerMoveState)
+        {
+            _currentTurn = TurnType.EnemyTurn;
+            Debug.Log("Switching to enemy turn");
+        }
 
         ResetLosChecker();
     }
@@ -121,9 +125,13 @@ public class TurnManager : MonoBehaviour
     {
         _isBattling = _activeEnemies.Count > 0;
         _totalActionsRequired = _activeEnemies.Count;
+        Debug.Log("isBattling during check" + _isBattling);
+        Debug.Log("Current total actions required " + _totalActionsRequired);
+        Debug.Log("Current enemy Count: " + _activeEnemies.Count);
+        
         if (!_isBattling)
         {
-            _turnQueue.Clear();
+            SwitchToPlayerTurn();
         }
     }
 
@@ -149,8 +157,10 @@ public class TurnManager : MonoBehaviour
 
     public void RemoveEnemy(Enemy enemy)
     {
+        Debug.Log("Removing Enemy");
         if (_activeEnemies.Remove(enemy))
         {
+            Debug.Log("Successfully Removed!");
             CheckBattlingState();
         }
     }

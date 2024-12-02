@@ -12,7 +12,7 @@ public class PlayerBattleIdleState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Player Battling");
+        // Debug.Log("Player Battling");
         _commandQueued = false;
     }
 
