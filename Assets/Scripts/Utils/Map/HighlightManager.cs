@@ -15,6 +15,8 @@ public class HighlightManager: MonoBehaviour
     public void HighlightPath(Vector2Int startCoord, Tile destinationTile)
     {
         if (!Player.Instance) return;
+        if (destinationTile.Blocked) return;
+        
         if (pathFinder == null) pathFinder = FindObjectOfType<AStar>();
         pathFinder.SetNewDestination(startCoord, destinationTile.coords);
         List<Tile> path = pathFinder.GetNewPath();

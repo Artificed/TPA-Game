@@ -72,8 +72,8 @@ public class PlayerBattleIdleState : PlayerBaseState
         
         if(startCords == targetCords) return;
 
-        PlayerMoveCommand playerMoveCommand = new PlayerMoveCommand(Context, startCords, targetCords);
-        TurnManager.Instance.AddQueue(playerMoveCommand);
+        PlayerMoveBattleCommand playerMoveBattleCommand = new PlayerMoveBattleCommand(Context, startCords, targetCords);
+        TurnManager.Instance.AddQueue(playerMoveBattleCommand);
         commandQueued = true;
     }
 

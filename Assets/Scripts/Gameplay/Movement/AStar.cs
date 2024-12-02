@@ -114,7 +114,7 @@ public class AStar : MonoBehaviour
     List<Tile> BuildPath()
     {
         List<Tile> path = new List<Tile>();
-        Tile currentNode = targetNode;
+        currentNode = targetNode;
 
         if (currentNode.connectTo == null) return path;
 
