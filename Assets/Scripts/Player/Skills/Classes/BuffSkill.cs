@@ -19,8 +19,8 @@ public class BuffSkill : Skill
         
         IsUnlocked = Player.Instance.Level >= UnlockLevel;
         
-        RemainingCooldown = 0;
-        _remainingTurns = 0;
+        RemainingCooldown = 0;      // stores remaining cooldown
+        _remainingTurns = 0;        // stores remaining active time
     }
 
     public override void HandlePlayerTurn()
@@ -33,35 +33,40 @@ public class BuffSkill : Skill
     public void ToggleSkill()
     {
         if(RemainingCooldown > 0) return;
+        Debug.Log("Skill Toggled!");
         PlayerStateMachine.Instance.ActivateParticles();
         
         _remainingTurns = _activeTime;
         RemainingCooldown = CooldownTime;
         
         PlayerStateMachine.Instance.Animator.SetTrigger(PlayerStateMachine.Instance.IsBuffHash);
-        PlayerStateMachine.Instance.BuffDisplayEventChannel.TransferBuff(this);
+        PlayerStateMachine.Instance.BuffDisplayEventChannel.RefreshBuff();
         PlayerStateMachine.Instance.PlayerBuffSkillEventChannel.RaiseEvent(this);
     }
 
     public override void UseSkill()
     {
         _remainingTurns--;
-        
-        if (_remainingTurns < 1)
-        {
-            PlayerStateMachine.Instance.BuffDisplayEventChannel.RemoveBuff(this);
+
+        Debug.Log($"Remaining Turns: {_remainingTurns}");
+
+        if (_remainingTurns <= 0)
+        { 
+            Debug.Log("Finished Turns!");
+            PlayerStateMachine.Instance.BuffDisplayEventChannel.RefreshBuff();
             PlayerStateMachine.Instance.DeactivateParticles();
             return;
         }
-        
+
         PlayerStateMachine.Instance.PlayerBuffSkillEventChannel.RaiseEvent(this);
-        PlayerStateMachine.Instance.BuffDisplayEventChannel.RefreshBuffs();
+        PlayerStateMachine.Instance.BuffDisplayEventChannel.RefreshBuff();
     }
 
     private void DecreaseCooldown()
     {
         if(RemainingCooldown < 1) return;
         RemainingCooldown--;
+        UseSkill();
     }
     
     public int RemainingTurns

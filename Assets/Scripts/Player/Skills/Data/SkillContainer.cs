@@ -98,7 +98,7 @@ public class SkillContainer : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         
         if (_skill.GetRemainingCooldown > 0)
         {
-            buffDisplayEventChannel.OnBuffLoaded((BuffSkill) _skill);
+            buffDisplayEventChannel.RefreshBuff();
             lockedText.text = _skill.GetRemainingCooldown.ToString();
             lockedDisplay.color = _darkOverlay;
             lockedText.fontSize = 20;

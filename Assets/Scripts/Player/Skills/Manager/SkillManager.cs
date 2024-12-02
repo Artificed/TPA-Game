@@ -84,7 +84,7 @@ public class SkillManager : MonoBehaviour
         skillContainers[buffSkill.GetSkillKey - 1].HandleBuffSkillUsage();
     }
 
-    private void HandlePlayerTurn()
+    public void HandlePlayerTurn()
     {
         foreach (var skill in _skills)
         {

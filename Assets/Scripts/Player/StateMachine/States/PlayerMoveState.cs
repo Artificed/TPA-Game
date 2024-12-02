@@ -79,6 +79,11 @@ public class PlayerMoveState : PlayerBaseState
                 Context.Unit.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
                 yield return null;
             }
+
+            if (i != Context.Path.Count - 1)
+            {
+                SkillManager.Instance.HandlePlayerTurn();
+            }
             
             if (Context.CancellingPath)
             {

@@ -85,8 +85,8 @@ public class TurnManager : MonoBehaviour
         {
             Debug.Log("Queue Count: " + _turnQueue.Count);
         }
-        Debug.Log(_currentTurn);
-        Debug.Log(_isCommandExecuting);
+        // Debug.Log(_currentTurn);
+        // Debug.Log(_isCommandExecuting);
         foreach (var queueItem in _turnQueue)
         {
             Debug.Log(queueItem);
@@ -125,9 +125,9 @@ public class TurnManager : MonoBehaviour
     {
         _isBattling = _activeEnemies.Count > 0;
         _totalActionsRequired = _activeEnemies.Count;
-        Debug.Log("isBattling during check" + _isBattling);
-        Debug.Log("Current total actions required " + _totalActionsRequired);
-        Debug.Log("Current enemy Count: " + _activeEnemies.Count);
+        // Debug.Log("isBattling during check" + _isBattling);
+        // Debug.Log("Current total actions required " + _totalActionsRequired);
+        // Debug.Log("Current enemy Count: " + _activeEnemies.Count);
         
         if (!_isBattling)
         {
@@ -158,10 +158,10 @@ public class TurnManager : MonoBehaviour
 
     public void RemoveEnemy(Enemy enemy)
     {
-        Debug.Log("Removing Enemy");
+        // Debug.Log("Removing Enemy");
         if (_activeEnemies.Remove(enemy))
         {
-            Debug.Log("Successfully Removed!");
+            // Debug.Log("Successfully Removed!");
             CheckBattlingState();
         }
     }
@@ -190,8 +190,8 @@ public class TurnManager : MonoBehaviour
             _isCommandExecuting = true;
             currentCommand.Execute();
 
-            Debug.Log("Queue Count: " + _turnQueue.Count);
-            Debug.Log("Enemy Count " + _activeEnemies.Count);
+            // Debug.Log("Queue Count: " + _turnQueue.Count);
+            // Debug.Log("Enemy Count " + _activeEnemies.Count);
             Debug.Log(currentCommand.ToString() + " Executed! Turn: " + _actionsThisTurn);
         }
     }

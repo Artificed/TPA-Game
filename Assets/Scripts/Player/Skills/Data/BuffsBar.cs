@@ -41,14 +41,15 @@ public class BuffsBar : MonoBehaviour
         _buffContainers.Clear();
         _buffSkills.Clear();
 
-        List<BuffSkill> buffSkills = SkillManager.Instance.Skills
-            .Where(skill => skill is BuffSkill)  
-            .Cast<BuffSkill>() 
+        List<BuffSkill> activeBuffs = SkillManager.Instance.Skills
+            .Where(skill => skill is BuffSkill && ((BuffSkill)skill).RemainingTurns > 0)
+            .Cast<BuffSkill>()
             .ToList();
-
-        foreach (BuffSkill buffSkill in buffSkills)
+        
+        foreach (BuffSkill buffSkill in activeBuffs)
         {
             GameObject buffObject = Instantiate(buffPrefab, container.transform);
+        
             BuffContainer buffContainer = buffObject.GetComponent<BuffContainer>();
             buffContainer.Initialize(buffSkill);
 
@@ -58,58 +59,14 @@ public class BuffsBar : MonoBehaviour
 
         RepositionContainer();
     }
-    
-    private void AddBuff(BuffSkill buffSkill)
-    {
-        if (_buffSkills.Contains(buffSkill)) return;
-        
-        GameObject buffObject = Instantiate(buffPrefab, container.transform);
-
-        BuffContainer buffContainer = buffObject.GetComponent<BuffContainer>();
-        buffContainer.Initialize(buffSkill);
-
-        _buffContainers.Add(buffContainer);
-        _buffSkills.Add(buffSkill);
-
-        RepositionContainer();
-    }
-
-    private void RemoveBuff(BuffSkill buffSkill)
-    {
-        BuffContainer buffToRemove = null;
-
-        foreach (BuffContainer buffContainer in _buffContainers)
-        {
-            if (buffSkill == buffContainer.BuffSkill)
-            {
-                buffToRemove = buffContainer;
-                break;
-            }
-        }
-
-        if (buffToRemove != null)
-        {
-            _buffContainers.Remove(buffToRemove);
-            _buffSkills.Remove(buffSkill);
-            
-            buffDisplayEventChannel.RemoveBuff(buffSkill);
-            
-            Destroy(buffToRemove.gameObject);
-            RepositionContainer();
-        }
-    }
 
     private void OnEnable()
     {
-        buffDisplayEventChannel.OnBuffLoaded += AddBuff;
-        buffDisplayEventChannel.OnBuffRemoved += RemoveBuff;
         buffDisplayEventChannel.OnBuffRefreshed += RefreshContainer;
     }
 
     private void OnDisable()
     {
-        buffDisplayEventChannel.OnBuffLoaded -= AddBuff;
-        buffDisplayEventChannel.OnBuffRemoved -= RemoveBuff;
         buffDisplayEventChannel.OnBuffRefreshed -= RefreshContainer;
     }
 }
