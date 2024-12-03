@@ -8,7 +8,7 @@ public class StatusTextManager : MonoBehaviour
 {
     [SerializeField] private StatusText statusTextPrefab;
     
-    private void Awake()
+    private void Start()
     {
         SetupPool();
     }

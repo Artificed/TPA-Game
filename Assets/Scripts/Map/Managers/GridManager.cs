@@ -99,7 +99,7 @@ public class GridManager : MonoBehaviour
     private void InstantiateTile(Vector2Int coords, GameObject prefab, bool isBlocked, TileType tileType)
     {
         GameObject tileObject = Instantiate(prefab);
-        tileObject.transform.position = new Vector3(coords.x, 0f, coords.y);
+        tileObject.transform.position = new Vector3(coords.x, -0.1f, coords.y);
         tileObject.transform.parent = transform;
         tileObject.name = $"{tileType.ToString()}: {coords.x},{coords.y}";
         

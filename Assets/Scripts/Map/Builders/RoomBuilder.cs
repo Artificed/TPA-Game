@@ -85,7 +85,7 @@ public class RoomBuilder: MonoBehaviour
                 if (!grid.ContainsKey(coords))
                 {
                     GameObject tileObject = Instantiate(tilePrefab);
-                    tileObject.transform.position = new Vector3(coords.x, 0f, coords.y);
+                    tileObject.transform.position = new Vector3(coords.x, -0.1f, coords.y);
                     tileObject.name = $"Room : {coords.x},{coords.y}";
                     tileObject.transform.SetParent(mapParent.transform, false); 
                     

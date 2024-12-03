@@ -87,11 +87,14 @@ public class DecorationManager: MonoBehaviour
         {
             Vector3 position = tile.transform.position;
 
-            position.x += (float)(_random.NextDouble() * 0.3 - 0.15);
-            position.z += (float)(_random.NextDouble() * 0.3 - 0.15);
+            position.y += 0.2f;
             
             GameObject prefab = ChooseRandomDecoration();
             if (prefab == null) continue;
+            if (prefab.name.Equals("crate"))
+            {
+                position.y += 0.35f;
+            }
 
             Quaternion rotation = Quaternion.Euler(0, _random.Next(0, 4) * 90, 0);
             GameObject decoration = Instantiate(prefab, position, rotation);
