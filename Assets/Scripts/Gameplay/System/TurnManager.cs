@@ -83,7 +83,7 @@ public class TurnManager : MonoBehaviour
         UpdateEnemyCount();
         if(_turnQueue.Count > 0)
         {
-            Debug.Log("Queue Count: " + _turnQueue.Count);
+            Debug.Log(" -------------- Queue Count: " + _turnQueue.Count);
         }
         // Debug.Log(_currentTurn);
         // Debug.Log(_isCommandExecuting);
@@ -189,8 +189,8 @@ public class TurnManager : MonoBehaviour
             ICommand currentCommand = _turnQueue.Dequeue();
             _isCommandExecuting = true;
             currentCommand.Execute();
-
-            // Debug.Log("Queue Count: " + _turnQueue.Count);
+            
+            Debug.Log("Queue Count: " + _turnQueue.Count);
             // Debug.Log("Enemy Count " + _activeEnemies.Count);
             Debug.Log(currentCommand.ToString() + " Executed! Turn: " + _actionsThisTurn);
         }
@@ -206,6 +206,12 @@ public class TurnManager : MonoBehaviour
     {
         get => _isBattling;
         set => _isBattling = value;
+    }
+
+    public List<Enemy> Enemies
+    {
+        get => _enemies;
+        set => _enemies = value;
     }
 
     public List<Enemy> ActiveEnemies

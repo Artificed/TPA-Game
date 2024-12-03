@@ -44,6 +44,28 @@ public class AStar : MonoBehaviour
         return BuildPath();
     }
 
+    private bool IsPathBlockedByEnemy(Vector2Int coords)
+    {
+        List<Enemy> enemies = TurnManager.Instance.ActiveEnemies;
+        List<Vector2Int> enemyPositions = new List<Vector2Int>();
+        
+        foreach (Enemy enemy in enemies)
+        {
+            Vector2Int enemyCoords = new Vector2Int(
+                Mathf.RoundToInt(enemy.EnemyStateMachine.Unit.position.x),
+                Mathf.RoundToInt(enemy.EnemyStateMachine.Unit.position.z)
+            );
+            enemyPositions.Add(enemyCoords);
+        }
+
+        if (enemyPositions.Contains(coords))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     void AStarSearch(Vector2Int coordinates)
     {
         if (startNode == null || targetNode == null) return;
@@ -72,35 +94,33 @@ public class AStar : MonoBehaviour
         }
     }
 
-
     void ExploreNeighbors()
     {
         foreach (Vector2Int direction in searchOrder)
         {
             Vector2Int neighborCords = currentNode.coords + direction;
 
-            if (grid.ContainsKey(neighborCords))
+            if (!grid.ContainsKey(neighborCords) || 
+                grid[neighborCords].Blocked || 
+                closedSet.Contains(grid[neighborCords]) ||
+                IsPathBlockedByEnemy(neighborCords))
             {
-                Tile neighbor = grid[neighborCords];
+                continue;
+            }
 
-                if (neighbor.Blocked || closedSet.Contains(neighbor))
+            Tile neighbor = grid[neighborCords];
+            int tentativeGCost = currentNode.gCost + 1;
+
+            if (tentativeGCost < neighbor.gCost || !openSet.Contains(neighbor))
+            {
+                neighbor.gCost = tentativeGCost;
+                neighbor.hCost = CalculateHeuristic(neighbor.coords, targetCords);
+                neighbor.fCost = neighbor.gCost + neighbor.hCost;
+                neighbor.connectTo = currentNode;
+
+                if (!openSet.Contains(neighbor))
                 {
-                    continue;
-                }
-
-                int tentativeGCost = currentNode.gCost + 1;
-
-                if (tentativeGCost < neighbor.gCost || !openSet.Contains(neighbor))
-                {
-                    neighbor.gCost = tentativeGCost;
-                    neighbor.hCost = CalculateHeuristic(neighbor.coords, targetCords);
-                    neighbor.fCost = neighbor.gCost + neighbor.hCost;
-                    neighbor.connectTo = currentNode;
-
-                    if (!openSet.Contains(neighbor))
-                    {
-                        openSet.Add(neighbor);
-                    }
+                    openSet.Add(neighbor);
                 }
             }
         }

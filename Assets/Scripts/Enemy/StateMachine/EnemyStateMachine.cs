@@ -128,19 +128,28 @@ public class EnemyStateMachine : MonoBehaviour
         return false;
     }
 
-    private Vector2Int GetValidTile(Vector2Int dest)
+    private Vector2Int GetValidTile(Vector2Int startCoords, Vector2Int dest)
     {
-        for (int x = -1; x < 2; x++)
+        Vector2Int[] directions = {
+            Vector2Int.up,
+            Vector2Int.down,
+            Vector2Int.left,
+            Vector2Int.right
+        };
+
+        foreach (var direction in directions)
         {
-            for (int y = -1; y < 2; y++)
+            Vector2Int neighborCoords = dest + direction;
+
+            if (_gridManager.Grid.ContainsKey(neighborCoords) && !_gridManager.Grid[neighborCoords].Blocked)
             {
-                if (x == 0 && y == 0) continue;
-                Vector2Int candidateCoord = new Vector2Int(dest.x + x, dest.y + y);
-                if (!_gridManager.Grid.ContainsKey(candidateCoord) || _gridManager.Grid[candidateCoord].Blocked)
+                pathFinder.SetNewDestination(startCoords, neighborCoords);
+                List<Tile> path = pathFinder.GetNewPath();
+
+                if (path.Count > 0 && IsPathWalkable(path))
                 {
-                    continue;
+                    return neighborCoords;
                 }
-                return candidateCoord;
             }
         }
         return dest;
@@ -150,38 +159,69 @@ public class EnemyStateMachine : MonoBehaviour
     {
         if (_recalculationCount >= MaxRecalculationAttempts)
         {
-            Debug.LogError("Max path recalculation attempts reached.");
-            _recalculationCount = 0; 
+            HandleMaxRecalculationAttempts();
             return;
         }
-        
+
         StopAllCoroutines();
         _path.Clear();
 
         List<Tile> newPath = pathFinder.GetNewPath();
-        if (IsPathWalkable(newPath) && !IsPathBlockedByEnemy(newPath))
+
+        if (IsPathValid(newPath))
         {
-            _path = newPath;
-            _recalculationCount = 0; 
+            SetPath(newPath);
         }
         else
         {
-            Debug.Log("Blocked by enemy, recalculating");
-            Vector2Int newDest = GetValidTile(newPath.Last().coords);
-            if (!newDest.Equals(newPath.Last().coords)) 
-            {
-                _recalculationCount++; 
-                SetNewDestination(newPath.First().coords, newDest);
-            }
-            else
-            {
-                Debug.LogError("No alternative path found");
-                _currentState.SwitchState(_stateFactory.CreateAggro());
-                _recalculationCount = 0; 
-            }
+            HandleBlockedPath(newPath);
         }
     }
-    
+
+    private void HandleMaxRecalculationAttempts()
+    {
+        Debug.LogError("Max path recalculation attempts reached.");
+        _recalculationCount = 0;
+    }
+
+    private bool IsPathValid(List<Tile> path)
+    {
+        return IsPathWalkable(path) && !IsPathBlockedByEnemy(path);
+    }
+
+    private void SetPath(List<Tile> path)
+    {
+        _path = path;
+        _recalculationCount = 0;
+    }
+
+    private void HandleBlockedPath(List<Tile> currentPath)
+    {
+        Vector2Int startCoords = currentPath.First().coords;
+        Vector2Int currentDest = currentPath.Last().coords;
+
+        Vector2Int newDest = GetValidTile(startCoords, currentDest);
+
+        Debug.Log("New Destination: " + newDest);
+
+        if (!newDest.Equals(currentDest))
+        {
+            _recalculationCount++;
+            SetNewDestination(startCoords, newDest);
+        }
+        else
+        {
+            HandleNoAlternativePath();
+        }
+    }
+
+    private void HandleNoAlternativePath()
+    {
+        Debug.LogError("No alternative path found.");
+        _currentState.SwitchState(_stateFactory.CreateAggro());
+        _recalculationCount = 0;
+    }
+
     public bool IsPathWalkable(List<Tile> path)
     {
         foreach (Tile node in path)
