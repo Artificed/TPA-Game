@@ -39,6 +39,9 @@ public static class ObjectPooler
     
     public static void SetupPool<T>(T pooledItemPrefab, int poolSize, string dictionaryEntry) where T : Component
     {
+        poolDictionary.Clear();
+        poolLookup.Clear();
+        
         poolDictionary.Add(dictionaryEntry, new Queue<Component>());
         
         poolLookup.Add(dictionaryEntry, pooledItemPrefab);
