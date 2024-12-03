@@ -71,6 +71,13 @@ public class PlayerBattleIdleState : PlayerBaseState
         );
         
         if(startCords == targetCords) return;
+        if (Vector2Int.Distance(startCords, targetCords) <= 1)
+        {
+            if (GetEnemy(targetCords))
+            {
+                return;
+            }
+        }
 
         PlayerMoveBattleCommand playerMoveBattleCommand = new PlayerMoveBattleCommand(Context, startCords, targetCords);
         TurnManager.Instance.AddQueue(playerMoveBattleCommand);

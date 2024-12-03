@@ -170,10 +170,12 @@ public class EnemyStateMachine : MonoBehaviour
 
         if (IsPathValid(newPath))
         {
+            newPath.ForEach(p => Debug.Log(p));
             SetPath(newPath);
         }
         else
         {
+            Debug.Log("Path Blocked!, handling");
             HandleBlockedPath(newPath);
         }
     }
