@@ -50,16 +50,14 @@ public class TurnManager : MonoBehaviour
     public void AddQueue(ICommand command)
     {
         _turnQueue.Enqueue(command);
+        _actionsThisTurn++;
     }
 
     private void CommandCompleted()
     {
-        if(CurrentTurn == TurnType.EnemyTurn)
-        {
-            _actionsThisTurn++;
-        }
+        // Debug.Log("Enemy Action completed, action number: " + _actionsThisTurn);
         _isCommandExecuting = false;
-        if (_actionsThisTurn >= _totalActionsRequired)
+        if (_actionsThisTurn >= _totalActionsRequired + 1)
         {
             SwitchToPlayerTurn();
         }
@@ -117,7 +115,7 @@ public class TurnManager : MonoBehaviour
     public void SwitchToPlayerTurn()
     {
         Debug.Log("Switching to player turn");
-        _actionsThisTurn = 1;
+        _actionsThisTurn = 0;
         _currentTurn = TurnType.PlayerTurn;
     }
     
@@ -231,4 +229,7 @@ public class TurnManager : MonoBehaviour
         get => _currentEnemyTarget;
         set => _currentEnemyTarget = value;
     }
+
+    public int ActionsThisTurn => _actionsThisTurn;
+    public int TotalActionsRequired => _totalActionsRequired;
 }

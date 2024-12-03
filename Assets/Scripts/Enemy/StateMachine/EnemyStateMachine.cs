@@ -156,11 +156,11 @@ public class EnemyStateMachine : MonoBehaviour
                 pathFinder.SetNewDestination(startCoords, neighborCoords);
                 List<Tile> path = pathFinder.GetNewPath();
 
-                Debug.Log("Candidate Alternate: " + neighborCoords);
-                foreach (var tile in path)
-                {
-                    Debug.Log(tile);
-                }
+                // Debug.Log("Candidate Alternate: " + neighborCoords);
+                // foreach (var tile in path)
+                // {
+                //     Debug.Log(tile);
+                // }
 
                 if (path.Count > 0 && IsPathWalkable(path))
                 {
@@ -173,7 +173,7 @@ public class EnemyStateMachine : MonoBehaviour
     
     private void RecalculatePath()
     {
-        Debug.Log(name + " entering recalculate path");
+        // Debug.Log(name + " entering recalculate path");
         if (_recalculationCount >= MaxRecalculationAttempts)
         {
             HandleMaxRecalculationAttempts();
@@ -187,12 +187,12 @@ public class EnemyStateMachine : MonoBehaviour
 
         if (newPath.Count > 0 && IsPathValid(newPath))
         {
-            newPath.ForEach(p => Debug.Log(p));
+            // newPath.ForEach(p => Debug.Log(p));
             SetPath(newPath);
         }
         else
         {
-            Debug.Log("Path Blocked!, handling");
+            // Debug.Log("Path Blocked!, handling");
             HandleBlockedPath();
         }
     }
