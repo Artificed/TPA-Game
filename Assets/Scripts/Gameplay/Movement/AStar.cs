@@ -46,6 +46,8 @@ public class AStar : MonoBehaviour
 
     private bool IsPathBlockedByEnemy(Vector2Int coords)
     {
+        if (coords == targetCords) return false;
+        
         List<Enemy> enemies = TurnManager.Instance.ActiveEnemies;
         List<Vector2Int> enemyPositions = new List<Vector2Int>();
         

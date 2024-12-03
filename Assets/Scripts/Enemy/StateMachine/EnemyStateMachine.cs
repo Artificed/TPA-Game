@@ -45,9 +45,15 @@ public class EnemyStateMachine : MonoBehaviour
     private int _recalculationCount = 0;
     private const int MaxRecalculationAttempts = 10;
 
+    private Vector2Int _tempStartCoords;
+    private Vector2Int _tempTargetCoords;
+
     void Start()
     {
         enemy = GetComponent<Enemy>();
+
+        _tempStartCoords = new Vector2Int();
+        _tempTargetCoords = new Vector2Int();
 
         _hasBeenAggroed = false;
         _playerTransform = PlayerStateMachine.Instance.transform;
@@ -92,11 +98,15 @@ public class EnemyStateMachine : MonoBehaviour
             ClearPath(); 
             return;
         }
+
+        _tempStartCoords = startCords;
+        _tempTargetCoords = targetCords;
         
         pathFinder.SetNewDestination(startCords, targetCords);
         RecalculatePath();
     }
 
+    // TODO: optimize this later so that it'll ignore dest tile validation
     private bool IsPathBlockedByEnemy(List<Tile> path)
     {
         List<Enemy> enemies = TurnManager.Instance.ActiveEnemies;
@@ -146,6 +156,12 @@ public class EnemyStateMachine : MonoBehaviour
                 pathFinder.SetNewDestination(startCoords, neighborCoords);
                 List<Tile> path = pathFinder.GetNewPath();
 
+                Debug.Log("Candidate Alternate: " + neighborCoords);
+                foreach (var tile in path)
+                {
+                    Debug.Log(tile);
+                }
+
                 if (path.Count > 0 && IsPathWalkable(path))
                 {
                     return neighborCoords;
@@ -157,6 +173,7 @@ public class EnemyStateMachine : MonoBehaviour
     
     private void RecalculatePath()
     {
+        Debug.Log(name + " entering recalculate path");
         if (_recalculationCount >= MaxRecalculationAttempts)
         {
             HandleMaxRecalculationAttempts();
@@ -168,7 +185,7 @@ public class EnemyStateMachine : MonoBehaviour
 
         List<Tile> newPath = pathFinder.GetNewPath();
 
-        if (IsPathValid(newPath))
+        if (newPath.Count > 0 && IsPathValid(newPath))
         {
             newPath.ForEach(p => Debug.Log(p));
             SetPath(newPath);
@@ -176,7 +193,7 @@ public class EnemyStateMachine : MonoBehaviour
         else
         {
             Debug.Log("Path Blocked!, handling");
-            HandleBlockedPath(newPath);
+            HandleBlockedPath();
         }
     }
 
@@ -197,19 +214,16 @@ public class EnemyStateMachine : MonoBehaviour
         _recalculationCount = 0;
     }
 
-    private void HandleBlockedPath(List<Tile> currentPath)
+    private void HandleBlockedPath()
     {
-        Vector2Int startCoords = currentPath.First().coords;
-        Vector2Int currentDest = currentPath.Last().coords;
-
-        Vector2Int newDest = GetValidTile(startCoords, currentDest);
+        Vector2Int newDest = GetValidTile(_tempStartCoords, _tempTargetCoords);
 
         Debug.Log("New Destination: " + newDest);
 
-        if (!newDest.Equals(currentDest))
+        if (!newDest.Equals(_tempTargetCoords))
         {
             _recalculationCount++;
-            SetNewDestination(startCoords, newDest);
+            SetNewDestination(_tempStartCoords, newDest);
         }
         else
         {
