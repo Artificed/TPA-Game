@@ -90,6 +90,7 @@ public class PlayerBattleIdleState : PlayerBaseState
         Vector2Int targetCords = new Vector2Int((int)targetPosition.x, (int)targetPosition.z);
     
         if (!IsEnemyInRange(targetCords)) return;
+        if(GetEnemy(targetCords).EnemyStateMachine.CurrentState is EnemyDeathState) return;
 
         TurnManager.Instance.CurrentEnemyTarget = GetEnemy(targetCords).EnemyStateMachine;
         PlayerAttackCommand playerAttackCommand = new PlayerAttackCommand(Context, GetEnemy(targetCords));
