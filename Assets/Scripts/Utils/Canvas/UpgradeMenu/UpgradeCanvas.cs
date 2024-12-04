@@ -182,7 +182,7 @@ public class UpgradeCanvas : MonoBehaviour
         } 
         if (currentUpgradeSo.itemName.Equals("Crit Dmg Up"))
         {
-            return "Current   :  " + playerUpgradesSo.criticalDamageUpgradeLevel * 100 + "% crit dmg";
+            return "Current   :  " + playerDataSo.criticalDamage * 100 + "% crit dmg";
         }
         return "";
     }
