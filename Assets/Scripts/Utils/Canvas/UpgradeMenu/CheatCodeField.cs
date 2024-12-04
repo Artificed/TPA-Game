@@ -37,7 +37,7 @@ public class CheatCodeField : MonoBehaviour
         if (cheatCodeInputField.text.Equals("hesoyam"))
         {
             audioSource.PlayOneShot(cheatSound);
-            playerDataSo.exp += 10;
+            playerDataSo.IncreaseExp(10000);
             cheatCodeInputField.text = "";
         } 
         else if (cheatCodeInputField.text.Equals("tpagamegampang"))

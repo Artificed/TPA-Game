@@ -34,4 +34,27 @@ public class PlayerDataSO : ScriptableObject
         floor = 1;
         selectedFloor = 1;
     }
+
+    public void IncreaseExp(int amount)
+    {
+        exp += amount;
+        while (exp >= expCap)
+        {
+            LevelUp();
+        }
+    }
+
+    public void LevelUp()
+    {
+        level++;
+        exp -= expCap;
+        
+        maxHealth = (int) (maxHealth * 1.20f);
+        attack = (int) (attack * 1.20f);
+        defense = (int) (defense * 1.20f);
+        criticalRate = (criticalRate * 1.05f);
+        criticalDamage = (criticalDamage * 1.05f);
+        
+        expCap = (int) (expCap * 1.3f);
+    }
 }

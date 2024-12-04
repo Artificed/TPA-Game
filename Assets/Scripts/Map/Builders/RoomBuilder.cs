@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.SceneTemplate;
 using UnityEngine;
 
 public class RoomBuilder: MonoBehaviour
@@ -114,10 +115,8 @@ public class RoomBuilder: MonoBehaviour
     {
         foreach (Room room in existingRooms)
         {
-            if (newRoom.StartX - 2 > room.EndX ||
-                newRoom.EndX + 2 < room.StartX ||
-                newRoom.StartY - 2 > room.EndY ||
-                newRoom.EndY + 2 < room.StartY)
+            if (newRoom.StartX - 2 > room.EndX || newRoom.EndX + 2 < room.StartX ||
+                newRoom.StartY - 2 > room.EndY || newRoom.EndY + 2 < room.StartY)
             {
                 continue;
             }

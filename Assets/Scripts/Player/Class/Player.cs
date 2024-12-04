@@ -76,16 +76,7 @@ public class Player : MonoBehaviour
 
     public void LevelUp()
     {
-        data.level++;
-        data.exp -= data.expCap;
-        
-        data.maxHealth = (int) (data.maxHealth * 1.20f);
-        data.attack = (int) (data.attack * 1.20f);
-        data.defense = (int) (data.defense * 1.20f);
-        data.criticalRate = (data.criticalRate * 1.05f);
-        data.criticalDamage = (data.criticalDamage * 1.05f);
-        
-        data.expCap = (int) (data.expCap * 2.0f);
+        data.LevelUp();
         
         playerHealthEventChannel?.RaiseEvent(data.health, data.maxHealth);
         playerExpEventChannel?.RaiseEvent(data.exp, data.expCap);

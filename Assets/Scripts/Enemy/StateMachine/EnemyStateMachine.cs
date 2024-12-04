@@ -106,7 +106,6 @@ public class EnemyStateMachine : MonoBehaviour
         RecalculatePath();
     }
 
-    // TODO: optimize this later so that it'll ignore dest tile validation
     private bool IsPathBlockedByEnemy(List<Tile> path)
     {
         List<Enemy> enemies = TurnManager.Instance.ActiveEnemies;
@@ -154,7 +153,6 @@ public class EnemyStateMachine : MonoBehaviour
         {
             Vector2Int neighborCoords = currentCoords + direction;
 
-            // Skip invalid tiles (blocked or occupied by another enemy)
             if (!_gridManager.Grid.ContainsKey(neighborCoords) || _gridManager.Grid[neighborCoords].Blocked)
             {
                 continue;
