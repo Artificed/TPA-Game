@@ -115,7 +115,7 @@ public class TurnManager : MonoBehaviour
     public void SwitchToPlayerTurn()
     {
         Debug.Log("Switching to player turn");
-        _actionsThisTurn = 0;
+        _actionsThisTurn = 1;
         _currentTurn = TurnType.PlayerTurn;
     }
     
@@ -188,9 +188,9 @@ public class TurnManager : MonoBehaviour
             _isCommandExecuting = true;
             currentCommand.Execute();
             
-            Debug.Log("Queue Count: " + _turnQueue.Count);
+            // Debug.Log("Queue Count: " + _turnQueue.Count);
             // Debug.Log("Enemy Count " + _activeEnemies.Count);
-            Debug.Log(currentCommand.ToString() + " Executed! Turn: " + _actionsThisTurn);
+            Debug.Log(currentCommand + " Executed! Turn: " + _actionsThisTurn);
         }
     }
 

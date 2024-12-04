@@ -138,7 +138,7 @@ public class EnemyStateMachine : MonoBehaviour
         return false;
     }
 
-    private Vector2Int GetValidTile(Vector2Int startCoords, Vector2Int dest)
+    private Vector2Int GetClosestTileToPlayer(Vector2Int currentCoords, Vector2Int playerCoords)
     {
         Vector2Int[] directions = {
             Vector2Int.up,
@@ -147,28 +147,49 @@ public class EnemyStateMachine : MonoBehaviour
             Vector2Int.right
         };
 
+        Vector2Int bestTile = currentCoords;
+        float shortestDistance = float.MaxValue;
+
         foreach (var direction in directions)
         {
-            Vector2Int neighborCoords = dest + direction;
+            Vector2Int neighborCoords = currentCoords + direction;
 
-            if (_gridManager.Grid.ContainsKey(neighborCoords) && !_gridManager.Grid[neighborCoords].Blocked)
+            // Skip invalid tiles (blocked or occupied by another enemy)
+            if (!_gridManager.Grid.ContainsKey(neighborCoords) || _gridManager.Grid[neighborCoords].Blocked)
             {
-                pathFinder.SetNewDestination(startCoords, neighborCoords);
-                List<Tile> path = pathFinder.GetNewPath();
+                continue;
+            }
 
-                // Debug.Log("Candidate Alternate: " + neighborCoords);
-                // foreach (var tile in path)
-                // {
-                //     Debug.Log(tile);
-                // }
+            float distance = Vector2.Distance(neighborCoords, playerCoords);
 
-                if (path.Count > 0 && IsPathWalkable(path))
-                {
-                    return neighborCoords;
-                }
+            if (distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                bestTile = neighborCoords;
             }
         }
-        return dest;
+
+        return bestTile;
+    }
+
+    private void HandleBlockedPath()
+    {
+        Vector2Int currentCoords = _tempStartCoords;
+        Vector2Int playerCoords = _tempTargetCoords;
+
+        Vector2Int newDest = GetClosestTileToPlayer(currentCoords, playerCoords);
+
+        Debug.Log("Fallback to closest tile: " + newDest);
+
+        if (!newDest.Equals(currentCoords))
+        {
+            _recalculationCount++;
+            SetNewDestination(currentCoords, newDest);
+        }
+        else
+        {
+            HandleNoAlternativePath();
+        }
     }
     
     private void RecalculatePath()
@@ -213,24 +234,7 @@ public class EnemyStateMachine : MonoBehaviour
         _path = path;
         _recalculationCount = 0;
     }
-
-    private void HandleBlockedPath()
-    {
-        Vector2Int newDest = GetValidTile(_tempStartCoords, _tempTargetCoords);
-
-        Debug.Log("New Destination: " + newDest);
-
-        if (!newDest.Equals(_tempTargetCoords))
-        {
-            _recalculationCount++;
-            SetNewDestination(_tempStartCoords, newDest);
-        }
-        else
-        {
-            HandleNoAlternativePath();
-        }
-    }
-
+    
     private void HandleNoAlternativePath()
     {
         Debug.LogError("No alternative path found.");

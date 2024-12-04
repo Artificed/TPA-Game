@@ -32,8 +32,8 @@ public class EnemyDeathState : EnemyBaseState
 
         if (stateInfo.IsName("Death") && stateInfo.normalizedTime >= 1.0f)
         {
+            Context.gameObject.SetActive(false);
             TurnManager.Instance.RemoveEnemy(Context.Enemy);
-            Object.Destroy(Context.gameObject);
         }
     }
 }
